@@ -1,0 +1,102 @@
+[
+    {
+        "attributes": {
+            "db2": {
+                "database": {
+                    "db01": {
+                        "codeset": "UTF-8",
+                        "db_data_path": "/home/db2inst1",
+                        "db_name": "db01",
+                        "db_path": "/home/db2inst1",
+                        "instance_username": "db2inst1",
+                        "pagesize": "4096",
+                        "territory": "US"
+                    }
+                }
+            }
+        },
+        "depends_on": [],
+        "description": "DB2 role that creates a new DB2 databeses",
+        "displayname": "db2_create_database",
+        "name": "db2_create_database",
+        "objectname": "db2_create_database",
+        "type": "chef_role"
+    },
+    {
+        "attributes": {
+            "db2": {
+                "instance": {
+                    "default": {
+                        "database_data_dir": "/home/db2inst1",
+                        "fcm_port": "60000",
+                        "fenced_groupname": "db2fadm",
+                        "fenced_password": "",
+                        "fenced_username": "db2fenc1",
+                        "instance_groupname": "db2iadm1",
+                        "instance_password": "",
+                        "instance_prefix": "DB2_INST",
+                        "instance_type": "ESE",
+                        "instance_username": "db2inst1",
+                        "port": "50000"
+                    }
+                }
+            }
+        },
+        "depends_on": [],
+        "description": "DB2 role that creates a new DB2 instance over an existing DB2 installation",
+        "displayname": "db2_create_instance",
+        "name": "db2_create_instance",
+        "objectname": "db2_create_instance",
+        "type": "chef_role"
+    },
+    {
+        "attributes": {
+            "db2": {
+                "das_password": "",
+                "das_username": "db2das1",
+                "fixpack": "0",
+                "included_fixpack": "8",
+                "modpack": "0",
+                "version": "10.5"
+            },
+            "ibm": {
+                "repo_password": "",
+                "repo_user": "repouser",
+                "sw_repo_auth": "true",
+                "sw_repo_root": "",
+                "sw_repo_self_signed_cert": "true"
+            }
+        },
+        "depends_on": [],
+        "description": "DB2 v10.5 role for default installation and configuration",
+        "displayname": "db2_v105_install",
+        "name": "db2_v105_install",
+        "objectname": "db2_v105_install",
+        "type": "chef_role"
+    },
+    {
+        "attributes": {
+            "db2": {
+                "das_password": "",
+                "das_username": "db2das1",
+                "fixpack": "1",
+                "included_fixpack": "0",
+                "modpack": "1",
+                "version": "11.1"
+            },
+            "ibm": {
+                "repo_password": "",
+                "repo_user": "repouser",
+                "sw_repo_auth": "true",
+                "sw_repo_root": "",
+                "sw_repo_self_signed_cert": "true"
+            }
+        },
+        "depends_on": [],
+        "description": "DB2 v11.1 role for default installation and configuration",
+        "displayname": "db2_v111_install",
+        "name": "db2_v111_install",
+        "objectname": "db2_v111_install",
+        "type": "chef_role"
+    }
+]

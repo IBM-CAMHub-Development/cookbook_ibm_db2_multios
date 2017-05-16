@@ -1,0 +1,28 @@
+{
+  "name":"db2_create_instance",
+  "description":"DB2 role that creates a new DB2 instance over an existing DB2 installation",
+  "json_class":"Chef::Role",
+  "chef_type":"role",
+  "default_attributes":{
+    "db2": {
+      "instance": {
+        "default": {
+          "instance_prefix": "DB2_INST",
+          "instance_type": "ESE",
+          "instance_username": "db2inst1",
+          "instance_groupname": "db2iadm1",
+          "instance_password": "",
+          "database_data_dir": "/home/db2inst1",
+          "port": "50000",
+          "fenced_username": "db2fenc1",
+          "fenced_groupname": "db2fadm",
+          "fenced_password": "",
+          "fcm_port": "60000"
+        }
+      }
+    }
+  },
+  "run_list":[
+      "recipe[db2::create_instance]"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name":"db2_create_database",
+  "description":"DB2 role that creates a new DB2 databeses",
+  "json_class":"Chef::Role",
+  "chef_type":"role",
+  "default_attributes":{
+    "db2": {
+      "database": {
+        "db01": {
+          "db_name": "db01",
+          "db_data_path": "/home/db2inst1",
+          "db_path": "/home/db2inst1",
+          "instance_username": "db2inst1",
+          "pagesize": "4096",
+          "territory": "US",
+          "codeset": "UTF-8"
+        }
+      }
+    }
+  },
+  "run_list":[
+    "recipe[db2::create_database]"
+  ]
+}

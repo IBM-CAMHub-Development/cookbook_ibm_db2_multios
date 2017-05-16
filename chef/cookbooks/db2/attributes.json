@@ -1,0 +1,309 @@
+{
+    "db2": {
+        "das_password": {
+            "default": "",
+            "description": "DB2 Administration Server (DAS) password",
+            "displayname": "das_password",
+            "parm_type": "node",
+            "precedence_level": "node",
+            "required": "recommended",
+            "secret": "true",
+            "selectable": "false",
+            "type": "string"
+        },
+        "das_username": {
+            "default": "db2das1",
+            "description": "DB2 Administration Server (DAS) username",
+            "displayname": "das_username",
+            "parm_type": "node",
+            "precedence_level": "node",
+            "required": "recommended",
+            "secret": "false",
+            "selectable": "false",
+            "type": "string"
+        },
+        "database": {
+            "db01": {
+                "codeset": {
+                    "default": "UTF-8",
+                    "description": "codeset",
+                    "displayname": "codeset",
+                    "parm_type": "node",
+                    "precedence_level": "node",
+                    "required": "recommended",
+                    "secret": "false",
+                    "selectable": "false",
+                    "type": "string"
+                },
+                "db_data_path": {
+                    "default": "/home/db2inst1",
+                    "description": "db_data_path",
+                    "displayname": "db_data_path",
+                    "parm_type": "node",
+                    "precedence_level": "node",
+                    "required": "recommended",
+                    "secret": "false",
+                    "selectable": "false",
+                    "type": "string"
+                },
+                "db_name": {
+                    "default": "db01",
+                    "description": "db_name",
+                    "displayname": "db_name",
+                    "parm_type": "node",
+                    "precedence_level": "node",
+                    "required": "recommended",
+                    "secret": "false",
+                    "selectable": "false",
+                    "type": "string"
+                },
+                "db_path": {
+                    "default": "/home/db2inst1",
+                    "description": "db_path",
+                    "displayname": "db_path",
+                    "parm_type": "node",
+                    "precedence_level": "node",
+                    "required": "recommended",
+                    "secret": "false",
+                    "selectable": "false",
+                    "type": "string"
+                },
+                "instance_username": {
+                    "default": "db2inst1",
+                    "description": "instance_username",
+                    "displayname": "instance_username",
+                    "parm_type": "node",
+                    "precedence_level": "node",
+                    "required": "recommended",
+                    "secret": "false",
+                    "selectable": "false",
+                    "type": "string"
+                },
+                "pagesize": {
+                    "default": "4096",
+                    "description": "pagesize",
+                    "displayname": "pagesize",
+                    "parm_type": "node",
+                    "precedence_level": "node",
+                    "required": "recommended",
+                    "secret": "false",
+                    "selectable": "false",
+                    "type": "string"
+                },
+                "territory": {
+                    "default": "US",
+                    "description": "territory",
+                    "displayname": "territory",
+                    "parm_type": "node",
+                    "precedence_level": "node",
+                    "required": "recommended",
+                    "secret": "false",
+                    "selectable": "false",
+                    "type": "string"
+                }
+            }
+        },
+        "fixpack": {
+            "choice": [
+                "0",
+                "7",
+                "8"
+            ],
+            "default": "0",
+            "description": "The Fixpack of DB2 to install.",
+            "displayname": "DB2Fixpack",
+            "parm_type": "node",
+            "precedence_level": "node",
+            "required": "recommended",
+            "secret": "false",
+            "selectable": "true",
+            "type": "string"
+        },
+        "included_fixpack": {
+            "choice": [
+                "0",
+                "3",
+                "8"
+            ],
+            "default": "8",
+            "description": "The Fixpack of DB2 included in base package.",
+            "displayname": "DB2IncludedFixpack",
+            "parm_type": "node",
+            "precedence_level": "node",
+            "required": "recommended",
+            "secret": "false",
+            "selectable": "true",
+            "type": "string"
+        },
+        "install_dir": {
+            "choice": [
+                "/opt/ibm/db2/V10.5",
+                "/opt/ibm/db2/V11.1"
+            ],
+            "default": "/opt/ibm/db2/V10.5",
+            "description": "The directory to install DB2 Binaries, reccomended /opt/ibm/db2/V<db2_version>",
+            "displayname": "InstallDir",
+            "parm_type": "component",
+            "precedence_level": "role",
+            "required": "recommended",
+            "secret": "false",
+            "selectable": "true",
+            "type": "string"
+        },
+        "instance": {
+            "default": {
+                "database_data_dir": {
+                    "default": "/home/db2inst1",
+                    "description": "database_data_dir",
+                    "displayname": "database_data_dir",
+                    "parm_type": "node",
+                    "precedence_level": "node",
+                    "required": "recommended",
+                    "secret": "false",
+                    "selectable": "false",
+                    "type": "string"
+                },
+                "fcm_port": {
+                    "default": "60000",
+                    "description": "fcm_port",
+                    "displayname": "fcm_port",
+                    "parm_type": "node",
+                    "precedence_level": "node",
+                    "required": "recommended",
+                    "secret": "false",
+                    "selectable": "false",
+                    "type": "string"
+                },
+                "fenced_groupname": {
+                    "default": "db2fadm",
+                    "description": "fenced_groupname",
+                    "displayname": "fenced_groupname",
+                    "parm_type": "node",
+                    "precedence_level": "node",
+                    "required": "recommended",
+                    "secret": "false",
+                    "selectable": "false",
+                    "type": "string"
+                },
+                "fenced_password": {
+                    "default": "",
+                    "description": "fenced_password",
+                    "displayname": "fenced_password",
+                    "parm_type": "node",
+                    "precedence_level": "node",
+                    "required": "recommended",
+                    "secret": "true",
+                    "selectable": "false",
+                    "type": "string"
+                },
+                "fenced_username": {
+                    "default": "db2fenc1",
+                    "description": "fenced_username",
+                    "displayname": "fenced_username",
+                    "parm_type": "node",
+                    "precedence_level": "node",
+                    "required": "recommended",
+                    "secret": "false",
+                    "selectable": "false",
+                    "type": "string"
+                },
+                "instance_groupname": {
+                    "default": "db2iadm1",
+                    "description": "instance_groupname",
+                    "displayname": "instance_groupname",
+                    "parm_type": "node",
+                    "precedence_level": "node",
+                    "required": "recommended",
+                    "secret": "false",
+                    "selectable": "false",
+                    "type": "string"
+                },
+                "instance_password": {
+                    "default": "",
+                    "description": "instance_password",
+                    "displayname": "instance_password",
+                    "parm_type": "node",
+                    "precedence_level": "node",
+                    "required": "recommended",
+                    "secret": "true",
+                    "selectable": "false",
+                    "type": "string"
+                },
+                "instance_prefix": {
+                    "default": "DB2_INST",
+                    "description": "Instance prefix",
+                    "displayname": "instance_prefix",
+                    "parm_type": "node",
+                    "precedence_level": "node",
+                    "required": "recommended",
+                    "secret": "false",
+                    "selectable": "false",
+                    "type": "string"
+                },
+                "instance_type": {
+                    "default": "ESE",
+                    "description": "Instance type",
+                    "displayname": "instance_type",
+                    "parm_type": "node",
+                    "precedence_level": "node",
+                    "required": "recommended",
+                    "secret": "false",
+                    "selectable": "false",
+                    "type": "string"
+                },
+                "instance_username": {
+                    "default": "db2inst1",
+                    "description": "instance_username",
+                    "displayname": "instance_username",
+                    "parm_type": "node",
+                    "precedence_level": "node",
+                    "required": "recommended",
+                    "secret": "false",
+                    "selectable": "false",
+                    "type": "string"
+                },
+                "port": {
+                    "default": "50000",
+                    "description": "port",
+                    "displayname": "port",
+                    "parm_type": "node",
+                    "precedence_level": "node",
+                    "required": "recommended",
+                    "secret": "false",
+                    "selectable": "false",
+                    "type": "string"
+                }
+            }
+        },
+        "modpack": {
+            "choice": [
+                "0",
+                "1"
+            ],
+            "default": "0",
+            "description": "DB2 modification level",
+            "displayname": "DB2ModPack",
+            "parm_type": "node",
+            "precedence_level": "node",
+            "required": "recommended",
+            "secret": "false",
+            "selectable": "true",
+            "type": "string"
+        },
+        "version": {
+            "choice": [
+                "10.5",
+                "11.1"
+            ],
+            "default": "10.5",
+            "description": "The Version of DB2 to install.",
+            "displayname": "DB2Version",
+            "parm_type": "node",
+            "precedence_level": "node",
+            "required": "recommended",
+            "secret": "false",
+            "selectable": "true",
+            "type": "string"
+        }
+    }
+}
