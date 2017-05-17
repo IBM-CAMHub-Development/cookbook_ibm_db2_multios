@@ -4,6 +4,7 @@ maintainer_email ''
 license          'Copyright IBM Corp. 2017, 2017'
 depends          'ibm_cloud_utils'
 depends          'linux'
+version '0.1.17'
 description <<-EOH
 ## DESCRIPTION
 The db2 cookbook contains features and functions to support the installation and management of IBM DB2.
@@ -47,7 +48,6 @@ when 'rhel'
 end
 ```
 EOH
-version '0.1.16'
 attribute 'db2/das_password',
           :default => '',
           :description => 'DB2 Administration Server (DAS) password',
