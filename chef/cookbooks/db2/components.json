@@ -75,7 +75,7 @@
     {
         "attributes": {
             "db2": {
-                "base_version": "11.1.1.0",
+                "base_version": "11.1.0.0",
                 "das_password": "",
                 "das_username": "db2das1",
                 "fp_version": "11.1.1.1"

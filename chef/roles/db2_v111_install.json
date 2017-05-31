@@ -14,7 +14,7 @@
     "db2": {
       "das_password": "",
       "das_username": "db2das1",
-      "base_version": "11.1.1.0",
+      "base_version": "11.1.0.0",
       "fp_version": "11.1.1.1"
     }
   },
