@@ -4,66 +4,32 @@
 #
 # Copyright IBM Corp. 2017, 2017
 
-# <> DB2 version
-# <md>attribute 'db2/version',
-# <md>          :displayname => 'DB2Version',
-# <md>          :description => 'The Version of DB2 to install.',
-# <md>          :choice => [ '10.5', '11.1' ],
+# <> DB2 base package version
+# <md>attribute 'db2/base_version',
+# <md>          :displayname => 'DB2BaseVersion',
+# <md>          :description => 'The version of DB2 to install.',
+# <md>          :choice => [ '10.5.0.3', '10.5.0.8', '11.1.0.0' ],
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
-# <md>          :default => '10.5',
+# <md>          :default => '10.5.0.8',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'false'
-default['db2']['version'] = '10.5'
+default['db2']['base_version'] = '10.5.0.8'
 
-# <> Version of the fixpack that is included in the base DB2 package
-# <md>attribute 'db2/included_fixpack',
-# <md>          :displayname => 'DB2IncludedFixpack',
-# <md>          :description => 'The Fixpack of DB2 included in base package.',
-# <md>          :choice => [ '0',
-# <md>                       '3',
-# <md>                       '8' ],
+# <> DB2 fixpack version
+# <md>attribute 'db2/fp_version',
+# <md>          :displayname => 'DB2FixpackVersion',
+# <md>          :description => 'The version of DB2 fixpack to install. If no fixpack is required, set this value the same as base_version.',
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
-# <md>          :default => '8',
+# <md>          :default => '10.5.0.8',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'false'
-default['db2']['included_fixpack'] = '8'
-
-# <> DB2 fixpack
-# <md>attribute 'db2/fixpack',
-# <md>          :displayname => 'DB2Fixpack',
-# <md>          :description => 'The Fixpack of DB2 to install.',
-# <md>          :choice => [ '0',
-# <md>                       '7',
-# <md>                       '8' ],
-# <md>          :type => 'string',
-# <md>          :required => 'recommended',
-# <md>          :default => '0',
-# <md>          :selectable => 'true',
-# <md>          :precedence_level => 'node',
-# <md>          :parm_type => 'node',
-# <md>          :secret => 'false'
-default['db2']['fixpack'] = '0'
-
-# <> DB2 modification level
-# <md>attribute 'db2/modpack',
-# <md>          :displayname => 'DB2ModPack',
-# <md>          :description => 'DB2 modification level',
-# <md>          :choice => [ '0',
-# <md>                       '1' ],
-# <md>          :type => 'string',
-# <md>          :required => 'recommended',
-# <md>          :default => '0',
-# <md>          :selectable => 'true',
-# <md>          :precedence_level => 'node',
-# <md>          :parm_type => 'node',
-# <md>          :secret => 'false'
-default['db2']['modpack'] = '0'
+default['db2']['fp_version'] = node['db2']['base_version']
 
 # <> The product installation directory
 # <md>attribute 'db2/install_dir',
@@ -78,7 +44,7 @@ default['db2']['modpack'] = '0'
 # <md>          :precedence_level => 'role',
 # <md>          :parm_type => 'component',
 # <md>          :secret => 'false'
-default['db2']['install_dir'] = '/opt/ibm/db2/V' + node['db2']['version']
+default['db2']['install_dir'] = '/opt/ibm/db2/V' + node['db2']['base_version'].split('.')[0, 2].join('.')
 
 ## das server
 # <> DB2 Administration Server (DAS) username

@@ -14,7 +14,7 @@ The db2 cookbook contains features and functions to support the installation and
 ## Platform Pre-Requisites
 * Linux YUM Repository - An onsite linux YUM Repsoitory is required.
 ## Software Repository
-SW_REPO_ROOT -> Stored in the ['ibm']['sw_repo_root'] attribute.
+SW_REPO_ROOT -> Stored in the ['ibm']['sw_repo'] attribute.
 Relative to the software repository, the installation files must be stored in the following location.
 * BASE FILES   -> /db2/v105/base
 * FIXPACK FILES -> /db2/v105/maint
@@ -27,9 +27,9 @@ when 'rhel'
     default['db2']['arch'] = 'x86-64'
     # <> DB2 Version 10.5.0.3, 10.5.0.8
     force_override['db2']['archive_names'] = {
-      '10.5.0.3' => { 'filename' => 'DB2_Svr_' + node['db2']['version'] + '.' + node['db2']['modpack'] + '.'+ node['db2']['included_fixpack'] + '_Linux_' + node['db2']['arch'] + '.tar.gz',
+      '10.5.0.3' => { 'filename' => 'DB2_Svr_' + node['db2']['base_version'] + '.' + node['db2']['included_modpack'] + '.'+ node['db2']['included_fixpack'] + '_Linux_' + node['db2']['arch'] + '.tar.gz',
                       'sha256' => 'd5844d395c66470f39db13ba2491b2036c2d6b50e89c06d46f3d83f4b6f093a7' },
-      '10.5.0.8' => { 'filename' => 'DB2_Svr_' + node['db2']['version'] + '.' + node['db2']['modpack'] + '.'+ node['db2']['included_fixpack'] + '_Linux_' + node['db2']['arch'] + '.tar.gz',
+      '10.5.0.8' => { 'filename' => 'DB2_Svr_' + node['db2']['version'] + '.' + node['db2']['included_modpack'] + '.'+ node['db2']['included_fixpack'] + '_Linux_' + node['db2']['arch'] + '.tar.gz',
                       'sha256' => '79233751b83a0acde01b84bbd506b8fe917a29a4ed08852ae821090ce2fc0256' },
       '11.1.0.0' => { 'filename' => 'DB2_Svr_' + node['db2']['version'] + '_Linux_' + node['db2']['arch'] + '.tar.gz', #~ip_checker
                       'sha256' => '635f1b64eb48ecfd83aface91bc4b99871f12b7d5c41e7aa8f8b3d275bcb7f04' }
@@ -64,6 +64,11 @@ Attributes
     <td>Attribute</td>
     <td>Description</td>
     <td>Default</td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['base_version']</code></td>
+    <td>The version of DB2 to install.</td>
+    <td><code>10.5.0.8</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['das_password']</code></td>
@@ -111,14 +116,9 @@ Attributes
     <td><code>US</code></td>
   </tr>
   <tr>
-    <td><code>node['db2']['fixpack']</code></td>
-    <td>The Fixpack of DB2 to install.</td>
-    <td><code>0</code></td>
-  </tr>
-  <tr>
-    <td><code>node['db2']['included_fixpack']</code></td>
-    <td>The Fixpack of DB2 included in base package.</td>
-    <td><code>8</code></td>
+    <td><code>node['db2']['fp_version']</code></td>
+    <td>The version of DB2 fixpack to install. If no fixpack is required, set this value the same as base_version.</td>
+    <td><code>10.5.0.8</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['install_dir']</code></td>
@@ -179,16 +179,6 @@ Attributes
     <td><code>node['db2']['instance']['default']['port']</code></td>
     <td>port</td>
     <td><code>50000</code></td>
-  </tr>
-  <tr>
-    <td><code>node['db2']['modpack']</code></td>
-    <td>DB2 modification level</td>
-    <td><code>0</code></td>
-  </tr>
-  <tr>
-    <td><code>node['db2']['version']</code></td>
-    <td>The Version of DB2 to install.</td>
-    <td><code>10.5</code></td>
   </tr>
 </table>
 

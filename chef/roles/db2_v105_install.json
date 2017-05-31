@@ -5,19 +5,17 @@
   "chef_type":"role",
   "default_attributes":{
     "ibm":{
-      "sw_repo_root":"",
-      "repo_user": "repouser",
-      "repo_password": "",
+      "sw_repo":"",
+      "sw_repo_user": "repouser",
+      "sw_repo_password": "",
       "sw_repo_self_signed_cert": "true",
       "sw_repo_auth": "true"
     },
     "db2": {
       "das_password": "",
       "das_username": "db2das1",
-      "version": "10.5",
-      "included_fixpack": "8",
-      "modpack": "0",
-      "fixpack": "0"
+      "base_version": "10.5.0.8",
+      "fp_version": "10.5.0.8"
     }
   },
   "run_list":[

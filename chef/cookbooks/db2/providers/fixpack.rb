@@ -21,7 +21,7 @@ action :install do
         Chef::Log.info("Unpacking #{fp_filename}...")
 
         ibm_cloud_utils_unpack "unpack-#{fp_filename}" do
-          source "#{node['ibm']['sw_repo_root']}#{node['db2']['fp_repo_path']}/#{fp_filename}"
+          source "#{node['ibm']['sw_repo']}#{node['db2']['fp_repo_path']}/#{fp_filename}"
           target_dir node['db2']['expand_area']
           checksum sha256
           remove_local true

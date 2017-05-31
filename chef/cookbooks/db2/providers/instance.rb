@@ -13,14 +13,16 @@ action :create do
   else
     converge_by("Install #{@new_resource}") do
       raise "db2 instance prefix is limited to 8 character" if new_resource.instance_prefix.length > 8
-      directory "Creating db2 expand are for a new instance #{new_resource.instance_username}" do
-        path node['db2']['expand_area']
-        mode '777'
-        recursive true
-        action :create
+      [new_resource.rsp_file_path, new_resource.log_dir].each do |path|
+        directory "Creating #{path} for new instance #{new_resource.instance_username}" do
+          path path
+          mode '777' # ~mode_checker
+          recursive true
+          action :create
+        end
       end
       ## Create DB2 instance repsonse file
-      rsp_file = "#{node['db2']['expand_area']}/db2_instance_#{new_resource.instance_username}.rsp"
+      rsp_file = "#{new_resource.rsp_file_path}/db2_instance_#{new_resource.instance_username}.rsp"
       template rsp_file do
         source 'db2_instance.rsp.erb'
         owner 'root'
@@ -41,14 +43,20 @@ action :create do
         )
       end
 
-      execute 'Create_instance' do
+      execute "Create_instance #{new_resource.instance_prefix}" do
         cwd new_resource.db2_install_dir + '/instance'
-        command "./db2isetup -l #{new_resource.log_dir}/DB2_create_instance.log -r #{new_resource.rsp_file_path}/db2_instance_#{new_resource.instance_username}.rsp"
+        command "./db2isetup -l #{new_resource.log_dir}/DB2_create_instance_#{new_resource.instance_prefix}.log -r #{new_resource.rsp_file_path}/db2_instance_#{new_resource.instance_username}.rsp"
       end
-      directory "Delete db2 expad area used for instance creation #{new_resource.instance_username}" do
-        path node['db2']['expand_area']
-        recursive true
-        action :delete
+      execute "Saving logfile for #{new_resource.instance_prefix}" do
+        command "mv #{new_resource.log_dir}/DB2_create_instance_#{new_resource.instance_prefix}.log #{node['ibm']['log_dir']}"
+        only_if { ::File.exist?("#{new_resource.log_dir}/DB2_create_instance_#{new_resource.instance_prefix}.log") }
+      end
+      [new_resource.rsp_file_path, new_resource.log_dir].each do |path|
+        directory "Delete #{path} used for instance creation #{new_resource.instance_prefix}" do
+          path path
+          recursive true
+          action :delete
+        end
       end
     end
   end

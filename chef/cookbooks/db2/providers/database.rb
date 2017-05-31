@@ -14,7 +14,10 @@ action :create do
     converge_by("Install #{@new_resource}") do
       raise "db2 name is limited to 8 character" if new_resource.db_name.length > 8
       execute "create database(#{new_resource.db_name})" do
-        command "su - #{new_resource.instance_username} -s /bin/bash -c \"db2 'create database #{new_resource.db_name} ON #{new_resource.db_data_path} DBPATH ON #{new_resource.db_path} USING CODESET #{new_resource.codeset} TERRITORY #{new_resource.territory} PAGESIZE #{new_resource.pagesize}' > #{new_resource.log_dir}/db2_create_database_#{new_resource.db_name}.log\""
+        command "su - #{new_resource.instance_username} -s /bin/bash -c \"db2 'create database #{new_resource.db_name} ON #{new_resource.db_data_path} DBPATH ON #{new_resource.db_path} USING CODESET #{new_resource.codeset} TERRITORY #{new_resource.territory} PAGESIZE #{new_resource.pagesize}' > ~/db2_create_database_#{new_resource.db_name}.log\""
+      end
+      execute "Save log for #{new_resource.db_name}" do
+        command "mv #{Etc.getpwnam(new_resource.instance_username).dir}/db2_create_database_#{new_resource.db_name}.log #{node['ibm']['log_dir']}"
       end
     end
   else

@@ -7,7 +7,7 @@
 # <> Installation recipe (install.rb)
 # <> This recipe performs the product installation.
 
-version = node['db2']['version'] + '.0.'+ node['db2']['included_fixpack']
+version = node['db2']['base_version']
 
 node['db2']['archive_names'].each_pair do |p, v|
   next if p.to_s != version
@@ -16,7 +16,7 @@ node['db2']['archive_names'].each_pair do |p, v|
   Chef::Log.info("Unpacking #{filename}...")
 
   ibm_cloud_utils_unpack "unpack-#{filename}" do
-    source "#{node['ibm']['sw_repo_root']}#{node['db2']['sw_repo_path']}/#{filename}"
+    source "#{node['ibm']['sw_repo']}#{node['db2']['sw_repo_path']}/#{filename}"
     target_dir node['db2']['expand_area']
     checksum sha256
     remove_local true

@@ -4,7 +4,7 @@ maintainer_email ''
 license          'Copyright IBM Corp. 2017, 2017'
 depends          'ibm_cloud_utils'
 depends          'linux'
-version '0.1.17'
+version '0.1.23'
 description <<-EOH
 ## DESCRIPTION
 The db2 cookbook contains features and functions to support the installation and management of IBM DB2.
@@ -19,7 +19,7 @@ The db2 cookbook contains features and functions to support the installation and
 ## Platform Pre-Requisites
 * Linux YUM Repository - An onsite linux YUM Repsoitory is required.
 ## Software Repository
-SW_REPO_ROOT -> Stored in the ['ibm']['sw_repo_root'] attribute.
+SW_REPO_ROOT -> Stored in the ['ibm']['sw_repo'] attribute.
 Relative to the software repository, the installation files must be stored in the following location.
 * BASE FILES   -> /db2/v105/base
 * FIXPACK FILES -> /db2/v105/maint
@@ -32,9 +32,9 @@ when 'rhel'
     default['db2']['arch'] = 'x86-64'
     # <> DB2 Version 10.5.0.3, 10.5.0.8
     force_override['db2']['archive_names'] = {
-      '10.5.0.3' => { 'filename' => 'DB2_Svr_' + node['db2']['version'] + '.' + node['db2']['modpack'] + '.'+ node['db2']['included_fixpack'] + '_Linux_' + node['db2']['arch'] + '.tar.gz',
+      '10.5.0.3' => { 'filename' => 'DB2_Svr_' + node['db2']['base_version'] + '.' + node['db2']['included_modpack'] + '.'+ node['db2']['included_fixpack'] + '_Linux_' + node['db2']['arch'] + '.tar.gz',
                       'sha256' => 'd5844d395c66470f39db13ba2491b2036c2d6b50e89c06d46f3d83f4b6f093a7' },
-      '10.5.0.8' => { 'filename' => 'DB2_Svr_' + node['db2']['version'] + '.' + node['db2']['modpack'] + '.'+ node['db2']['included_fixpack'] + '_Linux_' + node['db2']['arch'] + '.tar.gz',
+      '10.5.0.8' => { 'filename' => 'DB2_Svr_' + node['db2']['version'] + '.' + node['db2']['included_modpack'] + '.'+ node['db2']['included_fixpack'] + '_Linux_' + node['db2']['arch'] + '.tar.gz',
                       'sha256' => '79233751b83a0acde01b84bbd506b8fe917a29a4ed08852ae821090ce2fc0256' },
       '11.1.0.0' => { 'filename' => 'DB2_Svr_' + node['db2']['version'] + '_Linux_' + node['db2']['arch'] + '.tar.gz', #~ip_checker
                       'sha256' => '635f1b64eb48ecfd83aface91bc4b99871f12b7d5c41e7aa8f8b3d275bcb7f04' }
@@ -48,6 +48,17 @@ when 'rhel'
 end
 ```
 EOH
+attribute 'db2/base_version',
+          :choice => ['10.5.0.3', '10.5.0.8', '11.1.0.0'],
+          :default => '10.5.0.8',
+          :description => 'The version of DB2 to install.',
+          :displayname => 'DB2BaseVersion',
+          :parm_type => 'node',
+          :precedence_level => 'node',
+          :required => 'recommended',
+          :secret => 'false',
+          :selectable => 'true',
+          :type => 'string'
 attribute 'db2/das_password',
           :default => '',
           :description => 'DB2 Administration Server (DAS) password',
@@ -138,22 +149,10 @@ attribute 'db2/database/db01/territory',
           :secret => 'false',
           :selectable => 'false',
           :type => 'string'
-attribute 'db2/fixpack',
-          :choice => ['0', '7', '8'],
-          :default => '0',
-          :description => 'The Fixpack of DB2 to install.',
-          :displayname => 'DB2Fixpack',
-          :parm_type => 'node',
-          :precedence_level => 'node',
-          :required => 'recommended',
-          :secret => 'false',
-          :selectable => 'true',
-          :type => 'string'
-attribute 'db2/included_fixpack',
-          :choice => ['0', '3', '8'],
-          :default => '8',
-          :description => 'The Fixpack of DB2 included in base package.',
-          :displayname => 'DB2IncludedFixpack',
+attribute 'db2/fp_version',
+          :default => '10.5.0.8',
+          :description => 'The version of DB2 fixpack to install. If no fixpack is required, set this value the same as base_version.',
+          :displayname => 'DB2FixpackVersion',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
@@ -280,28 +279,6 @@ attribute 'db2/instance/default/port',
           :required => 'recommended',
           :secret => 'false',
           :selectable => 'false',
-          :type => 'string'
-attribute 'db2/modpack',
-          :choice => ['0', '1'],
-          :default => '0',
-          :description => 'DB2 modification level',
-          :displayname => 'DB2ModPack',
-          :parm_type => 'node',
-          :precedence_level => 'node',
-          :required => 'recommended',
-          :secret => 'false',
-          :selectable => 'true',
-          :type => 'string'
-attribute 'db2/version',
-          :choice => ['10.5', '11.1'],
-          :default => '10.5',
-          :description => 'The Version of DB2 to install.',
-          :displayname => 'DB2Version',
-          :parm_type => 'node',
-          :precedence_level => 'node',
-          :required => 'recommended',
-          :secret => 'false',
-          :selectable => 'true',
           :type => 'string'
 recipe 'db2::cleanup.rb', '
 Cleanup recipe (cleanup.rb)

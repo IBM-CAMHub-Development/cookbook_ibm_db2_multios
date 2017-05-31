@@ -45,7 +45,7 @@ end
 [node['ibm']['log_dir'], node['db2']['expand_area']].each do |dir|
   directory "Creating prereq directories: #{dir}" do
     path dir
-    mode '777'
+    mode '755'
     recursive true
     action :create
   end

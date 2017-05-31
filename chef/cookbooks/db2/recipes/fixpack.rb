@@ -10,5 +10,5 @@
 
 db2_fixpack "Install FP" do
   action :install
-  not_if { node['db2']['fixpack'] == '0' }
+  not_if { node['db2']['fp_version'] == node['db2']['base_version'] }
 end

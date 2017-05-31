@@ -1,5 +1,21 @@
 {
     "db2": {
+        "base_version": {
+            "choice": [
+                "10.5.0.3",
+                "10.5.0.8",
+                "11.1.0.0"
+            ],
+            "default": "10.5.0.8",
+            "description": "The version of DB2 to install.",
+            "displayname": "DB2BaseVersion",
+            "parm_type": "node",
+            "precedence_level": "node",
+            "required": "recommended",
+            "secret": "false",
+            "selectable": "true",
+            "type": "string"
+        },
         "das_password": {
             "default": "",
             "description": "DB2 Administration Server (DAS) password",
@@ -103,31 +119,10 @@
                 }
             }
         },
-        "fixpack": {
-            "choice": [
-                "0",
-                "7",
-                "8"
-            ],
-            "default": "0",
-            "description": "The Fixpack of DB2 to install.",
-            "displayname": "DB2Fixpack",
-            "parm_type": "node",
-            "precedence_level": "node",
-            "required": "recommended",
-            "secret": "false",
-            "selectable": "true",
-            "type": "string"
-        },
-        "included_fixpack": {
-            "choice": [
-                "0",
-                "3",
-                "8"
-            ],
-            "default": "8",
-            "description": "The Fixpack of DB2 included in base package.",
-            "displayname": "DB2IncludedFixpack",
+        "fp_version": {
+            "default": "10.5.0.8",
+            "description": "The version of DB2 fixpack to install. If no fixpack is required, set this value the same as base_version.",
+            "displayname": "DB2FixpackVersion",
             "parm_type": "node",
             "precedence_level": "node",
             "required": "recommended",
@@ -274,36 +269,6 @@
                     "type": "string"
                 }
             }
-        },
-        "modpack": {
-            "choice": [
-                "0",
-                "1"
-            ],
-            "default": "0",
-            "description": "DB2 modification level",
-            "displayname": "DB2ModPack",
-            "parm_type": "node",
-            "precedence_level": "node",
-            "required": "recommended",
-            "secret": "false",
-            "selectable": "true",
-            "type": "string"
-        },
-        "version": {
-            "choice": [
-                "10.5",
-                "11.1"
-            ],
-            "default": "10.5",
-            "description": "The Version of DB2 to install.",
-            "displayname": "DB2Version",
-            "parm_type": "node",
-            "precedence_level": "node",
-            "required": "recommended",
-            "secret": "false",
-            "selectable": "true",
-            "type": "string"
         }
     }
 }

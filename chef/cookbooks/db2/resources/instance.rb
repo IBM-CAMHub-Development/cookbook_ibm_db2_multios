@@ -18,7 +18,7 @@ attribute :fenced_username, :kind_of => String, :default => nil
 attribute :fenced_groupname, :kind_of => String, :default => nil
 attribute :fenced_password, :kind_of => String, :default => nil
 attribute :fcm_port, :kind_of => String, :default => nil
-attribute :log_dir, :kind_of => String, :default => node['ibm']['log_dir']
-attribute :rsp_file_path, :kind_of => String, :default => node['db2']['expand_area']
+attribute :log_dir, :kind_of => String, :default => node['db2']['expand_area'] + '/log'
+attribute :rsp_file_path, :kind_of => String, :default => node['db2']['expand_area'] + '/tmp'
 
 attr_accessor :db2_instance_created

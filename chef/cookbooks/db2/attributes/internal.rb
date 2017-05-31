@@ -5,13 +5,24 @@
 # Copyright IBM Corp. 2017, 2017
 
 # <> The URL to the root directory of the HTTP server hosting the software installation packages i.e. http://<hostname>:<port>
-default['ibm']['sw_repo_root'] = ''
+default['ibm']['sw_repo'] = ''
 
 # <> If a secure Software repo is used but it uses a self signed SSL certificate this should be set to "true"
 default['ibm']['sw_repo_self_signed_cert'] = "false"
 
 # <> If a secure Software repo is used and basic authentication is required you should set this to "true"
 default['ibm']['sw_repo_auth'] = "true"
+
+# <> Wrap base/fp versions to internal versioning
+force_override['db2']['version'] = node['db2']['base_version'].split('.')[0, 2].join('.')
+force_override['db2']['included_modpack'] = node['db2']['base_version'].split('.')[2]
+force_override['db2']['included_fixpack'] = node['db2']['base_version'].split('.')[3]
+force_override['db2']['modpack'] = node['db2']['fp_version'].split('.')[2]
+force_override['db2']['fixpack'] = if node['db2']['fp_version'] == node['db2']['base_version']
+                                     '0'
+                                   else
+                                     node['db2']['fp_version'].split('.')[3]
+                                   end
 
 # <> Supported DB2 versions
 force_override['db2']['supported_versions'] = ['10.5', '11.1']
@@ -29,9 +40,9 @@ when 'rhel'
     default['db2']['arch'] = 'x86-64'
     # <> DB2 Version 10.5.0.3, 10.5.0.8
     force_override['db2']['archive_names'] = {
-      '10.5.0.3' => { 'filename' => 'DB2_Svr_' + node['db2']['version'] + '.' + node['db2']['modpack'] + '.'+ node['db2']['included_fixpack'] + '_Linux_' + node['db2']['arch'] + '.tar.gz',
+      '10.5.0.3' => { 'filename' => 'DB2_Svr_' + node['db2']['version'] + '.' + node['db2']['included_modpack'] + '.'+ node['db2']['included_fixpack'] + '_Linux_' + node['db2']['arch'] + '.tar.gz',
                       'sha256' => 'd5844d395c66470f39db13ba2491b2036c2d6b50e89c06d46f3d83f4b6f093a7' },
-      '10.5.0.8' => { 'filename' => 'DB2_Svr_' + node['db2']['version'] + '.' + node['db2']['modpack'] + '.'+ node['db2']['included_fixpack'] + '_Linux_' + node['db2']['arch'] + '.tar.gz',
+      '10.5.0.8' => { 'filename' => 'DB2_Svr_' + node['db2']['version'] + '.' + node['db2']['included_modpack'] + '.'+ node['db2']['included_fixpack'] + '_Linux_' + node['db2']['arch'] + '.tar.gz',
                       'sha256' => '79233751b83a0acde01b84bbd506b8fe917a29a4ed08852ae821090ce2fc0256' },
       '11.1.0.0' => { 'filename' => 'DB2_Svr_' + node['db2']['version'] + '_Linux_' + node['db2']['arch'] + '.tar.gz', #~ip_checker
                       'sha256' => '635f1b64eb48ecfd83aface91bc4b99871f12b7d5c41e7aa8f8b3d275bcb7f04' }
