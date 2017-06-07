@@ -12,12 +12,14 @@ raise "db2 name hash is empty. Please add a set of values for the new database."
 node['db2']['database'].each_pair do |_db, p|
   db2_database p['db_name'] do
     instance_username p['instance_username']
+    instance_groupname p['instance_groupname']
     db_name p['db_name']
     db_data_path p['db_data_path']
     db_path p['db_path']
     pagesize p['pagesize']
     territory p['territory']
     codeset p['codeset']
+    db_collate p['db_collate'].to_s.upcase
     action :create
   end
 end

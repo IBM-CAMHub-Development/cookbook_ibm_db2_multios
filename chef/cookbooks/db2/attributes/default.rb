@@ -53,12 +53,12 @@ default['db2']['install_dir'] = '/opt/ibm/db2/V' + node['db2']['base_version'].s
 # <md>          :description => 'DB2 Administration Server (DAS) username',
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
-# <md>          :default => 'db2das1',
+# <md>          :default => 'dasadm1',
 # <md>          :selectable => 'false',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'false'
-default['db2']['das_username'] = 'db2das1'
+default['db2']['das_username'] = 'dasadm1'
 
 # <> DB2 Administration Server (DAS) password
 # <md>attribute 'db2/das_password',
@@ -129,9 +129,9 @@ default['db2']['das_password'] = ''
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'true'
 
-# <md>attribute 'db2/instance/default/database_data_dir',
-# <md>          :displayname => 'database_data_dir',
-# <md>          :description => 'database_data_dir',
+# <md>attribute 'db2/instance/default/instance_dir',
+# <md>          :displayname => 'instance_dir',
+# <md>          :description => 'instance_dir',
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => '/home/db2inst1',
@@ -167,7 +167,7 @@ default['db2']['das_password'] = ''
 # <md>          :description => 'fenced_groupname',
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
-# <md>          :default => 'db2fadm',
+# <md>          :default => 'db2fenc1',
 # <md>          :selectable => 'false',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
@@ -202,7 +202,7 @@ default['db2']['instance'] = {}
 #                    'instance_username' => 'db2inst1',
 #                    'instance_groupname' => 'db2iadm1',
 #                    'instance_password' => 'passw0rd',
-#                    'database_data_dir' => '/home/db2inst1',
+#                    'instance_dir' => '/home/db2inst1',
 #                    'port' => '50000',
 #                    'fenced_username' => 'db2fenc1',
 #                    'fenced_groupname' => 'db2fadm1',
@@ -282,6 +282,17 @@ default['db2']['instance'] = {}
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => 'UTF-8',
+# <md>          :selectable => 'false',
+# <md>          :precedence_level => 'node',
+# <md>          :parm_type => 'node',
+# <md>          :secret => 'false'
+
+# <md>attribute 'db2/database/db01/db_collate',
+# <md>          :displayname => 'db_collate',
+# <md>          :description => 'db_collate',
+# <md>          :type => 'string',
+# <md>          :required => 'recommended',
+# <md>          :default => 'SYSTEM',
 # <md>          :selectable => 'false',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',

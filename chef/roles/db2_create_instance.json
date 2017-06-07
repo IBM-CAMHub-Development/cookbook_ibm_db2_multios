@@ -12,10 +12,10 @@
           "instance_username": "db2inst1",
           "instance_groupname": "db2iadm1",
           "instance_password": "",
-          "database_data_dir": "/home/db2inst1",
+          "instance_dir": "/home/db2inst1",
           "port": "50000",
           "fenced_username": "db2fenc1",
-          "fenced_groupname": "db2fadm",
+          "fenced_groupname": "db2fenc1",
           "fenced_password": "",
           "fcm_port": "60000"
         }

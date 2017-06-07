@@ -8,6 +8,11 @@
 # <> Recipe to ensure that pre-requisites are in place for a cookbook to run.
 
 # Validations:
+
+ibm_cloud_utils_hostsfile_update 'update_the_etc_hosts_file' do
+  action :updateshosts
+end
+
 Chef::Log.info("Checking supported DB2 version")
 raise "DB2 version #{node['db2']['version']} not supported" unless node['db2']['supported_versions'].include? node['db2']['version']
 Chef::Log.info("PASS: DB2 Version is: #{node['db2']['version']}")

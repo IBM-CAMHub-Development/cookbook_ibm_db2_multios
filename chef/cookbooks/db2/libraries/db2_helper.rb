@@ -105,6 +105,47 @@ module DB2
       instances
     end
   end
+  
+  # OS functions
+  module OS
+    # Build partial path
+    # User has to pre-exist, if not - default to 'other' perms
+    def subdirs_to_create(dir, user)
+      Chef::Log.debug("Dir to create: #{dir}, user: #{user}")
+      existing_subdirs = []
+      remaining_subdirs = dir.split('/')
+      remaining_subdirs.shift # get rid of '/'
+      reason = ''
+      
+      until remaining_subdirs.empty?
+        Chef::Log.debug("remaining_subdirs: #{remaining_subdirs.inspect}, existing_subdirs: #{existing_subdirs.inspect}")
+        path = existing_subdirs.push('/' + remaining_subdirs.shift).join
+        break unless File.exist?(path)
+        reason = "Path \'#{path}\' exists and is a file, expecting directory." unless File.directory?(path)
+        reason = "Directory \'#{path}\' exists but is not traversable by user \'#{user}\'." unless can_traverse?(user, path)
+      end
+
+      new_dirs = [existing_subdirs.join]
+      new_dirs.push(new_dirs.last + '/' + remaining_subdirs.shift) until remaining_subdirs.empty?
+      [new_dirs, reason]
+    end
+
+    def can_traverse?(user, path)
+      return true if user == 'root'
+      all = File.stat(path).mode & 1 == 1 # other has x
+      return all if user == 'nobody'
+      # User may not exist at first run
+      begin
+        me = File.stat(path).uid == Etc.getpwnam(user).uid && File.stat(path).mode & 64 == 64 # owner has x
+        us = File.stat(path).gid == Etc.getpwnam(user).gid && File.stat(path).mode & 8 == 8 # group has x
+      rescue ArgumentError => e
+        Chef::Log.debug("can_traverse?: #{e}")
+        me = false
+        us = false
+      end
+      me || us || all
+    end
+  end
 end
 
 Chef::Recipe.send(:include, DB2::Helper)

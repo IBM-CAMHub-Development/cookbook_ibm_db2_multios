@@ -19,6 +19,7 @@ node['db2']['instance'].each_pair do |inst_key, p|
     instance_username p['instance_username']
     instance_groupname p['instance_groupname']
     instance_password inst_password
+    instance_dir p['instance_dir']
     port p['port']
     fenced_username p['fenced_username']
     fenced_groupname p['fenced_groupname']

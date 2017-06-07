@@ -4,7 +4,7 @@ maintainer_email ''
 license          'Copyright IBM Corp. 2017, 2017'
 depends          'ibm_cloud_utils'
 depends          'linux'
-version '0.1.24'
+version '0.1.27'
 description <<-EOH
 ## DESCRIPTION
 The db2 cookbook contains features and functions to support the installation and management of IBM DB2.
@@ -70,7 +70,7 @@ attribute 'db2/das_password',
           :selectable => 'false',
           :type => 'string'
 attribute 'db2/das_username',
-          :default => 'db2das1',
+          :default => 'dasadm1',
           :description => 'DB2 Administration Server (DAS) username',
           :displayname => 'das_username',
           :parm_type => 'node',
@@ -83,6 +83,16 @@ attribute 'db2/database/db01/codeset',
           :default => 'UTF-8',
           :description => 'codeset',
           :displayname => 'codeset',
+          :parm_type => 'node',
+          :precedence_level => 'node',
+          :required => 'recommended',
+          :secret => 'false',
+          :selectable => 'false',
+          :type => 'string'
+attribute 'db2/database/db01/db_collate',
+          :default => 'SYSTEM',
+          :description => 'db_collate',
+          :displayname => 'db_collate',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
@@ -170,16 +180,6 @@ attribute 'db2/install_dir',
           :secret => 'false',
           :selectable => 'true',
           :type => 'string'
-attribute 'db2/instance/default/database_data_dir',
-          :default => '/home/db2inst1',
-          :description => 'database_data_dir',
-          :displayname => 'database_data_dir',
-          :parm_type => 'node',
-          :precedence_level => 'node',
-          :required => 'recommended',
-          :secret => 'false',
-          :selectable => 'false',
-          :type => 'string'
 attribute 'db2/instance/default/fcm_port',
           :default => '60000',
           :description => 'fcm_port',
@@ -191,7 +191,7 @@ attribute 'db2/instance/default/fcm_port',
           :selectable => 'false',
           :type => 'string'
 attribute 'db2/instance/default/fenced_groupname',
-          :default => 'db2fadm',
+          :default => 'db2fenc1',
           :description => 'fenced_groupname',
           :displayname => 'fenced_groupname',
           :parm_type => 'node',
@@ -214,6 +214,16 @@ attribute 'db2/instance/default/fenced_username',
           :default => 'db2fenc1',
           :description => 'fenced_username',
           :displayname => 'fenced_username',
+          :parm_type => 'node',
+          :precedence_level => 'node',
+          :required => 'recommended',
+          :secret => 'false',
+          :selectable => 'false',
+          :type => 'string'
+attribute 'db2/instance/default/instance_dir',
+          :default => '/home/db2inst1',
+          :description => 'instance_dir',
+          :displayname => 'instance_dir',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',

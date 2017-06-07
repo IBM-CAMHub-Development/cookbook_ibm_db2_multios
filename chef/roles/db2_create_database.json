@@ -13,7 +13,8 @@
           "instance_username": "db2inst1",
           "pagesize": "4096",
           "territory": "US",
-          "codeset": "UTF-8"
+          "codeset": "UTF-8",
+          "db_collate": "SYSTEM"
         }
       }
     }

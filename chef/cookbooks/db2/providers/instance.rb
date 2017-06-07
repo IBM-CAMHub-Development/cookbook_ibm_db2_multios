@@ -5,6 +5,7 @@
 # Copyright IBM Corp. 2017, 2017
 #
 include DB2::Helper
+include DB2::OS
 use_inline_resources
 
 action :create do
@@ -21,6 +22,39 @@ action :create do
           action :create
         end
       end
+
+      # Manage instance_dir
+      # Create parent if it doesn't exist, let 'user' resource handle the rest
+      # Fail if dirs above exist and not traversable by 'other'
+      instance_dir = if new_resource.instance_dir.empty?
+                       '/home/' + new_resource.instance_username
+                     else
+                       new_resource.instance_dir
+                     end
+      subdirs, reason = subdirs_to_create(::File.dirname(instance_dir), 'nobody')
+      raise reason unless reason.empty?
+      subdirs.each do |dir|
+        next if dir.empty? || dir.nil?
+        directory "create instance_dir: #{dir}" do
+          path dir
+          action :create
+          mode '755'
+          recursive true
+          not_if { dir == '/home' }
+          not_if { dir == '/' }
+        end
+      end
+
+      group new_resource.instance_groupname do
+        action :create
+      end
+      user new_resource.instance_username do
+        action :create
+        home instance_dir
+        gid new_resource.instance_groupname
+        manage_home true
+      end
+
       ## Create DB2 instance repsonse file
       rsp_file = "#{new_resource.rsp_file_path}/db2_instance_#{new_resource.instance_username}.rsp"
       template rsp_file do
@@ -35,6 +69,7 @@ action :create do
           :INSTANCE_USERNAME => new_resource.instance_username,
           :INSTANCE_GROUPNAME => new_resource.instance_groupname,
           :INSTANCE_PASSWORD => new_resource.instance_password,
+          :INSTANCE_DIR => instance_dir,
           :PORT => new_resource.port,
           :FENCED_USERNAME => new_resource.fenced_username,
           :FENCED_GROUPNAME => new_resource.fenced_groupname,

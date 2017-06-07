@@ -28,7 +28,7 @@
             "type": "string"
         },
         "das_username": {
-            "default": "db2das1",
+            "default": "dasadm1",
             "description": "DB2 Administration Server (DAS) username",
             "displayname": "das_username",
             "parm_type": "node",
@@ -44,6 +44,17 @@
                     "default": "UTF-8",
                     "description": "codeset",
                     "displayname": "codeset",
+                    "parm_type": "node",
+                    "precedence_level": "node",
+                    "required": "recommended",
+                    "secret": "false",
+                    "selectable": "false",
+                    "type": "string"
+                },
+                "db_collate": {
+                    "default": "SYSTEM",
+                    "description": "db_collate",
+                    "displayname": "db_collate",
                     "parm_type": "node",
                     "precedence_level": "node",
                     "required": "recommended",
@@ -147,17 +158,6 @@
         },
         "instance": {
             "default": {
-                "database_data_dir": {
-                    "default": "/home/db2inst1",
-                    "description": "database_data_dir",
-                    "displayname": "database_data_dir",
-                    "parm_type": "node",
-                    "precedence_level": "node",
-                    "required": "recommended",
-                    "secret": "false",
-                    "selectable": "false",
-                    "type": "string"
-                },
                 "fcm_port": {
                     "default": "60000",
                     "description": "fcm_port",
@@ -170,7 +170,7 @@
                     "type": "string"
                 },
                 "fenced_groupname": {
-                    "default": "db2fadm",
+                    "default": "db2fenc1",
                     "description": "fenced_groupname",
                     "displayname": "fenced_groupname",
                     "parm_type": "node",
@@ -195,6 +195,17 @@
                     "default": "db2fenc1",
                     "description": "fenced_username",
                     "displayname": "fenced_username",
+                    "parm_type": "node",
+                    "precedence_level": "node",
+                    "required": "recommended",
+                    "secret": "false",
+                    "selectable": "false",
+                    "type": "string"
+                },
+                "instance_dir": {
+                    "default": "/home/db2inst1",
+                    "description": "instance_dir",
+                    "displayname": "instance_dir",
                     "parm_type": "node",
                     "precedence_level": "node",
                     "required": "recommended",

@@ -49,7 +49,7 @@ INSTANCE                  = <%= @INSTANCE_PREFIX %>        ** char(8)  no spaces
 
 ** Use a generated GID if no value provided - highly recommended.
 *<%= @INSTANCE_PREFIX %>.GID             =                 ** Unsigned integer
-<%= @INSTANCE_PREFIX %>.HOME_DIRECTORY   = /home/<%= @INSTANCE_USERNAME  %>  ** char(64) no spaces. Valid for root installation only
+<%= @INSTANCE_PREFIX %>.HOME_DIRECTORY   = <%= @INSTANCE_DIR %>  ** char(64) no spaces. Valid for root installation only
 <%= @INSTANCE_PREFIX %>.PASSWORD         = <%= @INSTANCE_PASSWORD %>         ** Valid for root installation only
 
 ** If PURESCALE is selected or installed, the default instance type will be

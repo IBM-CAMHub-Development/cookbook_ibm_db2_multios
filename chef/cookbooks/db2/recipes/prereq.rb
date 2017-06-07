@@ -30,12 +30,21 @@ ibm_cloud_utils_ram "Check RAM" do
 end
 
 # Install prerequisites
+
+execute 'enable_extra_repository' do
+  command 'yum-config-manager --enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional'
+  only_if { node['db2']['os_libraries']['32bit'].include?('compat-libstdc++-33') }
+  not_if 'yum list compat-libstdc++-33'
+  only_if { node['platform_version'].split('.').first.to_i >= 7 }
+  not_if { File.foreach('/sys/devices/virtual/dmi/id/bios_version').grep(/amazon$/).empty? }
+end
+
 yum_package 'install_prerequisites_64bit' do
   package_name node['db2']['os_libraries']['64bit']
   arch 'x86_64'
   action :upgrade
 end
-# Install prerequisites
+
 yum_package 'install_prerequisites_32bit' do
   package_name node['db2']['os_libraries']['32bit']
   arch 'i686'

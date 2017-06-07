@@ -4,7 +4,9 @@
 #
 # Copyright IBM Corp. 2017, 2017
 #
+# ::Chef::Resource.send(:include, DB2::Helper)
 include DB2::Helper
+include DB2::OS
 use_inline_resources
 
 action :create do
@@ -13,8 +15,43 @@ action :create do
   elsif @current_resource.db2_instance_created
     converge_by("Install #{@new_resource}") do
       raise "db2 name is limited to 8 character" if new_resource.db_name.length > 8
+
+      # create directories
+      subdirs, reason = subdirs_to_create(new_resource.db_data_path, new_resource.instance_username)
+      raise reason unless reason.empty?
+      subdirs.each do |dir|
+        directory "create db_data_path: #{dir}" do
+          path dir
+          action :create
+          owner new_resource.instance_username
+          group new_resource.instance_groupname
+          recursive true
+        end
+      end
+
+      unless new_resource.db_path.empty? || new_resource.db_path == new_resource.db_data_path
+        subdirs, reason = subdirs_to_create(new_resource.db_path, new_resource.instance_username)
+        raise reason unless reason.empty?
+        subdirs.each do |dir|
+          directory "create db_path: #{dir}" do
+            path dir
+            action :create
+            owner new_resource.instance_username
+            group new_resource.instance_groupname
+            recursive true
+          end
+        end
+      end
+     
+      # compose command line
+      cmd = "create database #{new_resource.db_name} ON #{new_resource.db_data_path}"
+      cmd += " DBPATH ON #{new_resource.db_path}" unless new_resource.db_path.empty? || new_resource.db_path == new_resource.db_data_path
+      cmd += " USING CODESET #{new_resource.codeset}" unless new_resource.codeset.empty?
+      cmd += " TERRITORY #{new_resource.territory}" unless new_resource.territory.empty?
+      cmd += " COLLATE USING #{new_resource.db_collate}" unless new_resource.db_collate.empty?
+      cmd += " PAGESIZE #{new_resource.pagesize}" unless new_resource.pagesize.empty?
       execute "create database(#{new_resource.db_name})" do
-        command "su - #{new_resource.instance_username} -s /bin/bash -c \"db2 'create database #{new_resource.db_name} ON #{new_resource.db_data_path} DBPATH ON #{new_resource.db_path} USING CODESET #{new_resource.codeset} TERRITORY #{new_resource.territory} PAGESIZE #{new_resource.pagesize}' > ~/db2_create_database_#{new_resource.db_name}.log\""
+        command "su - #{new_resource.instance_username} -s /bin/bash -c \"db2 '#{cmd}' | tee -a ~/db2_create_database_#{new_resource.db_name}.log\""
       end
       execute "Save log for #{new_resource.db_name}" do
         command "mv #{Etc.getpwnam(new_resource.instance_username).dir}/db2_create_database_#{new_resource.db_name}.log #{node['ibm']['log_dir']}"

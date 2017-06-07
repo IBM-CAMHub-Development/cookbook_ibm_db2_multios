@@ -78,12 +78,17 @@ Attributes
   <tr>
     <td><code>node['db2']['das_username']</code></td>
     <td>DB2 Administration Server (DAS) username</td>
-    <td><code>db2das1</code></td>
+    <td><code>dasadm1</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['database']['db01']['codeset']</code></td>
     <td>codeset</td>
     <td><code>UTF-8</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['database']['db01']['db_collate']</code></td>
+    <td>db_collate</td>
+    <td><code>SYSTEM</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['database']['db01']['db_data_path']</code></td>
@@ -126,11 +131,6 @@ Attributes
     <td><code>/opt/ibm/db2/V10.5</code></td>
   </tr>
   <tr>
-    <td><code>node['db2']['instance']['default']['database_data_dir']</code></td>
-    <td>database_data_dir</td>
-    <td><code>/home/db2inst1</code></td>
-  </tr>
-  <tr>
     <td><code>node['db2']['instance']['default']['fcm_port']</code></td>
     <td>fcm_port</td>
     <td><code>60000</code></td>
@@ -138,7 +138,7 @@ Attributes
   <tr>
     <td><code>node['db2']['instance']['default']['fenced_groupname']</code></td>
     <td>fenced_groupname</td>
-    <td><code>db2fadm</code></td>
+    <td><code>db2fenc1</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instance']['default']['fenced_password']</code></td>
@@ -149,6 +149,11 @@ Attributes
     <td><code>node['db2']['instance']['default']['fenced_username']</code></td>
     <td>fenced_username</td>
     <td><code>db2fenc1</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instance']['default']['instance_dir']</code></td>
+    <td>instance_dir</td>
+    <td><code>/home/db2inst1</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instance']['default']['instance_groupname']</code></td>

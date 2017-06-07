@@ -13,6 +13,7 @@ attribute :instance_type, :kind_of => String, :default => nil
 attribute :instance_username, :kind_of => String, :default => nil
 attribute :instance_groupname, :kind_of => String, :default => nil
 attribute :instance_password, :kind_of => String, :default => nil
+attribute :instance_dir, :kind_of => String, :default => ''
 attribute :port, :kind_of => String, :default => nil
 attribute :fenced_username, :kind_of => String, :default => nil
 attribute :fenced_groupname, :kind_of => String, :default => nil

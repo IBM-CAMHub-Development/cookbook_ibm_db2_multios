@@ -5,6 +5,7 @@
                 "database": {
                     "db01": {
                         "codeset": "UTF-8",
+                        "db_collate": "SYSTEM",
                         "db_data_path": "/home/db2inst1",
                         "db_name": "db01",
                         "db_path": "/home/db2inst1",
@@ -27,11 +28,11 @@
             "db2": {
                 "instance": {
                     "default": {
-                        "database_data_dir": "/home/db2inst1",
                         "fcm_port": "60000",
-                        "fenced_groupname": "db2fadm",
+                        "fenced_groupname": "db2fenc1",
                         "fenced_password": "",
                         "fenced_username": "db2fenc1",
+                        "instance_dir": "/home/db2inst1",
                         "instance_groupname": "db2iadm1",
                         "instance_password": "",
                         "instance_prefix": "DB2_INST",
