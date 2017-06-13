@@ -113,6 +113,13 @@ default['db2']['kernel'] = {
   'kernel.sem' => node['db2']['kernel_sem_SEMMSL'].to_s + ' ' + node['db2']['kernel_sem_SEMMNS'].to_s + ' ' + node['db2']['kernel_sem_SEMOPM'].to_s + ' ' + node['db2']['kernel_sem_SEMMNI'].to_s
 }
 
+# <> ulimit recommended values
+force_override['db2']['ulimit'] = {
+  'data' => 'unlimited',
+  'nofile' => '65536',
+  'fsize' => 'unlimited'
+}
+
 #-------------------------------------------------------------------------------
 # Landscaper compatibility attributes
 #-------------------------------------------------------------------------------

@@ -13,6 +13,10 @@ ibm_cloud_utils_hostsfile_update 'update_the_etc_hosts_file' do
   action :updateshosts
 end
 
+ibm_cloud_utils_enable_awsyumrepo 'enable_aws_extra_yumrepo' do
+  action :enable
+end
+
 Chef::Log.info("Checking supported DB2 version")
 raise "DB2 version #{node['db2']['version']} not supported" unless node['db2']['supported_versions'].include? node['db2']['version']
 Chef::Log.info("PASS: DB2 Version is: #{node['db2']['version']}")
