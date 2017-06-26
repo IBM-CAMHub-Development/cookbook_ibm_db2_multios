@@ -13,6 +13,9 @@ default['ibm']['sw_repo_self_signed_cert'] = "false"
 # <> If a secure Software repo is used and basic authentication is required you should set this to "true"
 default['ibm']['sw_repo_auth'] = "true"
 
+# <> Skip indexes
+force_override['db2']['skip_indexes'] = true
+
 # <> Wrap base/fp versions to internal versioning
 force_override['db2']['version'] = node['db2']['base_version'].split('.')[0, 2].join('.')
 force_override['db2']['included_modpack'] = node['db2']['base_version'].split('.')[2]
@@ -33,8 +36,8 @@ force_override['db2']['sw_repo_path'] = '/db2/v' + node['db2']['version'].delete
 # <> Fixpack package repo path
 force_override['db2']['fp_repo_path'] = '/db2/v' + node['db2']['version'].delete('.') + '/maint'
 
-case node['platform_family']
-when 'rhel'
+case node['os']
+when 'linux'
   case node['kernel']['machine']
   when 'x86_64'
     default['db2']['arch'] = 'x86-64'

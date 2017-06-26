@@ -38,98 +38,6 @@
             "selectable": "false",
             "type": "string"
         },
-        "database": {
-            "db01": {
-                "codeset": {
-                    "default": "UTF-8",
-                    "description": "codeset",
-                    "displayname": "codeset",
-                    "parm_type": "node",
-                    "precedence_level": "node",
-                    "required": "recommended",
-                    "secret": "false",
-                    "selectable": "false",
-                    "type": "string"
-                },
-                "db_collate": {
-                    "default": "SYSTEM",
-                    "description": "db_collate",
-                    "displayname": "db_collate",
-                    "parm_type": "node",
-                    "precedence_level": "node",
-                    "required": "recommended",
-                    "secret": "false",
-                    "selectable": "false",
-                    "type": "string"
-                },
-                "db_data_path": {
-                    "default": "/home/db2inst1",
-                    "description": "db_data_path",
-                    "displayname": "db_data_path",
-                    "parm_type": "node",
-                    "precedence_level": "node",
-                    "required": "recommended",
-                    "secret": "false",
-                    "selectable": "false",
-                    "type": "string"
-                },
-                "db_name": {
-                    "default": "db01",
-                    "description": "db_name",
-                    "displayname": "db_name",
-                    "parm_type": "node",
-                    "precedence_level": "node",
-                    "required": "recommended",
-                    "secret": "false",
-                    "selectable": "false",
-                    "type": "string"
-                },
-                "db_path": {
-                    "default": "/home/db2inst1",
-                    "description": "db_path",
-                    "displayname": "db_path",
-                    "parm_type": "node",
-                    "precedence_level": "node",
-                    "required": "recommended",
-                    "secret": "false",
-                    "selectable": "false",
-                    "type": "string"
-                },
-                "instance_username": {
-                    "default": "db2inst1",
-                    "description": "instance_username",
-                    "displayname": "instance_username",
-                    "parm_type": "node",
-                    "precedence_level": "node",
-                    "required": "recommended",
-                    "secret": "false",
-                    "selectable": "false",
-                    "type": "string"
-                },
-                "pagesize": {
-                    "default": "4096",
-                    "description": "pagesize",
-                    "displayname": "pagesize",
-                    "parm_type": "node",
-                    "precedence_level": "node",
-                    "required": "recommended",
-                    "secret": "false",
-                    "selectable": "false",
-                    "type": "string"
-                },
-                "territory": {
-                    "default": "US",
-                    "description": "territory",
-                    "displayname": "territory",
-                    "parm_type": "node",
-                    "precedence_level": "node",
-                    "required": "recommended",
-                    "secret": "false",
-                    "selectable": "false",
-                    "type": "string"
-                }
-            }
-        },
         "fp_version": {
             "default": "10.5.0.8",
             "description": "The version of DB2 fixpack to install. If no fixpack is required, set this value the same as base_version.",
@@ -156,8 +64,100 @@
             "selectable": "true",
             "type": "string"
         },
-        "instance": {
-            "default": {
+        "instances": {
+            "instance($INDEX)": {
+                "databases": {
+                    "database($INDEX)": {
+                        "codeset": {
+                            "default": "UTF-8",
+                            "description": "codeset",
+                            "displayname": "codeset",
+                            "parm_type": "node",
+                            "precedence_level": "node",
+                            "required": "recommended",
+                            "secret": "false",
+                            "selectable": "false",
+                            "type": "string"
+                        },
+                        "db_collate": {
+                            "default": "SYSTEM",
+                            "description": "db_collate",
+                            "displayname": "db_collate",
+                            "parm_type": "node",
+                            "precedence_level": "node",
+                            "required": "recommended",
+                            "secret": "false",
+                            "selectable": "false",
+                            "type": "string"
+                        },
+                        "db_data_path": {
+                            "default": "/home/db2inst1",
+                            "description": "db_data_path",
+                            "displayname": "db_data_path",
+                            "parm_type": "node",
+                            "precedence_level": "node",
+                            "required": "recommended",
+                            "secret": "false",
+                            "selectable": "false",
+                            "type": "string"
+                        },
+                        "db_name": {
+                            "default": "db01",
+                            "description": "db_name",
+                            "displayname": "db_name",
+                            "parm_type": "node",
+                            "precedence_level": "node",
+                            "required": "recommended",
+                            "secret": "false",
+                            "selectable": "false",
+                            "type": "string"
+                        },
+                        "db_path": {
+                            "default": "/home/db2inst1",
+                            "description": "db_path",
+                            "displayname": "db_path",
+                            "parm_type": "node",
+                            "precedence_level": "node",
+                            "required": "recommended",
+                            "secret": "false",
+                            "selectable": "false",
+                            "type": "string"
+                        },
+                        "instance_username": {
+                            "default": "db2inst1",
+                            "description": "instance_username",
+                            "displayname": "instance_username",
+                            "parm_type": "node",
+                            "precedence_level": "node",
+                            "required": "recommended",
+                            "secret": "false",
+                            "selectable": "false",
+                            "type": "string"
+                        },
+                        "pagesize": {
+                            "default": "4096",
+                            "description": "pagesize",
+                            "displayname": "pagesize",
+                            "parm_type": "node",
+                            "precedence_level": "node",
+                            "required": "recommended",
+                            "secret": "false",
+                            "selectable": "false",
+                            "type": "string"
+                        },
+                        "territory": {
+                            "default": "US",
+                            "description": "territory",
+                            "displayname": "territory",
+                            "parm_type": "node",
+                            "precedence_level": "node",
+                            "required": "recommended",
+                            "secret": "false",
+                            "selectable": "false",
+                            "type": "string"
+                        }
+                    }
+                },
                 "fcm_port": {
                     "default": "60000",
                     "description": "fcm_port",

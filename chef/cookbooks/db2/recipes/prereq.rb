@@ -35,6 +35,7 @@ execute 'enable_extra_repository' do
   command 'yum-config-manager --enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional'
   only_if { node['db2']['os_libraries']['32bit'].include?('compat-libstdc++-33') }
   not_if 'yum list compat-libstdc++-33'
+  only_if { node['platform_family'] == 'rhel' }
   only_if { node['platform_version'].split('.').first.to_i >= 7 }
   not_if { File.foreach('/sys/devices/virtual/dmi/id/bios_version').grep(/amazon$/).empty? }
 end

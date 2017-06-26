@@ -6,16 +6,10 @@
                 "This recipe will remove any temporary installation files created as part of the automation."
             ]
         },
-        "create_database.rb": {
+        "create_db.rb": {
             "description": [
-                "create database recipe (create_database.rb)",
-                "This recipe creates new db2 databases."
-            ]
-        },
-        "create_instance.rb": {
-            "description": [
-                "create instance recipe (create_instance.rb)",
-                "This recipe creates new db2 instances."
+                "Create database recipe (create_db.rb)",
+                "This recipe will create instances and databases as specified in attributes."
             ]
         },
         "default.rb": {

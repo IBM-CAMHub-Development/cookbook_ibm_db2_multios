@@ -13,17 +13,17 @@ ibm_cloud_utils_hostsfile_update 'update_the_etc_hosts_file' do
   action :updateshosts
 end
 
-ibm_cloud_utils_enable_awsyumrepo 'enable_aws_extra_yumrepo' do
-  action :enable
-end
-
 Chef::Log.info("Checking supported DB2 version")
 raise "DB2 version #{node['db2']['version']} not supported" unless node['db2']['supported_versions'].include? node['db2']['version']
 Chef::Log.info("PASS: DB2 Version is: #{node['db2']['version']}")
 
-unless node['db2']['database'].empty?
-  node['db2']['database'].each_pair do |_db, p|
-    raise "database name is limited to 8 character" if p['db_name'].length > 8
+unless node['db2']['instances'].empty?
+  node['db2']['instances'].each_pair do |_i, d|
+    next if d['databases'].nil?
+    next if d['databases'].empty?
+    d['databases'].each_pair do |_db, p|
+      raise "Database name #{p['db_name']} in instance #{d['instcance_username']} exceeds the 8 character limit" if p['db_name'].length > 8
+    end
   end
 end
 

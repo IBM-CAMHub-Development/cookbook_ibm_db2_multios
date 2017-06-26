@@ -74,7 +74,18 @@ default['db2']['das_username'] = 'dasadm1'
 default['db2']['das_password'] = ''
 
 # <> DB2 instance attribute
-# <md>attribute 'db2/instance/default/instance_prefix',
+# <md>attribute '$dynamicmaps/db2/instances'
+# <md>          :$count => '0',
+# <md>          :$displayname => 'DB2 instances',
+# <md>          :$key => 'instance',
+# <md>          :$max => '4'
+# <md>attribute '$dynamicmaps/db2/instances/instance($INDEX)/$dynamicmaps/databases'
+# <md>          :$count => '0',
+# <md>          :$displayname => 'DB2 databases',
+# <md>          :$key => 'database',
+# <md>          :$max => '4'
+
+# <md>attribute 'db2/instances/instance($INDEX)/instance_prefix',
 # <md>          :displayname => 'instance_prefix',
 # <md>          :description => 'Instance prefix',
 # <md>          :type => 'string',
@@ -85,7 +96,7 @@ default['db2']['das_password'] = ''
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'false'
 
-# <md>attribute 'db2/instance/default/instance_type',
+# <md>attribute 'db2/instances/instance($INDEX)/instance_type',
 # <md>          :displayname => 'instance_type',
 # <md>          :description => 'Instance type',
 # <md>          :type => 'string',
@@ -96,7 +107,7 @@ default['db2']['das_password'] = ''
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'false'
 
-# <md>attribute 'db2/instance/default/instance_username',
+# <md>attribute 'db2/instances/instance($INDEX)/instance_username',
 # <md>          :displayname => 'instance_username',
 # <md>          :description => 'instance_username',
 # <md>          :type => 'string',
@@ -107,7 +118,7 @@ default['db2']['das_password'] = ''
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'false'
 
-# <md>attribute 'db2/instance/default/instance_groupname',
+# <md>attribute 'db2/instances/instance($INDEX)/instance_groupname',
 # <md>          :displayname => 'instance_groupname',
 # <md>          :description => 'instance_groupname',
 # <md>          :type => 'string',
@@ -118,7 +129,7 @@ default['db2']['das_password'] = ''
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'false'
 
-# <md>attribute 'db2/instance/default/instance_password',
+# <md>attribute 'db2/instances/instance($INDEX)/instance_password',
 # <md>          :displayname => 'instance_password',
 # <md>          :description => 'instance_password',
 # <md>          :type => 'string',
@@ -129,7 +140,7 @@ default['db2']['das_password'] = ''
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'true'
 
-# <md>attribute 'db2/instance/default/instance_dir',
+# <md>attribute 'db2/instances/instance($INDEX)/instance_dir',
 # <md>          :displayname => 'instance_dir',
 # <md>          :description => 'instance_dir',
 # <md>          :type => 'string',
@@ -140,7 +151,7 @@ default['db2']['das_password'] = ''
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'false'
 
-# <md>attribute 'db2/instance/default/port',
+# <md>attribute 'db2/instances/instance($INDEX)/port',
 # <md>          :displayname => 'port',
 # <md>          :description => 'port',
 # <md>          :type => 'string',
@@ -151,7 +162,7 @@ default['db2']['das_password'] = ''
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'false'
 
-# <md>attribute 'db2/instance/default/fenced_username',
+# <md>attribute 'db2/instances/instance($INDEX)/fenced_username',
 # <md>          :displayname => 'fenced_username',
 # <md>          :description => 'fenced_username',
 # <md>          :type => 'string',
@@ -162,7 +173,7 @@ default['db2']['das_password'] = ''
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'false'
 
-# <md>attribute 'db2/instance/default/fenced_groupname',
+# <md>attribute 'db2/instances/instance($INDEX)/fenced_groupname',
 # <md>          :displayname => 'fenced_groupname',
 # <md>          :description => 'fenced_groupname',
 # <md>          :type => 'string',
@@ -173,7 +184,7 @@ default['db2']['das_password'] = ''
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'false'
 
-# <md>attribute 'db2/instance/default/fenced_password',
+# <md>attribute 'db2/instances/instance($INDEX)/fenced_password',
 # <md>          :displayname => 'fenced_password',
 # <md>          :description => 'fenced_password',
 # <md>          :type => 'string',
@@ -184,7 +195,7 @@ default['db2']['das_password'] = ''
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'true'
 
-# <md>attribute 'db2/instance/default/fcm_port',
+# <md>attribute 'db2/instances/instance($INDEX)/fcm_port',
 # <md>          :displayname => 'fcm_port',
 # <md>          :description => 'fcm_port',
 # <md>          :type => 'string',
@@ -194,23 +205,9 @@ default['db2']['das_password'] = ''
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'false'
-default['db2']['instance'] = {}
-# Sample instance attribute. This will be set in role file
-#default['db2']['instance'] =
-#  { 'instance1' => { 'instance_prefix' => 'DB2_INST',
-#                    'instance_type' => 'ESE',
-#                    'instance_username' => 'db2inst1',
-#                    'instance_groupname' => 'db2iadm1',
-#                    'instance_password' => 'passw0rd',
-#                    'instance_dir' => '/home/db2inst1',
-#                    'port' => '50000',
-#                    'fenced_username' => 'db2fenc1',
-#                    'fenced_groupname' => 'db2fadm1',
-#                    'fenced_password' => 'passw0rd',
-#                    'fcm_port' => '60000'} }
 
 # <> DB2 Databse
-# <md>attribute 'db2/database/db01/db_name',
+# <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/db_name',
 # <md>          :displayname => 'db_name',
 # <md>          :description => 'db_name',
 # <md>          :type => 'string',
@@ -221,7 +218,7 @@ default['db2']['instance'] = {}
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'false'
 
-# <md>attribute 'db2/database/db01/db_data_path',
+# <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/db_data_path',
 # <md>          :displayname => 'db_data_path',
 # <md>          :description => 'db_data_path',
 # <md>          :type => 'string',
@@ -232,7 +229,7 @@ default['db2']['instance'] = {}
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'false'
 
-# <md>attribute 'db2/database/db01/db_path',
+# <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/db_path',
 # <md>          :displayname => 'db_path',
 # <md>          :description => 'db_path',
 # <md>          :type => 'string',
@@ -243,7 +240,7 @@ default['db2']['instance'] = {}
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'false'
 
-# <md>attribute 'db2/database/db01/instance_username',
+# <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/instance_username',
 # <md>          :displayname => 'instance_username',
 # <md>          :description => 'instance_username',
 # <md>          :type => 'string',
@@ -254,7 +251,7 @@ default['db2']['instance'] = {}
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'false'
 
-# <md>attribute 'db2/database/db01/pagesize',
+# <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/pagesize',
 # <md>          :displayname => 'pagesize',
 # <md>          :description => 'pagesize',
 # <md>          :type => 'string',
@@ -265,7 +262,7 @@ default['db2']['instance'] = {}
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'false'
 
-# <md>attribute 'db2/database/db01/territory',
+# <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/territory',
 # <md>          :displayname => 'territory',
 # <md>          :description => 'territory',
 # <md>          :type => 'string',
@@ -276,7 +273,7 @@ default['db2']['instance'] = {}
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'false'
 
-# <md>attribute 'db2/database/db01/codeset',
+# <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/codeset',
 # <md>          :displayname => 'codeset',
 # <md>          :description => 'codeset',
 # <md>          :type => 'string',
@@ -287,7 +284,7 @@ default['db2']['instance'] = {}
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'false'
 
-# <md>attribute 'db2/database/db01/db_collate',
+# <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/db_collate',
 # <md>          :displayname => 'db_collate',
 # <md>          :description => 'db_collate',
 # <md>          :type => 'string',
@@ -297,11 +294,32 @@ default['db2']['instance'] = {}
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
 # <md>          :secret => 'false'
-default['db2']['database'] = {}
-# Sample database attribute. This will be set in role file
-#default['db2']['database'] =
-#  { 'db1' => { 'db_name' => 'database1',
-#               'instance_username' => 'db2inst1',
-#               'pagesize' => '4096',
-#               'territory' => 'US',
-#               'codeset" => 'UTF-8'} }
+
+default['db2']['instances'] = {}
+# Sample instance attribute. This will be set in role file
+#default['db2']['instances'] = {
+#  'inst1' => { 
+#    'instance_prefix' => 'DB2_INS1',
+#    'instance_type' => 'ESE',
+#    'instance_username' => 'db2inst1',
+#    'instance_groupname' => 'db2iadm1',
+#    'instance_password' => 'passw0rd',
+#    'instance_dir' => '/home/db2inst1',
+#    'port' => '50000',
+#    'fenced_username' => 'db2fenc1',
+#    'fenced_groupname' => 'db2fadm1',
+#    'fenced_password' => 'passw0rd',
+#    'fcm_port' => '60000',
+#    'databases' => {
+#      'db11' => {
+#        'db_name' => 'db11',
+#        'db_data_path' => '/home/db2inst1',
+#        'db_path' => '/home/db2inst1',
+#        'pagesize' => '4096',
+#        'territory' => 'US',
+#        'codeset' => 'UTF-8',
+#        'db_collate' => 'SYSTEM'
+#      }
+#    }
+#  }
+#}

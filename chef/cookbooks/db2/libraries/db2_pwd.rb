@@ -17,12 +17,12 @@ module DB2
       unless chef_vault.empty?
         require 'chef-vault'
         begin
-          instance_password = chef_vault_item(chef_vault, encrypted_id)['db2']['instance'][instance_key]['instance_password']
+          instance_password = chef_vault_item(chef_vault, encrypted_id)['db2']['instances'][instance_key]['instance_password']
         rescue NoMethodError
-          raise "No password found for instance user #{instance} in chef vault \'#{chef_vault}\'"
+          raise "No password found for instance #{instance_key}, user #{instance} in chef vault \'#{chef_vault}\'"
         end
-        raise "No password found for instance user #{instance} in chef vault \'#{chef_vault}\'" if instance_password.empty?
-        Chef::Log.info "Found a password for instance user #{instance} in chef vault \'#{chef_vault}\'"
+        raise "No password found for instance #{instance_key}, user #{instance} in chef vault \'#{chef_vault}\'" if instance_password.empty?
+        Chef::Log.info "Found a password for instance #{instance_key}, user #{instance} in chef vault \'#{chef_vault}\'"
       end
       instance_password
     end
@@ -34,7 +34,7 @@ module DB2
       unless chef_vault.empty?
         require 'chef-vault'
         begin
-          fenced_password = chef_vault_item(chef_vault, encrypted_id)['db2']['instance'][instance_key]['fenced_password']
+          fenced_password = chef_vault_item(chef_vault, encrypted_id)['db2']['instances'][instance_key]['fenced_password']
         rescue NoMethodError
           raise "No password found for fenced user #{fenced_user} in chef vault \'#{chef_vault}\'"
         end

@@ -81,46 +81,6 @@ Attributes
     <td><code>dasadm1</code></td>
   </tr>
   <tr>
-    <td><code>node['db2']['database']['db01']['codeset']</code></td>
-    <td>codeset</td>
-    <td><code>UTF-8</code></td>
-  </tr>
-  <tr>
-    <td><code>node['db2']['database']['db01']['db_collate']</code></td>
-    <td>db_collate</td>
-    <td><code>SYSTEM</code></td>
-  </tr>
-  <tr>
-    <td><code>node['db2']['database']['db01']['db_data_path']</code></td>
-    <td>db_data_path</td>
-    <td><code>/home/db2inst1</code></td>
-  </tr>
-  <tr>
-    <td><code>node['db2']['database']['db01']['db_name']</code></td>
-    <td>db_name</td>
-    <td><code>db01</code></td>
-  </tr>
-  <tr>
-    <td><code>node['db2']['database']['db01']['db_path']</code></td>
-    <td>db_path</td>
-    <td><code>/home/db2inst1</code></td>
-  </tr>
-  <tr>
-    <td><code>node['db2']['database']['db01']['instance_username']</code></td>
-    <td>instance_username</td>
-    <td><code>db2inst1</code></td>
-  </tr>
-  <tr>
-    <td><code>node['db2']['database']['db01']['pagesize']</code></td>
-    <td>pagesize</td>
-    <td><code>4096</code></td>
-  </tr>
-  <tr>
-    <td><code>node['db2']['database']['db01']['territory']</code></td>
-    <td>territory</td>
-    <td><code>US</code></td>
-  </tr>
-  <tr>
     <td><code>node['db2']['fp_version']</code></td>
     <td>The version of DB2 fixpack to install. If no fixpack is required, set this value the same as base_version.</td>
     <td><code>10.5.0.8</code></td>
@@ -131,57 +91,97 @@ Attributes
     <td><code>/opt/ibm/db2/V10.5</code></td>
   </tr>
   <tr>
-    <td><code>node['db2']['instance']['default']['fcm_port']</code></td>
-    <td>fcm_port</td>
-    <td><code>60000</code></td>
+    <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['codeset']</code></td>
+    <td>codeset</td>
+    <td><code>UTF-8</code></td>
   </tr>
   <tr>
-    <td><code>node['db2']['instance']['default']['fenced_groupname']</code></td>
-    <td>fenced_groupname</td>
-    <td><code>db2fenc1</code></td>
+    <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['db_collate']</code></td>
+    <td>db_collate</td>
+    <td><code>SYSTEM</code></td>
   </tr>
   <tr>
-    <td><code>node['db2']['instance']['default']['fenced_password']</code></td>
-    <td>fenced_password</td>
-    <td><code></code></td>
-  </tr>
-  <tr>
-    <td><code>node['db2']['instance']['default']['fenced_username']</code></td>
-    <td>fenced_username</td>
-    <td><code>db2fenc1</code></td>
-  </tr>
-  <tr>
-    <td><code>node['db2']['instance']['default']['instance_dir']</code></td>
-    <td>instance_dir</td>
+    <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['db_data_path']</code></td>
+    <td>db_data_path</td>
     <td><code>/home/db2inst1</code></td>
   </tr>
   <tr>
-    <td><code>node['db2']['instance']['default']['instance_groupname']</code></td>
-    <td>instance_groupname</td>
-    <td><code>db2iadm1</code></td>
+    <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['db_name']</code></td>
+    <td>db_name</td>
+    <td><code>db01</code></td>
   </tr>
   <tr>
-    <td><code>node['db2']['instance']['default']['instance_password']</code></td>
-    <td>instance_password</td>
-    <td><code></code></td>
+    <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['db_path']</code></td>
+    <td>db_path</td>
+    <td><code>/home/db2inst1</code></td>
   </tr>
   <tr>
-    <td><code>node['db2']['instance']['default']['instance_prefix']</code></td>
-    <td>Instance prefix</td>
-    <td><code>DB2_INST</code></td>
-  </tr>
-  <tr>
-    <td><code>node['db2']['instance']['default']['instance_type']</code></td>
-    <td>Instance type</td>
-    <td><code>ESE</code></td>
-  </tr>
-  <tr>
-    <td><code>node['db2']['instance']['default']['instance_username']</code></td>
+    <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['instance_username']</code></td>
     <td>instance_username</td>
     <td><code>db2inst1</code></td>
   </tr>
   <tr>
-    <td><code>node['db2']['instance']['default']['port']</code></td>
+    <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['pagesize']</code></td>
+    <td>pagesize</td>
+    <td><code>4096</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['territory']</code></td>
+    <td>territory</td>
+    <td><code>US</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['fcm_port']</code></td>
+    <td>fcm_port</td>
+    <td><code>60000</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['fenced_groupname']</code></td>
+    <td>fenced_groupname</td>
+    <td><code>db2fenc1</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['fenced_password']</code></td>
+    <td>fenced_password</td>
+    <td><code></code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['fenced_username']</code></td>
+    <td>fenced_username</td>
+    <td><code>db2fenc1</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['instance_dir']</code></td>
+    <td>instance_dir</td>
+    <td><code>/home/db2inst1</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['instance_groupname']</code></td>
+    <td>instance_groupname</td>
+    <td><code>db2iadm1</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['instance_password']</code></td>
+    <td>instance_password</td>
+    <td><code></code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['instance_prefix']</code></td>
+    <td>Instance prefix</td>
+    <td><code>DB2_INST</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['instance_type']</code></td>
+    <td>Instance type</td>
+    <td><code>ESE</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['instance_username']</code></td>
+    <td>instance_username</td>
+    <td><code>db2inst1</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['port']</code></td>
     <td>port</td>
     <td><code>50000</code></td>
   </tr>
@@ -197,18 +197,11 @@ Cleanup recipe (cleanup.rb)
 This recipe will remove any temporary installation files created as part of the automation.
 
 
-### db2::create_database.rb
+### db2::create_db.rb
 
 
-create database recipe (create_database.rb)
-This recipe creates new db2 databases.
-
-
-### db2::create_instance.rb
-
-
-create instance recipe (create_instance.rb)
-This recipe creates new db2 instances.
+Create database recipe (create_db.rb)
+This recipe will create instances and databases as specified in attributes.
 
 
 ### db2::default.rb
