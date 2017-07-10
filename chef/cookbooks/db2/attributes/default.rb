@@ -44,7 +44,7 @@ default['db2']['fp_version'] = node['db2']['base_version']
 # <md>          :precedence_level => 'role',
 # <md>          :parm_type => 'component',
 # <md>          :secret => 'false'
-default['db2']['install_dir'] = '/opt/ibm/db2/V' + node['db2']['base_version'].split('.')[0, 2].join('.')
+default['db2']['install_dir'] = '/opt/ibm/db2/V' + node['db2']['fp_version'].split('.')[0, 2].join('.')
 
 ## das server
 # <> DB2 Administration Server (DAS) username
@@ -290,6 +290,61 @@ default['db2']['das_password'] = ''
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => 'SYSTEM',
+# <md>          :selectable => 'false',
+# <md>          :precedence_level => 'node',
+# <md>          :parm_type => 'node',
+# <md>          :secret => 'false'
+
+# <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_update/NEWLOGPATH',
+# <md>          :displayname => 'NEWLOGPATH',
+# <md>          :description => 'Path for active logs',
+# <md>          :type => 'string',
+# <md>          :required => 'recommended',
+# <md>          :default => 'default',
+# <md>          :selectable => 'false',
+# <md>          :precedence_level => 'node',
+# <md>          :parm_type => 'node',
+# <md>          :secret => 'false'
+
+# <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_update/FAILARCHPATH',
+# <md>          :displayname => 'FAILARCHPATH',
+# <md>          :description => 'Path for log archive',
+# <md>          :type => 'string',
+# <md>          :required => 'recommended',
+# <md>          :default => 'default',
+# <md>          :selectable => 'false',
+# <md>          :precedence_level => 'node',
+# <md>          :parm_type => 'node',
+# <md>          :secret => 'false'
+
+# <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_update/LOGARCHMETH1',
+# <md>          :displayname => 'LOGARCHMETH1',
+# <md>          :description => 'LOGARCHMETH1',
+# <md>          :type => 'string',
+# <md>          :required => 'recommended',
+# <md>          :default => 'default',
+# <md>          :selectable => 'false',
+# <md>          :precedence_level => 'node',
+# <md>          :parm_type => 'node',
+# <md>          :secret => 'false'
+
+# <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_update/LOGFILSIZ',
+# <md>          :displayname => 'LOGFILSIZ',
+# <md>          :description => 'LOGFILSIZ',
+# <md>          :type => 'string',
+# <md>          :required => 'recommended',
+# <md>          :default => 'default',
+# <md>          :selectable => 'false',
+# <md>          :precedence_level => 'node',
+# <md>          :parm_type => 'node',
+# <md>          :secret => 'false'
+
+# <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_update/LOGSECOND',
+# <md>          :displayname => 'LOGSECOND',
+# <md>          :description => 'LOGSECOND',
+# <md>          :type => 'string',
+# <md>          :required => 'recommended',
+# <md>          :default => 'default',
 # <md>          :selectable => 'false',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',

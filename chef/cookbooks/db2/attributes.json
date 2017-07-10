@@ -79,6 +79,63 @@
                             "selectable": "false",
                             "type": "string"
                         },
+                        "database_update": {
+                            "FAILARCHPATH": {
+                                "default": "default",
+                                "description": "Path for log archive",
+                                "displayname": "FAILARCHPATH",
+                                "parm_type": "node",
+                                "precedence_level": "node",
+                                "required": "recommended",
+                                "secret": "false",
+                                "selectable": "false",
+                                "type": "string"
+                            },
+                            "LOGARCHMETH1": {
+                                "default": "default",
+                                "description": "LOGARCHMETH1",
+                                "displayname": "LOGARCHMETH1",
+                                "parm_type": "node",
+                                "precedence_level": "node",
+                                "required": "recommended",
+                                "secret": "false",
+                                "selectable": "false",
+                                "type": "string"
+                            },
+                            "LOGFILSIZ": {
+                                "default": "default",
+                                "description": "LOGFILSIZ",
+                                "displayname": "LOGFILSIZ",
+                                "parm_type": "node",
+                                "precedence_level": "node",
+                                "required": "recommended",
+                                "secret": "false",
+                                "selectable": "false",
+                                "type": "string"
+                            },
+                            "LOGSECOND": {
+                                "default": "default",
+                                "description": "LOGSECOND",
+                                "displayname": "LOGSECOND",
+                                "parm_type": "node",
+                                "precedence_level": "node",
+                                "required": "recommended",
+                                "secret": "false",
+                                "selectable": "false",
+                                "type": "string"
+                            },
+                            "NEWLOGPATH": {
+                                "default": "default",
+                                "description": "Path for active logs",
+                                "displayname": "NEWLOGPATH",
+                                "parm_type": "node",
+                                "precedence_level": "node",
+                                "required": "recommended",
+                                "secret": "false",
+                                "selectable": "false",
+                                "type": "string"
+                            }
+                        },
                         "db_collate": {
                             "default": "SYSTEM",
                             "description": "db_collate",

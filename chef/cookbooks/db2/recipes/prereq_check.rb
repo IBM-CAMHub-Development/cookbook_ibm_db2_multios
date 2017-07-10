@@ -13,10 +13,19 @@ ibm_cloud_utils_hostsfile_update 'update_the_etc_hosts_file' do
   action :updateshosts
 end
 
-Chef::Log.info("Checking supported DB2 version")
+# Check provided version is supported
 raise "DB2 version #{node['db2']['version']} not supported" unless node['db2']['supported_versions'].include? node['db2']['version']
-Chef::Log.info("PASS: DB2 Version is: #{node['db2']['version']}")
 
+# Check supported base package
+raise "Package for DB2 version #{node['db2']['version']} not included in ['db2']['archive_names'] hash in internal.rb file" unless node['db2']['archive_names'].keys.find { |k| k.include? node['db2']['version'] }
+
+# Only allow fixpack level upgrades
+unless node['db2']['base_version'] == '0.0.0.0' || node['db2']['base_version'].casecmp('none').zero?
+  raise "Installing fixpack \'#{node['db2']['fp_version']}\' over base \'#{node['db2']['base_version']}\' is not supported." unless (node['db2']['base_version'].split('.')[0, 2] <=> node['db2']['fp_version'].split('.')[0, 2]) == 0
+  raise "Installing fixpack \'#{node['db2']['fp_version']}\' over base \'#{node['db2']['base_version']}\' is not supported." unless (node['db2']['base_version'].split('.')[2, 2] <=> node['db2']['fp_version'].split('.')[2, 2]) <= 0
+end
+
+# Validate database names
 unless node['db2']['instances'].empty?
   node['db2']['instances'].each_pair do |_i, d|
     next if d['databases'].nil?
@@ -26,12 +35,6 @@ unless node['db2']['instances'].empty?
     end
   end
 end
-
-raise "Package for DB2 version #{node['db2']['version']} not included in ['db2']['archive_names'] hash in internal.rb file" unless node['db2']['archive_names'].keys.find { |k| k.include? node['db2']['version'] }
-
-# Only allow fixpack level upgrades
-raise "Installing fixpack \'#{node['db2']['fp_version']}\' over base \'#{node['db2']['base_version']}\' is not supported." unless (node['db2']['base_version'].split('.')[0, 2] <=> node['db2']['fp_version'].split('.')[0, 2]) == 0
-raise "Installing fixpack \'#{node['db2']['fp_version']}\' over base \'#{node['db2']['base_version']}\' is not supported." unless (node['db2']['base_version'].split('.')[2, 2] <=> node['db2']['fp_version'].split('.')[2, 2]) <= 0
 
 # https://www.ibm.com/support/knowledgecenter/beta/SSEPGG_10.5.0/com.ibm.db2.luw.qb.server.doc/doc/t0008238.html
 raise "The value of kernel_sem_SEMMSL is lower than 250" if node['db2']['kernel_sem_SEMMSL'].to_i < 250
@@ -53,16 +56,17 @@ when 'Linux'
 end
 raise "The value of kernel.shmmax is lower than #{node['memory']['total'].sub(/kb/i, '').to_i * 1024}" if node['db2']['kernel']['kernel.shmmax'].to_i < node['memory']['total'].sub(/kb/i, '').to_i * 1024
 
+# Check packages are in software repo
 version = node['db2']['version'] + '.0.'+ node['db2']['included_fixpack']
 
 node['db2']['archive_names'].each_pair do |p, v|
   next if p.to_s != version
   filename = v['filename']
-  Chef::Log.info("Checking if file #{filename} exists")
   ruby_block "base_packages_validation" do
     block do
       require 'net/http'
       require 'openssl'
+      Chef::Log.info("Checking if file #{filename} exists")
       encrypted_id = node['db2']['vault']['encrypted_id']
       chef_vault = node['db2']['vault']['name']
       sw_repo_user = node['ibm']['sw_repo_user']
@@ -85,17 +89,18 @@ node['db2']['archive_names'].each_pair do |p, v|
       raise "#{res.code} Please make sure your DB2 package is available in your binary repository" if res.code == "404"
     end
     not_if { db2_installed?(node['db2']['install_dir'], node['db2']['version']) }
+    not_if { node['db2']['base_version'] == '0.0.0.0' }
   end
 end
 
 node['db2']['fixpack_names'].each_pair do |p, v|
   next if p.to_s != node['db2']['version'] || node['db2']['fixpack'] == "0"
   fp_filename = v['filename']
-  Chef::Log.info("Checking if file #{fp_filename} exists")
   ruby_block "fixpack_packages_validation" do
     block do
       require 'net/http'
       require 'openssl'
+      Chef::Log.info("Checking if file #{fp_filename} exists")
       encrypted_id = node['db2']['vault']['encrypted_id']
       chef_vault = node['db2']['vault']['name']
       sw_repo_user = node['ibm']['sw_repo_user']

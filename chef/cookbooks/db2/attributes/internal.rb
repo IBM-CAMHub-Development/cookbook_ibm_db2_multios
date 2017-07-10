@@ -16,16 +16,28 @@ default['ibm']['sw_repo_auth'] = "true"
 # <> Skip indexes
 force_override['db2']['skip_indexes'] = true
 
+normal['db2']['base_version'] = '0.0.0.0' if node['db2']['base_version'].casecmp('none').zero?
+
 # <> Wrap base/fp versions to internal versioning
-force_override['db2']['version'] = node['db2']['base_version'].split('.')[0, 2].join('.')
+force_override['db2']['version'] = if node['db2']['base_version'] == '0.0.0.0'
+                                     node['db2']['fp_version'].split('.')[0, 2].join('.')
+                                   else
+                                     node['db2']['base_version'].split('.')[0, 2].join('.')
+                                   end
 force_override['db2']['included_modpack'] = node['db2']['base_version'].split('.')[2]
 force_override['db2']['included_fixpack'] = node['db2']['base_version'].split('.')[3]
 force_override['db2']['modpack'] = node['db2']['fp_version'].split('.')[2]
-force_override['db2']['fixpack'] = if node['db2']['fp_version'] == node['db2']['base_version']
-                                     '0'
-                                   else
-                                     node['db2']['fp_version'].split('.')[3]
-                                   end
+
+case node['platform_family']
+when 'rhel'
+  force_override['db2']['fixpack'] = if node['db2']['fp_version'] == node['db2']['base_version']
+                                       '0'
+                                     else
+                                       node['db2']['fp_version'].split('.')[3]
+                                     end
+when 'debian'
+  force_override['db2']['fixpack'] = node['db2']['fp_version'].split('.')[3]
+end
 
 # <> Supported DB2 versions
 force_override['db2']['supported_versions'] = ['10.5', '11.1']
@@ -35,6 +47,12 @@ force_override['db2']['sw_repo_path'] = '/db2/v' + node['db2']['version'].delete
 
 # <> Fixpack package repo path
 force_override['db2']['fp_repo_path'] = '/db2/v' + node['db2']['version'].delete('.') + '/maint'
+
+# <> License package repo path
+force_override['db2']['sw_license_path'] = '/db2/v' + node['db2']['version'].delete('.') + '/license'
+
+# <> License zip package file name
+force_default['db2']['license_package'] = "DB2_ESE_AUSI_Activation_11.1.zip"
 
 case node['os']
 when 'linux'
@@ -55,10 +73,6 @@ when 'linux'
       '10.5'  => { 'filename' => 'v' + node['db2']['version'] + 'fp' + node['db2']['fixpack'] + '_linuxx64_server_t.tar.gz' },
       '11.1'  => { 'filename' => 'v' + node['db2']['version']+ '.' + node['db2']['modpack'] + 'fp' + node['db2']['fixpack'] + '_linuxx64_server_t.tar.gz' }
     }
-    # <> 64bit libraries required for DB2
-    force_default['db2']['os_libraries']['64bit'] = ["cpp", "compat-libstdc++-33", "gcc", "gcc-c++", "libaio", "libstdc++", "kernel-devel", "ksh", "nfs-utils", "openssh", "openssh-server", "pam", "redhat-lsb", "sg3_utils"]
-    # <> 32bit libraries required for DB2
-    force_default['db2']['os_libraries']['32bit'] = ["compat-libstdc++-33", "libstdc++", "pam"]
   end
   # <> An absolute path to a directory that will be used to hold any temporary files created as part of the automation
   default['ibm']['temp_dir'] = '/tmp/ibm_cloud'
@@ -72,6 +86,27 @@ when 'linux'
   default['ibm']['evidence_zip'] = "#{node['ibm']['evidence_path']}/db2-#{node['hostname']}.tar"
   # <> A temporary directory used for the extraction of installation files
   force_override['db2']['expand_area'] = node['ibm']['expand_area'] + '/db2'
+
+  case node['platform_family']
+  when 'rhel'
+    case node['kernel']['machine']
+    when 'x86_64'
+      # <> 64bit libraries required for DB2
+      force_default['db2']['os_libraries']['64bit'] = ["cpp", "compat-libstdc++-33", "gcc", "gcc-c++", "libaio", "libstdc++", "kernel-devel", "ksh", "nfs-utils", "openssh", "openssh-server", "pam", "redhat-lsb", "sg3_utils"]
+      # <> 32bit libraries required for DB2
+      force_default['db2']['os_libraries']['32bit'] = ["compat-libstdc++-33", "libstdc++", "pam"]
+    end
+  when 'debian'
+    # <> Override base version (installing directly from fixpack)
+    force_override['db2']['base_version'] = "0.0.0.0"
+    case node['kernel']['machine']
+    when 'x86_64'
+      # <> 64bit libraries required for DB2
+      force_default['db2']['os_libraries']['64bit'] = ["cpp", "gcc", "ksh", "openssh-server", "rpm", "unzip", "binutils", "libaio1"]
+      # <> 32bit libraries required for DB2
+      force_default['db2']['os_libraries']['32bit'] = [ "libpam0g:i386", "libx32stdc++6"]
+    end
+  end
 when 'windows'
   # <> An absolute path to a directory that will be used to hold any temporary files created as part of the automation
   default['ibm']['temp_dir'] = 'C:\\temp\\ibm_cloud'

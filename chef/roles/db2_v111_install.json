@@ -23,6 +23,7 @@
     "recipe[db2::prereq]",
     "recipe[db2::install]",
     "recipe[db2::fixpack]",
+    "recipe[db2::license]",
     "recipe[db2::gather_evidence]",
     "recipe[db2::cleanup]"
   ]

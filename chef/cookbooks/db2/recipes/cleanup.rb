@@ -9,7 +9,6 @@
 
 cookbook_expandarea = node['db2']['expand_area']
 
-Chef::Log.info("Cleanup #{cookbook_expandarea} \n")
 directory "Deleting db2 expand area" do
   path cookbook_expandarea
   recursive true

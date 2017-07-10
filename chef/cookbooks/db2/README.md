@@ -96,6 +96,31 @@ Attributes
     <td><code>UTF-8</code></td>
   </tr>
   <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_update']['FAILARCHPATH']</code></td>
+    <td>Path for log archive</td>
+    <td><code>default</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_update']['LOGARCHMETH1']</code></td>
+    <td>LOGARCHMETH1</td>
+    <td><code>default</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_update']['LOGFILSIZ']</code></td>
+    <td>LOGFILSIZ</td>
+    <td><code>default</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_update']['LOGSECOND']</code></td>
+    <td>LOGSECOND</td>
+    <td><code>default</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_update']['NEWLOGPATH']</code></td>
+    <td>Path for active logs</td>
+    <td><code>default</code></td>
+  </tr>
+  <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['db_collate']</code></td>
     <td>db_collate</td>
     <td><code>SYSTEM</code></td>
@@ -237,6 +262,13 @@ This recipe performs security hardening tasks.
 
 Installation recipe (install.rb)
 This recipe performs the product installation.
+
+
+### db2::license.rb
+
+
+License recipe (license.rb)
+This recipe will apply the license file from a repo server, in case a base package cannot be installed.
 
 
 ### db2::prereq.rb

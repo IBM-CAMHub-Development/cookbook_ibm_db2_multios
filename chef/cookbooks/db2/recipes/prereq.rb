@@ -30,26 +30,54 @@ ibm_cloud_utils_ram "Check RAM" do
 end
 
 # Install prerequisites
+case node['platform_family']
+when 'rhel'
 
-execute 'enable_extra_repository' do
-  command 'yum-config-manager --enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional'
-  only_if { node['db2']['os_libraries']['32bit'].include?('compat-libstdc++-33') }
-  not_if 'yum list compat-libstdc++-33'
-  only_if { node['platform_family'] == 'rhel' }
-  only_if { node['platform_version'].split('.').first.to_i >= 7 }
-  not_if { File.foreach('/sys/devices/virtual/dmi/id/bios_version').grep(/amazon$/).empty? }
-end
+  execute 'enable_extra_repository' do
+    command 'yum-config-manager --enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional'
+    only_if { node['db2']['os_libraries']['32bit'].include?('compat-libstdc++-33') }
+    not_if 'yum list compat-libstdc++-33'
+    only_if { node['platform_family'] == 'rhel' }
+    only_if { node['platform_version'].split('.').first.to_i >= 7 }
+    not_if { File.foreach('/sys/devices/virtual/dmi/id/bios_version').grep(/amazon$/).empty? }
+  end
 
-yum_package 'install_prerequisites_64bit' do
-  package_name node['db2']['os_libraries']['64bit']
-  arch 'x86_64'
-  action :upgrade
-end
+  yum_package 'install_prerequisites_64bit' do
+    package_name node['db2']['os_libraries']['64bit']
+    arch 'x86_64'
+    action :upgrade
+  end
 
-yum_package 'install_prerequisites_32bit' do
-  package_name node['db2']['os_libraries']['32bit']
-  arch 'i686'
-  action :upgrade
+  yum_package 'install_prerequisites_32bit' do
+    package_name node['db2']['os_libraries']['32bit']
+    arch 'i686'
+    action :upgrade
+  end
+when 'debian'
+
+  execute 'enable_extra_repository' do
+    command 'dpkg --add-architecture i386'
+    only_if { node['db2']['os_libraries']['32bit'].include?('libpam0g:i386') }
+    only_if { node['db2']['os_libraries']['32bit'].include?('libx32stdc++6') }
+    only_if { node['platform_version'].split('.').first.to_i >= 16 }
+  end
+
+  execute 'update_os_packages' do
+    command 'apt-get update'
+    only_if { node['db2']['os_libraries']['32bit'].include?('libpam0g:i386') }
+    only_if { node['db2']['os_libraries']['32bit'].include?('libx32stdc++6') }
+    only_if { node['platform_version'].split('.').first.to_i >= 16 }
+  end
+
+  apt_package 'install_prerequisites_64bit' do
+    package_name node['db2']['os_libraries']['64bit']
+    action :install
+  end
+
+  apt_package 'install_prerequisites_32bit' do
+    package_name node['db2']['os_libraries']['32bit']
+    action :install
+  end
 end
 
 [node['ibm']['log_dir'], node['db2']['expand_area']].each do |dir|
@@ -76,7 +104,7 @@ unless chef_vault.empty?
   require 'chef-vault'
   das_password = chef_vault_item(chef_vault, encrypted_id)['db2']['das_password']
   raise "No password found for DAS user in chef vault \'#{chef_vault}\'" if das_password.empty?
-  Chef::Log.info "Found a password for DAS user in chef vault \'#{chef_vault}\'"
+  log "Found a password for DAS user in chef vault \'#{chef_vault}\'"
 end
 
 ## Create DB2 repsonse file for DB2 installation

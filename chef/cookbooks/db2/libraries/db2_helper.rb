@@ -10,15 +10,24 @@ include Chef::Mixin::ShellOut
 module DB2
   # Helper module
   module Helper
+    def db2_installed_version(install_dir)
+      return '0.0.0.0' unless File.exist?("#{install_dir}/install/db2ls")
+      case node['os']
+      when 'linux'
+        cmd = shell_out!("#{install_dir}/install/db2ls -c")
+        cmd.stdout.lines.grep(/\d+\.\d+\.\d+\.\d+/)[0].split(':')[1].strip
+      end
+    end
+
     def db2_installed?(install_dir, version)
-      Chef::Log.debug "db2_installed? params: install_dir: #{install_dir}, version: #{version}"
       return false unless File.exist?("#{install_dir}/install/db2ls")
       case node['os']
       when 'linux'
         cmd = shell_out!("#{install_dir}/install/db2ls -c")
-        match = cmd.stdout.lines.grep(/(\d+\.\d+\.\d+)/)[0].split(':')[1].strip
+        instver = cmd.stdout.lines.grep(/\d+\.\d+\.\d+\.\d+/)[0].split(':')[1].strip
+        Chef::Log.info("Installed version: #{instver}")
       end
-      cmd.stderr.empty? && (match =~ /^#{version}/)
+      cmd.stderr.empty? && !(instver =~ /^#{version}/).nil?
     end
 
     def db2_fp_installed?(install_dir, fixpack)
@@ -27,10 +36,10 @@ module DB2
       case node['os']
       when 'linux'
         cmd = shell_out!("#{install_dir}/install/db2ls -c")
-        match = cmd.stdout.lines.grep(/(\d+\.\d+\.\d+)/)[0].split(':')[2].strip
+        instfp = cmd.stdout.lines.grep(/\d+\.\d+\.\d+\.\d+/)[0].split(':')[2].strip
       end
-      raise "The db2_fixpack resource detected that the fix pack version being used is at a lower level #{fixpack} than the installed product's level #{match}." if fixpack.to_i < match.to_i
-      cmd.stderr.empty? && (match =~ /#{fixpack}/)
+      raise "The db2_fixpack resource detected that the fix pack version being used is at a lower level #{fixpack} than the installed product's level #{instfp}." if fixpack.to_i < instfp.to_i
+      cmd.stderr.empty? && !(instfp =~ /#{fixpack}/).nil?
     end
 
     def db2_instance_created?(install_dir, instance)
@@ -97,7 +106,8 @@ module DB2
 
     def db2_list_instances(db2_install_dir)
       Chef::Log.debug "db2_list_instances? params: db2_install_dir: #{db2_install_dir}"
-      cmd = shell_out!("#{db2_install_dir}/bin/db2ilist") if File.exist?("#{db2_install_dir}/bin/db2ilist")
+      return [] unless File.exist?("#{db2_install_dir}/bin/db2ilist")
+      cmd = shell_out!("#{db2_install_dir}/bin/db2ilist")
       instances=[]
       cmd.stdout.each_line do |line|
         instances.push line.chomp

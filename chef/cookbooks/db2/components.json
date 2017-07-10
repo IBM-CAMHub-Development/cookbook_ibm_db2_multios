@@ -27,6 +27,13 @@
                         "databases": {
                             "database($INDEX)": {
                                 "codeset": "UTF-8",
+                                "database_update": {
+                                    "FAILARCHPATH": "default",
+                                    "LOGARCHMETH1": "default",
+                                    "LOGFILSIZ": "default",
+                                    "LOGSECOND": "default",
+                                    "NEWLOGPATH": "default"
+                                },
                                 "db_collate": "SYSTEM",
                                 "db_data_path": "/home/db2inst1",
                                 "db_name": "db01",

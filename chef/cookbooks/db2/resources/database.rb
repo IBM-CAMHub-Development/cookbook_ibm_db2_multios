@@ -18,6 +18,7 @@ attribute :pagesize, :kind_of => String, :default => ''
 attribute :territory, :kind_of => String, :default => ''
 attribute :codeset, :kind_of => String, :default => ''
 attribute :db_collate, :kind_of => String, :default => ''
+attribute :database_update, :kind_of => Hash, :default => {}
 
 attr_accessor :db2_database_created
 attr_accessor :db2_instance_created

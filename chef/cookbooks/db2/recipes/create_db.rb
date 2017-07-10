@@ -13,7 +13,7 @@ node['db2']['instances'].each_pair do |instance, attrs|
   inst_password = instance_password(instance, attrs['instance_username'])
   fenc_password = fenced_password(instance, attrs['fenced_username'])
 
-  db2_instance attrs['instance_username'] do
+  db2_instance "Create instance #{attrs['instance_username']}" do
     instance_prefix attrs['instance_prefix']
     instance_type attrs['instance_type']
     instance_username attrs['instance_username']
@@ -31,7 +31,7 @@ node['db2']['instances'].each_pair do |instance, attrs|
   attrs['databases'].each_pair do |db, p|
     next if db.match('INDEX') && node['db2']['skip_indexes']
 
-    db2_database p['db_name'] do
+    db2_database "Create database #{p['db_name']}" do
       instance_username attrs['instance_username']
       instance_groupname attrs['instance_groupname']
       db_name p['db_name']
@@ -41,6 +41,7 @@ node['db2']['instances'].each_pair do |instance, attrs|
       territory p['territory']
       codeset p['codeset']
       db_collate p['db_collate'].to_s.upcase
+      database_update p['database_update'] unless p['database_update'].nil?
       action :create
     end
   end

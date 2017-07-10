@@ -15,7 +15,14 @@
               "pagesize": "4096",
               "territory": "US",
               "codeset": "UTF-8",
-              "db_collate": "SYSTEM"
+              "db_collate": "SYSTEM",
+              "database_update": {
+                "NEWLOGPATH": "default",
+                "FAILARCHPATH": "default",
+                "LOGARCHMETH1": "default",
+                "LOGFILSIZ": "default",
+                "LOGSECOND": "default"
+              }
             }
           },
           "instance_username": "db2inst1",

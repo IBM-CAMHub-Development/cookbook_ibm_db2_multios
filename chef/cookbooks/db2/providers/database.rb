@@ -50,11 +50,53 @@ action :create do
       cmd += " TERRITORY #{new_resource.territory}" unless new_resource.territory.empty?
       cmd += " COLLATE USING #{new_resource.db_collate}" unless new_resource.db_collate.empty?
       cmd += " PAGESIZE #{new_resource.pagesize}" unless new_resource.pagesize.empty?
-      execute "create database(#{new_resource.db_name})" do
+      execute "Create database(#{new_resource.db_name})" do
         command "su - #{new_resource.instance_username} -s /bin/bash -c \"db2 '#{cmd}' | tee -a ~/db2_create_database_#{new_resource.db_name}.log\""
       end
       execute "Save log for #{new_resource.db_name}" do
         command "mv #{Etc.getpwnam(new_resource.instance_username).dir}/db2_create_database_#{new_resource.db_name}.log #{node['ibm']['log_dir']}"
+      end
+    end
+
+    # update database
+    # this is 'install only', updates on prod db should not be performed without proper backup configuration
+    unless new_resource.database_update.empty?
+      dummy_backup = false
+      new_resource.database_update.each_pair do |option, value|
+        next if value.casecmp('default').zero?
+        dummy_backup = true
+        if option.casecmp('NEWLOGPATH').zero? || option.casecmp('FAILARCHPATH').zero?
+          subdirs, _reason = subdirs_to_create(value, new_resource.instance_username)
+          # raise reason unless reason.empty?
+          subdirs.each do |dir|
+            directory "create #{option}: #{dir}" do
+              path dir
+              action :create
+              owner new_resource.instance_username
+              group new_resource.instance_groupname
+              recursive true
+            end
+          end
+        end
+        execute "Update #{new_resource.db_name} using #{option} = #{value}" do
+          command "su - #{new_resource.instance_username} -s /bin/bash -c \"db2 UPDATE DB CFG FOR #{new_resource.db_name} USING #{option} #{value} DEFERRED\""
+        end
+      end
+
+      # perform dummy backup to enable updates
+      execute "Perform dummy backup #{new_resource.db_name} to enable updates" do
+        command "su - #{new_resource.instance_username} -s /bin/bash -c \"db2 BACKUP DB #{new_resource.db_name} TO /dev/null\""
+        only_if { dummy_backup }
+      end
+      
+      # ... and restart instance
+      db2_service "Stop instance #{new_resource.instance_username}" do
+        instance_username new_resource.instance_username
+        action :stop_instance
+      end
+      db2_service "Start instance #{new_resource.instance_username}" do
+        instance_username new_resource.instance_username
+        action :start_instance
       end
     end
   else

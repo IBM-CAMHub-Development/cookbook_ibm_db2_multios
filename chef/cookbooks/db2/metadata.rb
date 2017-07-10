@@ -4,7 +4,7 @@ maintainer_email ''
 license          'Copyright IBM Corp. 2017, 2017'
 depends          'ibm_cloud_utils'
 depends          'linux'
-version '0.1.33'
+version '0.1.35'
 description <<-EOH
 ## DESCRIPTION
 The db2 cookbook contains features and functions to support the installation and management of IBM DB2.
@@ -104,6 +104,56 @@ attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/codeset',
           :default => 'UTF-8',
           :description => 'codeset',
           :displayname => 'codeset',
+          :parm_type => 'node',
+          :precedence_level => 'node',
+          :required => 'recommended',
+          :secret => 'false',
+          :selectable => 'false',
+          :type => 'string'
+attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_update/FAILARCHPATH',
+          :default => 'default',
+          :description => 'Path for log archive',
+          :displayname => 'FAILARCHPATH',
+          :parm_type => 'node',
+          :precedence_level => 'node',
+          :required => 'recommended',
+          :secret => 'false',
+          :selectable => 'false',
+          :type => 'string'
+attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_update/LOGARCHMETH1',
+          :default => 'default',
+          :description => 'LOGARCHMETH1',
+          :displayname => 'LOGARCHMETH1',
+          :parm_type => 'node',
+          :precedence_level => 'node',
+          :required => 'recommended',
+          :secret => 'false',
+          :selectable => 'false',
+          :type => 'string'
+attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_update/LOGFILSIZ',
+          :default => 'default',
+          :description => 'LOGFILSIZ',
+          :displayname => 'LOGFILSIZ',
+          :parm_type => 'node',
+          :precedence_level => 'node',
+          :required => 'recommended',
+          :secret => 'false',
+          :selectable => 'false',
+          :type => 'string'
+attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_update/LOGSECOND',
+          :default => 'default',
+          :description => 'LOGSECOND',
+          :displayname => 'LOGSECOND',
+          :parm_type => 'node',
+          :precedence_level => 'node',
+          :required => 'recommended',
+          :secret => 'false',
+          :selectable => 'false',
+          :type => 'string'
+attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_update/NEWLOGPATH',
+          :default => 'default',
+          :description => 'Path for active logs',
+          :displayname => 'NEWLOGPATH',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
@@ -317,6 +367,10 @@ This recipe performs security hardening tasks.
 recipe 'db2::install.rb', '
 Installation recipe (install.rb)
 This recipe performs the product installation.
+'
+recipe 'db2::license.rb', '
+License recipe (license.rb)
+This recipe will apply the license file from a repo server, in case a base package cannot be installed.
 '
 recipe 'db2::prereq.rb', '
 Prerequisite recipe (prereq.rb)

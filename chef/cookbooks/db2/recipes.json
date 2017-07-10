@@ -42,6 +42,12 @@
                 "This recipe performs the product installation."
             ]
         },
+        "license.rb": {
+            "description": [
+                "License recipe (license.rb)",
+                "This recipe will apply the license file from a repo server, in case a base package cannot be installed."
+            ]
+        },
         "prereq.rb": {
             "description": [
                 "Prerequisite recipe (prereq.rb)",
