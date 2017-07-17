@@ -43,3 +43,10 @@ execute 'Install db2' do
   command "./db2setup -l #{node['ibm']['log_dir']}/DB2_install.log -r #{node['db2']['expand_area']}/db2_install.rsp"
   not_if { db2_installed?(node['db2']['install_dir'], node['db2']['version']) }
 end
+
+# Enable db2fmcd for DB2 v10 on systemd
+service 'db2fmcd' do
+  action [:enable, :start]
+  only_if { node['init_package'] == 'systemd' }
+  not_if { node['db2']['fp_version'].split('.').first.to_i > 10 }
+end

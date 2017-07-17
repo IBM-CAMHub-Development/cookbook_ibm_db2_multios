@@ -107,7 +107,7 @@ unless chef_vault.empty?
   log "Found a password for DAS user in chef vault \'#{chef_vault}\'"
 end
 
-## Create DB2 repsonse file for DB2 installation
+# Create DB2 repsonse file for DB2 installation
 rsp_file = "#{node['db2']['expand_area']}/db2_install.rsp"
 template rsp_file do
   source 'db2_install.rsp.erb'
@@ -120,6 +120,19 @@ template rsp_file do
     :DAS_PASSWORD => das_password
   )
   not_if { db2_installed?(node['db2']['install_dir'], node['db2']['version']) }
+end
+
+# Create service file for DB2 v10 on systemd systems
+template '/etc/systemd/system/db2fmcd.service' do
+  source 'db2fmcd.service.erb'
+  owner 'root'
+  group 'root'
+  mode '0640'
+  variables(
+    :INSTALL_DIR => node['db2']['install_dir']
+  )
+  only_if { node['init_package'] == 'systemd' }
+  not_if { node['db2']['fp_version'].split('.').first.to_i > 10 }
 end
 
 node['db2']['kernel'].each_pair do |k, v|
