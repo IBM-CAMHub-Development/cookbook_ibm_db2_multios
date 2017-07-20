@@ -102,7 +102,7 @@ when 'linux'
     case node['kernel']['machine']
     when 'x86_64'
       # <> 64bit libraries required for DB2
-      force_default['db2']['os_libraries']['64bit'] = ["cpp", "gcc", "ksh", "openssh-server", "rpm", "unzip", "binutils", "libaio1"]
+      force_default['db2']['os_libraries']['64bit'] = ["cpp", "gcc", "ksh", "openssh-server", "rpm", "unzip", "binutils", "libaio1", "libnuma1"]
       # <> 32bit libraries required for DB2
       force_default['db2']['os_libraries']['32bit'] = [ "libpam0g:i386", "libx32stdc++6"]
     end

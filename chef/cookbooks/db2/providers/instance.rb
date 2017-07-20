@@ -45,17 +45,6 @@ action :create do
         end
       end
 
-      # Manage users / groups
-      group new_resource.instance_groupname do
-        action :create
-      end
-      user new_resource.instance_username do
-        action :create
-        home instance_dir
-        gid new_resource.instance_groupname
-        manage_home true
-      end
-
       # Manage ulimits for instance user
       template "/etc/security/limits.d/50-db2-#{new_resource.instance_username}.conf" do
         source 'db2_limits.conf.erb'

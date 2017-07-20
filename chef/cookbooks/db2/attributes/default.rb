@@ -8,7 +8,7 @@
 # <md>attribute 'db2/base_version',
 # <md>          :displayname => 'DB2BaseVersion',
 # <md>          :description => 'The version of DB2 to install.',
-# <md>          :choice => [ '10.5.0.3', '10.5.0.8', '11.1.0.0' ],
+# <md>          :choice => [ '10.5.0.3', '10.5.0.8', '11.1.0.0', 'none' ],
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => '10.5.0.8',

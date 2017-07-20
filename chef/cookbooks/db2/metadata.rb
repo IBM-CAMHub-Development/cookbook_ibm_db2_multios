@@ -4,7 +4,7 @@ maintainer_email ''
 license          'Copyright IBM Corp. 2017, 2017'
 depends          'ibm_cloud_utils'
 depends          'linux'
-version '0.1.36'
+version '0.1.37'
 description <<-EOH
 ## DESCRIPTION
 The db2 cookbook contains features and functions to support the installation and management of IBM DB2.
@@ -49,10 +49,11 @@ end
 ```
 EOH
 attribute 'db2/base_version',
-          :choice => ['10.5.0.3', '10.5.0.8', '11.1.0.0'],
+          :choice => ['10.5.0.3', '10.5.0.8', '11.1.0.0', 'none'],
           :default => '10.5.0.8',
           :description => 'The version of DB2 to install.',
           :displayname => 'DB2BaseVersion',
+          :options => ['10.5.0.3', '10.5.0.8', '11.1.0.0', 'none'],
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
@@ -94,6 +95,7 @@ attribute 'db2/install_dir',
           :default => '/opt/ibm/db2/V10.5',
           :description => 'The directory to install DB2 Binaries, reccomended /opt/ibm/db2/V<db2_version>',
           :displayname => 'InstallDir',
+          :options => ['/opt/ibm/db2/V10.5', '/opt/ibm/db2/V11.1'],
           :parm_type => 'component',
           :precedence_level => 'role',
           :required => 'recommended',

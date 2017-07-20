@@ -4,11 +4,18 @@
             "choice": [
                 "10.5.0.3",
                 "10.5.0.8",
-                "11.1.0.0"
+                "11.1.0.0",
+                "none"
             ],
             "default": "10.5.0.8",
             "description": "The version of DB2 to install.",
             "displayname": "DB2BaseVersion",
+            "options": [
+                "10.5.0.3",
+                "10.5.0.8",
+                "11.1.0.0",
+                "none"
+            ],
             "parm_type": "node",
             "precedence_level": "node",
             "required": "recommended",
@@ -57,6 +64,10 @@
             "default": "/opt/ibm/db2/V10.5",
             "description": "The directory to install DB2 Binaries, reccomended /opt/ibm/db2/V<db2_version>",
             "displayname": "InstallDir",
+            "options": [
+                "/opt/ibm/db2/V10.5",
+                "/opt/ibm/db2/V11.1"
+            ],
             "parm_type": "component",
             "precedence_level": "role",
             "required": "recommended",
