@@ -114,6 +114,7 @@ template rsp_file do
   owner 'root'
   group 'root'
   mode '0644'
+  sensitive true
   variables(
     :VERSION => node['db2']['version'],
     :DAS_USERNAME => node['db2']['das_username'],

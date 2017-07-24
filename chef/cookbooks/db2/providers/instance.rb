@@ -14,6 +14,9 @@ action :create do
   else
     converge_by("Install #{@new_resource}") do
       raise "db2 instance prefix is limited to 8 character" if new_resource.instance_prefix.length > 8
+      if ::File.exist?(new_resource.instance_dir)
+        raise "Instance directory #{new_resource.instance_dir} exists and not owned by #{new_resource.instance_username}" unless ::Etc.getpwuid(::File.stat(new_resource.instance_dir).uid).name == new_resource.instance_username
+      end
       [new_resource.rsp_file_path, new_resource.log_dir].each do |path|
         directory "Creating #{path} for new instance #{new_resource.instance_username}" do
           path path
@@ -63,6 +66,7 @@ action :create do
         owner 'root'
         group 'root'
         mode '0644'
+        sensitive true
         variables(
           :INSTANCE_PREFIX => new_resource.instance_prefix,
           :DB2_INSTALL_DIR => new_resource.db2_install_dir,
