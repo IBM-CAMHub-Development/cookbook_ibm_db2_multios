@@ -40,8 +40,11 @@ node['db2']['instances'].each_pair do |instance, attrs|
       pagesize p['pagesize']
       territory p['territory']
       codeset p['codeset']
-      db_collate p['db_collate'].to_s.upcase
+      db_collate p['db_collate']
       database_update p['database_update'] unless p['database_update'].nil?
+      database_users p['database_users'] unless p['database_users'].nil?
+      instance_key instance # needed for password retriebal of db users
+      database_key db       # needed for password retriebal of db users
       action :create
     end
   end

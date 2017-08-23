@@ -2,17 +2,19 @@ Db2 Cookbook
 ============
 
 ## DESCRIPTION
-The db2 cookbook contains features and functions to support the installation and management of IBM DB2.
+The db2 cookbook contains features and functions to support the installation, configuration, and management of IBM DB2.
 ## Platforms Support
-* RHEL 6.x
+* RHEL 6.x or greater
+* Ubuntu Server 14.04 or greater
 ## Versions
-* IBM DB2 V10.5
+* IBM DB2 V10.5 (except on Ubuntu 16+)
+* IBM DB2 V11.1
 ## Use Cases
 * Single installation with no configuration.
-* SIngle installation with 1..n instances defined.
-* SIngle installation with 1..n instances defined and 1..n databases defined for each instance
+* Single installation with 1..n instances defined.
+* Single installation with 1..n instances defined and 1..n databases defined for each instance
 ## Platform Pre-Requisites
-* Linux YUM Repository - An onsite linux YUM Repsoitory is required.
+* OS Package Repository - Access to a linux yum/apt repository is required.
 ## Software Repository
 SW_REPO_ROOT -> Stored in the ['ibm']['sw_repo'] attribute.
 Relative to the software repository, the installation files must be stored in the following location.
@@ -67,7 +69,7 @@ Attributes
   </tr>
   <tr>
     <td><code>node['db2']['base_version']</code></td>
-    <td>The version of DB2 to install.</td>
+    <td>The base version of DB2 to install. Set to none if installing from fix package.</td>
     <td><code>10.5.0.8</code></td>
   </tr>
   <tr>
@@ -82,132 +84,162 @@ Attributes
   </tr>
   <tr>
     <td><code>node['db2']['fp_version']</code></td>
-    <td>The version of DB2 fixpack to install. If no fixpack is required, set this value the same as base_version.</td>
+    <td>The version of DB2 fix pack to install. If no fix pack is required, set this value the same as DB2 base version.</td>
     <td><code>10.5.0.8</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['install_dir']</code></td>
-    <td>The directory to install DB2 Binaries, reccomended /opt/ibm/db2/V<db2_version></td>
+    <td>The directory to install DB2. Recommended: /opt/ibm/db2/V<db2_version></td>
     <td><code>/opt/ibm/db2/V10.5</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['codeset']</code></td>
-    <td>codeset</td>
+    <td>Codeset is used by the database manager to determine codepage parameter values.</td>
     <td><code>UTF-8</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_update']['FAILARCHPATH']</code></td>
-    <td>Path for log archive</td>
+    <td>The path to be used for archiving log files.</td>
     <td><code>default</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_update']['LOGARCHMETH1']</code></td>
-    <td>LOGARCHMETH1</td>
+    <td>Specifies the media type of the primary destination for logs that are archived.</td>
     <td><code>default</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_update']['LOGFILSIZ']</code></td>
-    <td>LOGFILSIZ</td>
+    <td>Specifies the size of log files.</td>
     <td><code>default</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_update']['LOGSECOND']</code></td>
-    <td>LOGSECOND</td>
+    <td>Specifies the number of secondary log files that are created and used for recovery log files.</td>
     <td><code>default</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_update']['NEWLOGPATH']</code></td>
-    <td>Path for active logs</td>
+    <td>The path to be used for database logging.</td>
     <td><code>default</code></td>
   </tr>
   <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_users']['db_user($INDEX)']['ldap_user']</code></td>
+    <td>Specifies if user is in LDAP.</td>
+    <td><code>false</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_users']['db_user($INDEX)']['user_access']</code></td>
+    <td>Database access to be granted. Example: DBADM WITH DATAACCESS WITHOUT ACCESSCTRL</td>
+    <td><code>none</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_users']['db_user($INDEX)']['user_gid']</code></td>
+    <td>Specifies the name of the Operating System group for database users.</td>
+    <td><code>grp1</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_users']['db_user($INDEX)']['user_home']</code></td>
+    <td>The database user home directory.</td>
+    <td><code>default</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_users']['db_user($INDEX)']['user_name']</code></td>
+    <td>A user name to be granted database access.</td>
+    <td><code>user1</code></td>
+  </tr>
+  <tr>
+    <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_users']['db_user($INDEX)']['user_password']</code></td>
+    <td>The password for the datbase user name</td>
+    <td><code></code></td>
+  </tr>
+  <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['db_collate']</code></td>
-    <td>db_collate</td>
+    <td>Collate determines ordering for a set of characters.</td>
     <td><code>SYSTEM</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['db_data_path']</code></td>
-    <td>db_data_path</td>
+    <td>Specifies the DB2 database data path.</td>
     <td><code>/home/db2inst1</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['db_name']</code></td>
-    <td>db_name</td>
+    <td>The name of the database to be created.</td>
     <td><code>db01</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['db_path']</code></td>
-    <td>db_path</td>
+    <td>Specifies the DB2 database path.</td>
     <td><code>/home/db2inst1</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['instance_username']</code></td>
-    <td>instance_username</td>
+    <td>The DB2 instance username controls all DB2 processes and owns all filesystems and devices.</td>
     <td><code>db2inst1</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['pagesize']</code></td>
-    <td>pagesize</td>
+    <td>Specifies the page size in bytes.</td>
     <td><code>4096</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['territory']</code></td>
-    <td>territory</td>
+    <td>Territory is used by the database manager when processing data that is territory sensitive.</td>
     <td><code>US</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['fcm_port']</code></td>
-    <td>fcm_port</td>
+    <td>The port for the DB2 Fast Communications Manager (FCM).</td>
     <td><code>60000</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['fenced_groupname']</code></td>
-    <td>fenced_groupname</td>
+    <td>The group name for the DB2 fenced user.</td>
     <td><code>db2fenc1</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['fenced_password']</code></td>
-    <td>fenced_password</td>
+    <td>The password for the DB2 fenced username.</td>
     <td><code></code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['fenced_username']</code></td>
-    <td>fenced_username</td>
+    <td>The fenced user is used to run user defined functions and stored procedures outside of the address space used by the DB2 database.</td>
     <td><code>db2fenc1</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['instance_dir']</code></td>
-    <td>instance_dir</td>
+    <td>The DB2 instance directory stores all information that pertains to a database instance.</td>
     <td><code>/home/db2inst1</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['instance_groupname']</code></td>
-    <td>instance_groupname</td>
+    <td>The group name for the DB2 instance user.</td>
     <td><code>db2iadm1</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['instance_password']</code></td>
-    <td>instance_password</td>
+    <td>The password for the DB2 instance username.</td>
     <td><code></code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['instance_prefix']</code></td>
-    <td>Instance prefix</td>
+    <td>Specifies the DB2 instance prefix</td>
     <td><code>DB2_INST</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['instance_type']</code></td>
-    <td>Instance type</td>
+    <td>The type of DB2 instance to create.</td>
     <td><code>ESE</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['instance_username']</code></td>
-    <td>instance_username</td>
+    <td>The DB2 instance username controls all DB2 processes and owns all filesystems and devices.</td>
     <td><code>db2inst1</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['port']</code></td>
-    <td>port</td>
+    <td>The port to connect to the DB2 instance.</td>
     <td><code>50000</code></td>
   </tr>
 </table>

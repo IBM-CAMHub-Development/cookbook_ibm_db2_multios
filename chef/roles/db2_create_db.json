@@ -22,6 +22,16 @@
                 "LOGARCHMETH1": "default",
                 "LOGFILSIZ": "default",
                 "LOGSECOND": "default"
+              },
+              "database_users": {
+                "db_user($INDEX)": {
+                  "user_name": "user1",
+                  "user_gid": "grp1",
+                  "user_password": "",
+                  "user_home": "default",
+                  "ldap_user": "false",
+                  "user_access": "none"
+                }
               }
             }
           },

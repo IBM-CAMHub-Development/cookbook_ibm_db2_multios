@@ -57,16 +57,10 @@ when 'debian'
 
   execute 'enable_extra_repository' do
     command 'dpkg --add-architecture i386'
-    only_if { node['db2']['os_libraries']['32bit'].include?('libpam0g:i386') }
-    only_if { node['db2']['os_libraries']['32bit'].include?('libx32stdc++6') }
-    only_if { node['platform_version'].split('.').first.to_i >= 16 }
   end
 
-  execute 'update_os_packages' do
+  execute 'update repos' do
     command 'apt-get update'
-    only_if { node['db2']['os_libraries']['32bit'].include?('libpam0g:i386') }
-    only_if { node['db2']['os_libraries']['32bit'].include?('libx32stdc++6') }
-    only_if { node['platform_version'].split('.').first.to_i >= 16 }
   end
 
   apt_package 'install_prerequisites_64bit' do

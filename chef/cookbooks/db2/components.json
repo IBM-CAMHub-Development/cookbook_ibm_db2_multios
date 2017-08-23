@@ -13,7 +13,17 @@
                                 "$count": "0",
                                 "$displayname": "DB2 databases",
                                 "$key": "database",
-                                "$max": "4"
+                                "$max": "4",
+                                "database($INDEX)": {
+                                    "$dynamicmaps": {
+                                        "database_users": {
+                                            "$count": "0",
+                                            "$displayname": "DB2 database users",
+                                            "$key": "db_user",
+                                            "$max": "4"
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -33,6 +43,16 @@
                                     "LOGFILSIZ": "default",
                                     "LOGSECOND": "default",
                                     "NEWLOGPATH": "default"
+                                },
+                                "database_users": {
+                                    "db_user($INDEX)": {
+                                        "ldap_user": "false",
+                                        "user_access": "none",
+                                        "user_gid": "grp1",
+                                        "user_home": "default",
+                                        "user_name": "user1",
+                                        "user_password": ""
+                                    }
                                 },
                                 "db_collate": "SYSTEM",
                                 "db_data_path": "/home/db2inst1",
@@ -62,6 +82,9 @@
         "displayname": "db2_create_db",
         "name": "db2_create_db",
         "objectname": "db2_create_db",
+        "run_list": [
+            "recipe[db2::create_db]"
+        ],
         "type": "chef_role"
     },
     {
@@ -85,6 +108,14 @@
         "displayname": "db2_v105_install",
         "name": "db2_v105_install",
         "objectname": "db2_v105_install",
+        "run_list": [
+            "recipe[db2::prereq_check]",
+            "recipe[db2::prereq]",
+            "recipe[db2::install]",
+            "recipe[db2::fixpack]",
+            "recipe[db2::gather_evidence]",
+            "recipe[db2::cleanup]"
+        ],
         "type": "chef_role"
     },
     {
@@ -108,6 +139,15 @@
         "displayname": "db2_v111_install",
         "name": "db2_v111_install",
         "objectname": "db2_v111_install",
+        "run_list": [
+            "recipe[db2::prereq_check]",
+            "recipe[db2::prereq]",
+            "recipe[db2::install]",
+            "recipe[db2::fixpack]",
+            "recipe[db2::license]",
+            "recipe[db2::gather_evidence]",
+            "recipe[db2::cleanup]"
+        ],
         "type": "chef_role"
     }
 ]
