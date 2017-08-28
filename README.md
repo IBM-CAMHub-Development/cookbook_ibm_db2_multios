@@ -2,25 +2,41 @@ Db2 Cookbook
 ============
 
 ## DESCRIPTION
-The db2 cookbook contains features and functions to support the installation, configuration, and management of IBM DB2.
+
+The DB2 cookbook contains features and functions to support the installation, configuration, and management of IBM DB2.
+
 ## Platforms Support
-* RHEL 6.x or greater
+
+* RHEL 6.x
+* RHEL 7.x
 * Ubuntu Server 14.04 or greater
+
 ## Versions
-* IBM DB2 V10.5 (except on Ubuntu 16+)
-* IBM DB2 V11.1
+
+* IBM DB2 Enterprise Server Edition 10.5 (except on Ubuntu 16+)
+* IBM DB2 Enterprise Server Edition 11.1
+
 ## Use Cases
-* Single installation with no configuration.
-* Single installation with 1..n instances defined.
+
+* Single installation with no configuration
+* Single installation with 1..n instances defined
 * Single installation with 1..n instances defined and 1..n databases defined for each instance
+
 ## Platform Pre-Requisites
-* OS Package Repository - Access to a linux yum/apt repository is required.
+
+* Linux YUM Repository - An onsite linux YUM Repsoitory is required.
+
 ## Software Repository
+
 SW_REPO_ROOT -> Stored in the ['ibm']['sw_repo'] attribute.
+
 Relative to the software repository, the installation files must be stored in the following location.
-* BASE FILES   -> /db2/v105/base
-* FIXPACK FILES -> /db2/v105/maint
+
+* BASE FILES   -> /db2/[v105|v111]/base
+* FIXPACK FILES -> /db2/[v105|v111]/maint
+
 The following is a description of files needed on the REPO Server depending on version and architecture.
+
 ```python
 case node['platform_family']
 when 'rhel'
@@ -139,7 +155,7 @@ Attributes
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_users']['db_user($INDEX)']['user_home']</code></td>
-    <td>The database user home directory.</td>
+    <td>The DB2 database user home directory.</td>
     <td><code>default</code></td>
   </tr>
   <tr>
@@ -149,7 +165,7 @@ Attributes
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_users']['db_user($INDEX)']['user_password']</code></td>
-    <td>The password for the datbase user name</td>
+    <td>The password for the database user name.</td>
     <td><code></code></td>
   </tr>
   <tr>

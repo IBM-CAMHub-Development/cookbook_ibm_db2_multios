@@ -4,28 +4,44 @@ maintainer_email ''
 license          'Copyright IBM Corp. 2017, 2017'
 depends          'ibm_cloud_utils'
 depends          'linux'
-version '0.1.44'
+version '0.1.46'
 description <<-EOH
 ## DESCRIPTION
-The db2 cookbook contains features and functions to support the installation, configuration, and management of IBM DB2.
+
+The DB2 cookbook contains features and functions to support the installation, configuration, and management of IBM DB2.
+
 ## Platforms Support
-* RHEL 6.x or greater
+
+* RHEL 6.x
+* RHEL 7.x
 * Ubuntu Server 14.04 or greater
+
 ## Versions
-* IBM DB2 V10.5 (except on Ubuntu 16+)
-* IBM DB2 V11.1
+
+* IBM DB2 Enterprise Server Edition 10.5 (except on Ubuntu 16+)
+* IBM DB2 Enterprise Server Edition 11.1
+
 ## Use Cases
-* Single installation with no configuration.
-* Single installation with 1..n instances defined.
+
+* Single installation with no configuration
+* Single installation with 1..n instances defined
 * Single installation with 1..n instances defined and 1..n databases defined for each instance
+
 ## Platform Pre-Requisites
-* OS Package Repository - Access to a linux yum/apt repository is required.
+
+* Linux YUM Repository - An onsite linux YUM Repsoitory is required.
+
 ## Software Repository
+
 SW_REPO_ROOT -> Stored in the ['ibm']['sw_repo'] attribute.
+
 Relative to the software repository, the installation files must be stored in the following location.
-* BASE FILES   -> /db2/v105/base
-* FIXPACK FILES -> /db2/v105/maint
+
+* BASE FILES   -> /db2/[v105|v111]/base
+* FIXPACK FILES -> /db2/[v105|v111]/maint
+
 The following is a description of files needed on the REPO Server depending on version and architecture.
+
 ```python
 case node['platform_family']
 when 'rhel'
@@ -65,22 +81,22 @@ attribute 'db2/base_version',
 attribute 'db2/das_password',
           :default => '',
           :description => 'DB2 Administration Server (DAS) password',
-          :displayname => 'Password (DAS username)',
+          :displayname => 'DB2 DAS user password',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'true',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/das_username',
           :default => 'dasadm1',
           :description => 'DB2 Administration Server (DAS) username',
-          :displayname => 'DAS username',
+          :displayname => 'DB2 DAS username',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/fp_version',
           :default => '10.5.0.8',
@@ -107,132 +123,132 @@ attribute 'db2/install_dir',
 attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/codeset',
           :default => 'UTF-8',
           :description => 'Codeset is used by the database manager to determine codepage parameter values.',
-          :displayname => 'Codeset',
+          :displayname => 'DB2 codeset',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_update/FAILARCHPATH',
           :default => 'default',
           :description => 'The path to be used for archiving log files.',
-          :displayname => 'Failover log archive path',
+          :displayname => 'DB2 failover log archive path',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_update/LOGARCHMETH1',
           :default => 'default',
           :description => 'Specifies the media type of the primary destination for logs that are archived.',
-          :displayname => 'Primary log archive method',
+          :displayname => 'DB2 primary log archive method',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_update/LOGFILSIZ',
           :default => 'default',
           :description => 'Specifies the size of log files.',
-          :displayname => 'Log file size',
+          :displayname => 'DB2 log file size',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_update/LOGSECOND',
           :default => 'default',
           :description => 'Specifies the number of secondary log files that are created and used for recovery log files.',
-          :displayname => 'Number of secondary log files',
+          :displayname => 'DB2 secondary log files',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_update/NEWLOGPATH',
           :default => 'default',
           :description => 'The path to be used for database logging.',
-          :displayname => 'Database log path',
+          :displayname => 'DB2 database log path',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_users/db_user($INDEX)/ldap_user',
           :default => 'false',
           :description => 'Specifies if user is in LDAP.',
-          :displayname => 'LDAP user',
+          :displayname => 'DB2 database user LDAP',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_users/db_user($INDEX)/user_access',
           :default => 'none',
           :description => 'Database access to be granted. Example: DBADM WITH DATAACCESS WITHOUT ACCESSCTRL',
-          :displayname => 'Database user access',
+          :displayname => 'DB2 database user access',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_users/db_user($INDEX)/user_gid',
           :default => 'grp1',
           :description => 'Specifies the name of the Operating System group for database users.',
-          :displayname => 'User group name',
+          :displayname => 'DB2 database user group name',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_users/db_user($INDEX)/user_home',
           :default => 'default',
-          :description => 'The database user home directory.',
-          :displayname => 'Database user home directory',
+          :description => 'The DB2 database user home directory.',
+          :displayname => 'DB2 database user home directory',
           :parm_type => 'none',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_users/db_user($INDEX)/user_name',
           :default => 'user1',
           :description => 'A user name to be granted database access.',
-          :displayname => 'User name',
+          :displayname => 'DB2 database user name',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_users/db_user($INDEX)/user_password',
           :default => '',
-          :description => 'The password for the datbase user name',
-          :displayname => 'Password (User name)',
+          :description => 'The password for the database user name.',
+          :displayname => 'DB2 database user password',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'true',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/db_collate',
           :default => 'SYSTEM',
           :description => 'Collate determines ordering for a set of characters.',
-          :displayname => 'Collate',
+          :displayname => 'DB2 collate',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/db_data_path',
           :default => '/home/db2inst1',
@@ -242,17 +258,17 @@ attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/db_data_pat
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/db_name',
           :default => 'db01',
           :description => 'The name of the database to be created.',
-          :displayname => 'Database name',
+          :displayname => 'DB2 Database name',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/db_path',
           :default => '/home/db2inst1',
@@ -262,7 +278,7 @@ attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/db_path',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/instance_username',
           :default => 'db2inst1',
@@ -272,27 +288,27 @@ attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/instance_us
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/pagesize',
           :default => '4096',
           :description => 'Specifies the page size in bytes.',
-          :displayname => 'Page size',
+          :displayname => 'DB2 page size',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/territory',
           :default => 'US',
           :description => 'Territory is used by the database manager when processing data that is territory sensitive.',
-          :displayname => 'Territory',
+          :displayname => 'DB2 territory',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/fcm_port',
           :default => '60000',
@@ -302,7 +318,7 @@ attribute 'db2/instances/instance($INDEX)/fcm_port',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/fenced_groupname',
           :default => 'db2fenc1',
@@ -312,17 +328,17 @@ attribute 'db2/instances/instance($INDEX)/fenced_groupname',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/fenced_password',
           :default => '',
           :description => 'The password for the DB2 fenced username.',
-          :displayname => 'Password (DB2 fenced username)',
+          :displayname => 'DB2 fenced user password',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'true',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/fenced_username',
           :default => 'db2fenc1',
@@ -332,7 +348,7 @@ attribute 'db2/instances/instance($INDEX)/fenced_username',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/instance_dir',
           :default => '/home/db2inst1',
@@ -342,7 +358,7 @@ attribute 'db2/instances/instance($INDEX)/instance_dir',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/instance_groupname',
           :default => 'db2iadm1',
@@ -352,17 +368,17 @@ attribute 'db2/instances/instance($INDEX)/instance_groupname',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/instance_password',
           :default => '',
           :description => 'The password for the DB2 instance username.',
-          :displayname => 'Password (DB2 instance username)',
+          :displayname => 'DB2 instance user password',
           :parm_type => 'node',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'true',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/instance_prefix',
           :default => 'DB2_INST',
@@ -372,7 +388,7 @@ attribute 'db2/instances/instance($INDEX)/instance_prefix',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/instance_type',
           :default => 'ESE',
@@ -382,7 +398,7 @@ attribute 'db2/instances/instance($INDEX)/instance_type',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/instance_username',
           :default => 'db2inst1',
@@ -392,7 +408,7 @@ attribute 'db2/instances/instance($INDEX)/instance_username',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 attribute 'db2/instances/instance($INDEX)/port',
           :default => '50000',
@@ -402,7 +418,7 @@ attribute 'db2/instances/instance($INDEX)/port',
           :precedence_level => 'node',
           :required => 'recommended',
           :secret => 'false',
-          :selectable => 'false',
+          :selectable => 'true',
           :type => 'string'
 recipe 'db2::cleanup.rb', '
 Cleanup recipe (cleanup.rb)

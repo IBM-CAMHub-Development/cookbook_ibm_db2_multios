@@ -38,13 +38,13 @@
         "installation_files": {
             "10": {
                 "X86_64": {
-                    "repo_root": "/db2/v10/base",
+                    "repo_root": "/db2/v105/base",
                     "file": ["DB2_Svr_10.5.0.0_Linux_linuxx64.tar.gz"]
                 }
             },
             "11": {
                 "X86_64": {
-                    "repo_root": "/db2/v11/base",
+                    "repo_root": "/db2/v111/base",
                     "file": ["DB2_Svr_11.0.0.0_Linux_linuxx64.tar.gz"]
                 }
             }
@@ -52,13 +52,13 @@
         "fixpack_files": {
             "10.5.0.3": {
                 "X86_64": {
-                    "repo_root": "/db2/v10/maint",
+                    "repo_root": "/db2/v105/maint",
                     "file": ["DB2_Svr_10.5.0.3_Linux_linuxx64.tar.gz"]
                 }
             },
             "11.1": {
                 "X86_64": {
-                    "repo_root": "/db2/v11/base",
+                    "repo_root": "/db2/v111/base",
                     "file": ["DB2_Svr_11.1.0.0_Linux_linuxx64.tar.gz"]
                 }
             }

@@ -27,25 +27,25 @@
         "das_password": {
             "default": "",
             "description": "DB2 Administration Server (DAS) password",
-            "displayname": "Password (DAS username)",
+            "displayname": "DB2 DAS user password",
             "hidden": "false",
             "parm_type": "node",
             "precedence_level": "node",
             "required": "true",
             "secret": "true",
-            "selectable": "false",
+            "selectable": "true",
             "type": "string"
         },
         "das_username": {
             "default": "dasadm1",
             "description": "DB2 Administration Server (DAS) username",
-            "displayname": "DAS username",
+            "displayname": "DB2 DAS username",
             "hidden": "false",
             "parm_type": "node",
             "precedence_level": "node",
             "required": "true",
             "secret": "false",
-            "selectable": "false",
+            "selectable": "true",
             "type": "string"
         },
         "fp_version": {
@@ -87,74 +87,74 @@
                         "codeset": {
                             "default": "UTF-8",
                             "description": "Codeset is used by the database manager to determine codepage parameter values.",
-                            "displayname": "Codeset",
+                            "displayname": "DB2 codeset",
                             "hidden": "false",
                             "parm_type": "node",
                             "precedence_level": "node",
                             "required": "true",
                             "secret": "false",
-                            "selectable": "false",
+                            "selectable": "true",
                             "type": "string"
                         },
                         "database_update": {
                             "FAILARCHPATH": {
                                 "default": "default",
                                 "description": "The path to be used for archiving log files.",
-                                "displayname": "Failover log archive path",
+                                "displayname": "DB2 failover log archive path",
                                 "hidden": "false",
                                 "parm_type": "node",
                                 "precedence_level": "node",
                                 "required": "true",
                                 "secret": "false",
-                                "selectable": "false",
+                                "selectable": "true",
                                 "type": "string"
                             },
                             "LOGARCHMETH1": {
                                 "default": "default",
                                 "description": "Specifies the media type of the primary destination for logs that are archived.",
-                                "displayname": "Primary log archive method",
+                                "displayname": "DB2 primary log archive method",
                                 "hidden": "false",
                                 "parm_type": "node",
                                 "precedence_level": "node",
                                 "required": "true",
                                 "secret": "false",
-                                "selectable": "false",
+                                "selectable": "true",
                                 "type": "string"
                             },
                             "LOGFILSIZ": {
                                 "default": "default",
                                 "description": "Specifies the size of log files.",
-                                "displayname": "Log file size",
+                                "displayname": "DB2 log file size",
                                 "hidden": "false",
                                 "parm_type": "node",
                                 "precedence_level": "node",
                                 "required": "true",
                                 "secret": "false",
-                                "selectable": "false",
+                                "selectable": "true",
                                 "type": "string"
                             },
                             "LOGSECOND": {
                                 "default": "default",
                                 "description": "Specifies the number of secondary log files that are created and used for recovery log files.",
-                                "displayname": "Number of secondary log files",
+                                "displayname": "DB2 secondary log files",
                                 "hidden": "false",
                                 "parm_type": "node",
                                 "precedence_level": "node",
                                 "required": "true",
                                 "secret": "false",
-                                "selectable": "false",
+                                "selectable": "true",
                                 "type": "string"
                             },
                             "NEWLOGPATH": {
                                 "default": "default",
                                 "description": "The path to be used for database logging.",
-                                "displayname": "Database log path",
+                                "displayname": "DB2 database log path",
                                 "hidden": "false",
                                 "parm_type": "node",
                                 "precedence_level": "node",
                                 "required": "true",
                                 "secret": "false",
-                                "selectable": "false",
+                                "selectable": "true",
                                 "type": "string"
                             }
                         },
@@ -163,73 +163,73 @@
                                 "ldap_user": {
                                     "default": "false",
                                     "description": "Specifies if user is in LDAP.",
-                                    "displayname": "LDAP user",
+                                    "displayname": "DB2 database user LDAP",
                                     "hidden": "false",
                                     "parm_type": "node",
                                     "precedence_level": "node",
                                     "required": "true",
                                     "secret": "false",
-                                    "selectable": "false",
+                                    "selectable": "true",
                                     "type": "string"
                                 },
                                 "user_access": {
                                     "default": "none",
                                     "description": "Database access to be granted. Example: DBADM WITH DATAACCESS WITHOUT ACCESSCTRL",
-                                    "displayname": "Database user access",
+                                    "displayname": "DB2 database user access",
                                     "hidden": "false",
                                     "parm_type": "node",
                                     "precedence_level": "node",
                                     "required": "true",
                                     "secret": "false",
-                                    "selectable": "false",
+                                    "selectable": "true",
                                     "type": "string"
                                 },
                                 "user_gid": {
                                     "default": "grp1",
                                     "description": "Specifies the name of the Operating System group for database users.",
-                                    "displayname": "User group name",
+                                    "displayname": "DB2 database user group name",
                                     "hidden": "false",
                                     "parm_type": "node",
                                     "precedence_level": "node",
                                     "required": "true",
                                     "secret": "false",
-                                    "selectable": "false",
+                                    "selectable": "true",
                                     "type": "string"
                                 },
                                 "user_home": {
                                     "default": "default",
-                                    "description": "The database user home directory.",
-                                    "displayname": "Database user home directory",
+                                    "description": "The DB2 database user home directory.",
+                                    "displayname": "DB2 database user home directory",
                                     "hidden": "false",
                                     "parm_type": "none",
                                     "precedence_level": "node",
                                     "required": "true",
                                     "secret": "false",
-                                    "selectable": "false",
+                                    "selectable": "true",
                                     "type": "string"
                                 },
                                 "user_name": {
                                     "default": "user1",
                                     "description": "A user name to be granted database access.",
-                                    "displayname": "User name",
+                                    "displayname": "DB2 database user name",
                                     "hidden": "false",
                                     "parm_type": "node",
                                     "precedence_level": "node",
                                     "required": "true",
                                     "secret": "false",
-                                    "selectable": "false",
+                                    "selectable": "true",
                                     "type": "string"
                                 },
                                 "user_password": {
                                     "default": "",
-                                    "description": "The password for the datbase user name",
-                                    "displayname": "Password (User name)",
+                                    "description": "The password for the database user name.",
+                                    "displayname": "DB2 database user password",
                                     "hidden": "false",
                                     "parm_type": "node",
                                     "precedence_level": "node",
                                     "required": "true",
                                     "secret": "true",
-                                    "selectable": "false",
+                                    "selectable": "true",
                                     "type": "string"
                                 }
                             }
@@ -237,13 +237,13 @@
                         "db_collate": {
                             "default": "SYSTEM",
                             "description": "Collate determines ordering for a set of characters.",
-                            "displayname": "Collate",
+                            "displayname": "DB2 collate",
                             "hidden": "false",
                             "parm_type": "node",
                             "precedence_level": "node",
                             "required": "true",
                             "secret": "false",
-                            "selectable": "false",
+                            "selectable": "true",
                             "type": "string"
                         },
                         "db_data_path": {
@@ -255,19 +255,19 @@
                             "precedence_level": "node",
                             "required": "true",
                             "secret": "false",
-                            "selectable": "false",
+                            "selectable": "true",
                             "type": "string"
                         },
                         "db_name": {
                             "default": "db01",
                             "description": "The name of the database to be created.",
-                            "displayname": "Database name",
+                            "displayname": "DB2 Database name",
                             "hidden": "false",
                             "parm_type": "node",
                             "precedence_level": "node",
                             "required": "true",
                             "secret": "false",
-                            "selectable": "false",
+                            "selectable": "true",
                             "type": "string"
                         },
                         "db_path": {
@@ -279,7 +279,7 @@
                             "precedence_level": "node",
                             "required": "true",
                             "secret": "false",
-                            "selectable": "false",
+                            "selectable": "true",
                             "type": "string"
                         },
                         "instance_username": {
@@ -291,31 +291,31 @@
                             "precedence_level": "node",
                             "required": "true",
                             "secret": "false",
-                            "selectable": "false",
+                            "selectable": "true",
                             "type": "string"
                         },
                         "pagesize": {
                             "default": "4096",
                             "description": "Specifies the page size in bytes.",
-                            "displayname": "Page size",
+                            "displayname": "DB2 page size",
                             "hidden": "false",
                             "parm_type": "node",
                             "precedence_level": "node",
                             "required": "true",
                             "secret": "false",
-                            "selectable": "false",
+                            "selectable": "true",
                             "type": "string"
                         },
                         "territory": {
                             "default": "US",
                             "description": "Territory is used by the database manager when processing data that is territory sensitive.",
-                            "displayname": "Territory",
+                            "displayname": "DB2 territory",
                             "hidden": "false",
                             "parm_type": "node",
                             "precedence_level": "node",
                             "required": "true",
                             "secret": "false",
-                            "selectable": "false",
+                            "selectable": "true",
                             "type": "string"
                         }
                     }
@@ -329,7 +329,7 @@
                     "precedence_level": "node",
                     "required": "true",
                     "secret": "false",
-                    "selectable": "false",
+                    "selectable": "true",
                     "type": "string"
                 },
                 "fenced_groupname": {
@@ -341,19 +341,19 @@
                     "precedence_level": "node",
                     "required": "true",
                     "secret": "false",
-                    "selectable": "false",
+                    "selectable": "true",
                     "type": "string"
                 },
                 "fenced_password": {
                     "default": "",
                     "description": "The password for the DB2 fenced username.",
-                    "displayname": "Password (DB2 fenced username)",
+                    "displayname": "DB2 fenced user password",
                     "hidden": "false",
                     "parm_type": "node",
                     "precedence_level": "node",
                     "required": "true",
                     "secret": "true",
-                    "selectable": "false",
+                    "selectable": "true",
                     "type": "string"
                 },
                 "fenced_username": {
@@ -365,7 +365,7 @@
                     "precedence_level": "node",
                     "required": "true",
                     "secret": "false",
-                    "selectable": "false",
+                    "selectable": "true",
                     "type": "string"
                 },
                 "instance_dir": {
@@ -377,7 +377,7 @@
                     "precedence_level": "node",
                     "required": "true",
                     "secret": "false",
-                    "selectable": "false",
+                    "selectable": "true",
                     "type": "string"
                 },
                 "instance_groupname": {
@@ -389,19 +389,19 @@
                     "precedence_level": "node",
                     "required": "true",
                     "secret": "false",
-                    "selectable": "false",
+                    "selectable": "true",
                     "type": "string"
                 },
                 "instance_password": {
                     "default": "",
                     "description": "The password for the DB2 instance username.",
-                    "displayname": "Password (DB2 instance username)",
+                    "displayname": "DB2 instance user password",
                     "hidden": "false",
                     "parm_type": "node",
                     "precedence_level": "node",
                     "required": "true",
                     "secret": "true",
-                    "selectable": "false",
+                    "selectable": "true",
                     "type": "string"
                 },
                 "instance_prefix": {
@@ -413,7 +413,7 @@
                     "precedence_level": "node",
                     "required": "true",
                     "secret": "false",
-                    "selectable": "false",
+                    "selectable": "true",
                     "type": "string"
                 },
                 "instance_type": {
@@ -425,7 +425,7 @@
                     "precedence_level": "node",
                     "required": "true",
                     "secret": "false",
-                    "selectable": "false",
+                    "selectable": "true",
                     "type": "string"
                 },
                 "instance_username": {
@@ -437,7 +437,7 @@
                     "precedence_level": "node",
                     "required": "true",
                     "secret": "false",
-                    "selectable": "false",
+                    "selectable": "true",
                     "type": "string"
                 },
                 "port": {
@@ -449,7 +449,7 @@
                     "precedence_level": "node",
                     "required": "true",
                     "secret": "false",
-                    "selectable": "false",
+                    "selectable": "true",
                     "type": "string"
                 }
             }
