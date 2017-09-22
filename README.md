@@ -86,7 +86,7 @@ Attributes
   <tr>
     <td><code>node['db2']['base_version']</code></td>
     <td>The base version of DB2 to install. Set to none if installing from fix package.</td>
-    <td><code>10.5.0.8</code></td>
+    <td><code>none</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['das_password']</code></td>
@@ -101,12 +101,12 @@ Attributes
   <tr>
     <td><code>node['db2']['fp_version']</code></td>
     <td>The version of DB2 fix pack to install. If no fix pack is required, set this value the same as DB2 base version.</td>
-    <td><code>10.5.0.8</code></td>
+    <td><code>11.1.2.2</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['install_dir']</code></td>
     <td>The directory to install DB2. Recommended: /opt/ibm/db2/V<db2_version></td>
-    <td><code>/opt/ibm/db2/V10.5</code></td>
+    <td><code>/opt/ibm/db2/V11.1</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['codeset']</code></td>
@@ -140,18 +140,18 @@ Attributes
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_users']['db_user($INDEX)']['ldap_user']</code></td>
-    <td>Specifies if user is in LDAP.</td>
+    <td>This parameter indicates whether the database user is stored in LDAP. If the value set to true, the user is not created on the operating system.</td>
     <td><code>false</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_users']['db_user($INDEX)']['user_access']</code></td>
-    <td>Database access to be granted. Example: DBADM WITH DATAACCESS WITHOUT ACCESSCTRL</td>
+    <td>The database access granted to the user. Example: DBADM WITH DATAACCESS WITHOUT ACCESSCTRL</td>
     <td><code>none</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_users']['db_user($INDEX)']['user_gid']</code></td>
-    <td>Specifies the name of the Operating System group for database users.</td>
-    <td><code>grp1</code></td>
+    <td>Specifies the name of the operating system group for database users.</td>
+    <td><code>dbgroup1</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_users']['db_user($INDEX)']['user_home']</code></td>
@@ -160,8 +160,8 @@ Attributes
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_users']['db_user($INDEX)']['user_name']</code></td>
-    <td>A user name to be granted database access.</td>
-    <td><code>user1</code></td>
+    <td>The user name to be granted database access.</td>
+    <td><code>dbuser1</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['databases']['database($INDEX)']['database_users']['db_user($INDEX)']['user_password']</code></td>
@@ -241,7 +241,7 @@ Attributes
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['instance_prefix']</code></td>
     <td>Specifies the DB2 instance prefix</td>
-    <td><code>DB2_INST</code></td>
+    <td><code>INST1</code></td>
   </tr>
   <tr>
     <td><code>node['db2']['instances']['instance($INDEX)']['instance_type']</code></td>

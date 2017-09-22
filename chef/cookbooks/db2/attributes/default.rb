@@ -11,10 +11,11 @@
 # <md>          :choice => [ '10.5.0.3', '10.5.0.8', '11.1.0.0', 'none' ],
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
-# <md>          :default => '10.5.0.8',
+# <md>          :default => 'none',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'true',
 # <md>          :secret => 'false'
 default['db2']['base_version'] = '10.5.0.8'
 
@@ -24,10 +25,11 @@ default['db2']['base_version'] = '10.5.0.8'
 # <md>          :description => 'The version of DB2 fix pack to install. If no fix pack is required, set this value the same as DB2 base version.',
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
-# <md>          :default => '10.5.0.8',
+# <md>          :default => '11.1.2.2',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'false'
 default['db2']['fp_version'] = node['db2']['base_version']
 
@@ -35,14 +37,13 @@ default['db2']['fp_version'] = node['db2']['base_version']
 # <md>attribute 'db2/install_dir',
 # <md>          :displayname => 'DB2 installation directory',
 # <md>          :description => 'The directory to install DB2. Recommended: /opt/ibm/db2/V<db2_version>',
-# <md>          :choice => [ '/opt/ibm/db2/V10.5',
-# <md>                       '/opt/ibm/db2/V11.1' ],
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
-# <md>          :default => '/opt/ibm/db2/V10.5',
+# <md>          :default => '/opt/ibm/db2/V11.1',
 # <md>          :selectable => 'true',
-# <md>          :precedence_level => 'role',
-# <md>          :parm_type => 'component',
+# <md>          :precedence_level => 'node',
+# <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'false'
 default['db2']['install_dir'] = '/opt/ibm/db2/V' + node['db2']['fp_version'].split('.')[0, 2].join('.')
 
@@ -54,9 +55,12 @@ default['db2']['install_dir'] = '/opt/ibm/db2/V' + node['db2']['fp_version'].spl
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => 'dasadm1',
+# <md>          :regex => '^(?(?=(users|admins|guests|public|local))((users|local)[0-9a-z_]{1,3}|(admins|guests|public)[0-9a-z_]{1,2})|(?!(ibm|sys|sql|dbm))[a-z_][0-9a-z_]{0,7})$',
+# <md>          :regexdesc => 'Allow 1 to 8 lower-case letters, digits and _(underscore) for names (1) not same as users, admins, guests, public, local and any SQL reserved words; (2) not starting with digits and special words as ibm, sys, sql and dbm.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'false'
 default['db2']['das_username'] = 'dasadm1'
 
@@ -67,9 +71,12 @@ default['db2']['das_username'] = 'dasadm1'
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => '',
+# <md>          :regex => '^[!-~]{8,32}$',
+# <md>          :regexdesc => 'Allow 8 to 32 printable ASCII characters except space.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'true'
 default['db2']['das_password'] = ''
 
@@ -95,21 +102,26 @@ default['db2']['das_password'] = ''
 # <md>          :description => 'Specifies the DB2 instance prefix',
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
-# <md>          :default => 'DB2_INST',
+# <md>          :default => 'INST1',
+# <md>          :regex => '^(?!([sS][yY][sS]|[iI][bB][mM]|[dD][bB][mM]))[A-Za-z][0-9A-Za-z]{0,7}$',
+# <md>          :regexdesc => 'Allow 1 to 8 alphanumeric characters starting withnot a number or the letter sequences SYS, DBM, or IBM.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'true',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/instance_type',
 # <md>          :displayname => 'DB2 instance type',
 # <md>          :description => 'The type of DB2 instance to create.',
+# <md>          :choice => [ 'ESE','DSF','WSE','STANDALONE','CLIENT' ],
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => 'ESE',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'true',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/instance_username',
@@ -118,9 +130,12 @@ default['db2']['das_password'] = ''
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => 'db2inst1',
+# <md>          :regex => '^(?(?=(users|admins|guests|public|local))((users|local)[0-9a-z_]{1,3}|(admins|guests|public)[0-9a-z_]{1,2})|(?!(ibm|sys|sql|dbm))[a-z_][0-9a-z_]{0,7})$',
+# <md>          :regexdesc => 'Allow 1 to 8 lower-case letters, digits and _(underscore) for names (1) not same as users, admins, guests, public, local and any SQL reserved words; (2) not starting with digits and special words as ibm, sys, sql and dbm.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/instance_groupname',
@@ -129,9 +144,12 @@ default['db2']['das_password'] = ''
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => 'db2iadm1',
+# <md>          :regex => '^(?(?=(users|admins|guests|public|local))((users|local)[0-9a-z_]{1,27}|(admins|guests|public)[0-9a-z_]{1,26})|(?!(ibm|sys|sql))[a-z_][0-9a-z_]{0,31})$',
+# <md>          :regexdesc => 'Allow 1 to 32 lower-case letters, digits and _(underscore) for names (1) not same as users, admins, guests, public, local and any SQL reserved words; (2) not starting with digits and special words as ibm, sys, and sql.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/instance_password',
@@ -140,9 +158,12 @@ default['db2']['das_password'] = ''
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => '',
+# <md>          :regex => '^[!-~]{8,32}$',
+# <md>          :regexdesc => 'Allow 8 to 32 printable ASCII characters except space.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'true'
 
 # <md>attribute 'db2/instances/instance($INDEX)/instance_dir',
@@ -151,9 +172,12 @@ default['db2']['das_password'] = ''
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => '/home/db2inst1',
+# <md>          :regex => '^/[ -~]*$',
+# <md>          :regexdesc => 'Allow default or a string that starts with slash.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/port',
@@ -162,9 +186,12 @@ default['db2']['das_password'] = ''
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => '50000',
+# <md>          :regex => '^5[0-9]{4}$',
+# <md>          :regexdesc => 'Allow a number between 50000 and 59999.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/fenced_username',
@@ -173,9 +200,12 @@ default['db2']['das_password'] = ''
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => 'db2fenc1',
+# <md>          :regex => '^(?(?=(users|admins|guests|public|local))((users|local)[0-9a-z_]{1,3}|(admins|guests|public)[0-9a-z_]{1,2})|(?!(ibm|sys|sql|dbm))[a-z_][0-9a-z_]{0,7})$',
+# <md>          :regexdesc => 'Allow 1 to 8 lower-case letters, digits and _(underscore) for names (1) not same as users, admins, guests, public, local and any SQL reserved words; (2) not starting with digits and special words as ibm, sys, sql and dbm.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/fenced_groupname',
@@ -184,9 +214,12 @@ default['db2']['das_password'] = ''
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => 'db2fenc1',
+# <md>          :regex => '^(?(?=(users|admins|guests|public|local))((users|local)[0-9a-z_]{1,27}|(admins|guests|public)[0-9a-z_]{1,26})|(?!(ibm|sys|sql))[a-z_][0-9a-z_]{0,31})$',
+# <md>          :regexdesc => 'Allow 1 to 32 lower-case letters, digits and _(underscore) for names (1) not same as users, admins, guests, public, local and any SQL reserved words; (2) not starting with digits and special words as ibm, sys, and sql.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/fenced_password',
@@ -195,9 +228,12 @@ default['db2']['das_password'] = ''
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => '',
+# <md>          :regex => '^[!-~]{8,32}$',
+# <md>          :regexdesc => 'Allow 8 to 32 printable ASCII characters except space.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'true'
 
 # <md>attribute 'db2/instances/instance($INDEX)/fcm_port',
@@ -206,21 +242,27 @@ default['db2']['das_password'] = ''
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => '60000',
+# <md>          :regex => '^6[0-9]{3}[0-8]$',
+# <md>          :regexdesc => 'Allow a number between 60000 and 69998.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'true',
 # <md>          :secret => 'false'
 
-# <> DB2 Databse
+# <> DB2 Database
 # <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/db_name',
-# <md>          :displayname => 'DB2 Database name',
+# <md>          :displayname => 'DB2 database name',
 # <md>          :description => 'The name of the database to be created.',
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => 'db01',
+# <md>          :regex => '^(?!([sS][yY][sS]|[iI][bB][mM]|[dD][bB][mM]))[A-Za-z][0-9A-Za-z]{0,7}$',
+# <md>          :regexdesc => 'Allow 1 to 8 alphanumeric characters starting withnot a number or the letter sequences SYS, DBM, or IBM.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/db_data_path',
@@ -229,9 +271,12 @@ default['db2']['das_password'] = ''
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => '/home/db2inst1',
+# <md>          :regex => '^/[ -~]*$',
+# <md>          :regexdesc => 'Allow a string that starts with slash.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/db_path',
@@ -240,9 +285,12 @@ default['db2']['das_password'] = ''
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => '/home/db2inst1',
+# <md>          :regex => '^/[ -~]*$',
+# <md>          :regexdesc => 'Allow a string that starts with slash.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/instance_username',
@@ -254,17 +302,20 @@ default['db2']['das_password'] = ''
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/pagesize',
 # <md>          :displayname => 'DB2 page size',
 # <md>          :description => 'Specifies the page size in bytes.',
+# <md>          :choice => [ '4096','8192','16384','32768' ],
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => '4096',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/territory',
@@ -273,9 +324,12 @@ default['db2']['das_password'] = ''
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => 'US',
+# <md>          :regex => '^[A-Z]{2}$|^Lat$',
+# <md>          :regexdesc => 'Allow two upper-case letters and a special case (Lat) as defined in https://www.ibm.com/support/knowledgecenter/en/SSEPGG_11.1.0/com.ibm.db2.luw.admin.nls.doc/doc/r0004565.html.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/codeset',
@@ -284,20 +338,25 @@ default['db2']['das_password'] = ''
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => 'UTF-8',
+# <md>          :regex => '^IBM-([0-9]{2,4}|euc(CN|JP|KR|TW))$|^(ISO[-]?8859-|iso8859)(1|2|5|6|7|8|9|15)$|^(UTF-8|roman8|125[0-8]|737|5601|1363|KOI8(-R|-U|-RU)?|GB(K|18030)|gb2312|hp15CN|euc(CN|JP|KR|TW)|EUC-(JP|KR)|BIG5|big5|Big5-HKSCS|SJIS|cns11643|TIS620-1|tis620)$',
+# <md>          :regexdesc => 'Allow codesets defined in https://www.ibm.com/support/knowledgecenter/en/SSEPGG_11.1.0/com.ibm.db2.luw.admin.nls.doc/doc/r0004565.html.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/db_collate',
 # <md>          :displayname => 'DB2 collate',
 # <md>          :description => 'Collate determines ordering for a set of characters.',
+# <md>          :choice => [ 'SYSTEM','NLSCHAR','COMPATIBILITY','IDENTITY','IDENTITY_16BIT' ],
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => 'SYSTEM',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'false'
 
 # Database parameters to be set by an UPDATE command
@@ -307,9 +366,12 @@ default['db2']['das_password'] = ''
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => 'default',
+# <md>          :regex => '^(default|\/[ -~]*)$',
+# <md>          :regexdesc => 'Allow default or a string that starts with slash.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'true',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_update/FAILARCHPATH',
@@ -318,20 +380,25 @@ default['db2']['das_password'] = ''
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => 'default',
+# <md>          :regex => '^(default|\/[ -~]*)$',
+# <md>          :regexdesc => 'Allow default or a string that starts with slash.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'true',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_update/LOGARCHMETH1',
 # <md>          :displayname => 'DB2 primary log archive method',
 # <md>          :description => 'Specifies the media type of the primary destination for logs that are archived.',
+# <md>          :choice => [ 'default','LOGRETAIN','USEREXIT','DISK','TSM','VENDOR','OFF' ],
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => 'default',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'true',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_update/LOGFILSIZ',
@@ -340,9 +407,12 @@ default['db2']['das_password'] = ''
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => 'default',
+# <md>          :regex => '^([4-9]|[1-9][0-9]{1,6}|1[0-5][0-9]{6}|16[0-6][0-9]{5}|167[0-6][0-9]{4}|1677[0-6][0-9]{3}|167770[0-9]{2}|167771[0-4][0-9]|1677715[0-2]|default)$',
+# <md>          :regexdesc => 'Allow a number between 4 and 16777152 or using default.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'true',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_update/LOGSECOND',
@@ -351,32 +421,41 @@ default['db2']['das_password'] = ''
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => 'default',
+# <md>          :regex => '^(-1|[0-9]|1[0-9]{1,2}|2[0-4][0-9]|25[0-4]|default)$',
+# <md>          :regexdesc => 'Allow a number between -1 and 254 or using default.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'true',
 # <md>          :secret => 'false'
 
 # Users to be granted access to the database (user_access = none -> user is created but no access is granted)
 # <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_users/db_user($INDEX)/user_name',
 # <md>          :displayname => 'DB2 database user name',
-# <md>          :description => 'A user name to be granted database access.',
+# <md>          :description => 'The user name to be granted database access.',
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
-# <md>          :default => 'user1',
+# <md>          :default => 'dbuser1',
+# <md>          :regex => '^(?(?=(users|admins|guests|public|local))((users|local)[0-9a-z_]{1,3}|(admins|guests|public)[0-9a-z_]{1,2})|(?!(ibm|sys|sql|dbm))[a-z_][0-9a-z_]{0,7})$',
+# <md>          :regexdesc => 'Allow 1 to 8 lower-case letters, digits and _(underscore) for names (1) not same as users, admins, guests, public, local and any SQL reserved words; (2) not starting with digits and special words as ibm, sys, sql and dbm.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_users/db_user($INDEX)/user_gid',
 # <md>          :displayname => 'DB2 database user group name',
-# <md>          :description => 'Specifies the name of the Operating System group for database users.',
+# <md>          :description => 'Specifies the name of the operating system group for database users.',
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
-# <md>          :default => 'grp1',
+# <md>          :default => 'dbgroup1',
+# <md>          :regex => '^(?(?=(users|admins|guests|public|local))((users|local)[0-9a-z_]{1,27}|(admins|guests|public)[0-9a-z_]{1,26})|(?!(ibm|sys|sql))[a-z_][0-9a-z_]{0,31})$',
+# <md>          :regexdesc => 'Allow 1 to 32 lower-case letters, digits and _(underscore) for names (1) not same as users, admins, guests, public, local and any SQL reserved words; (2) not starting with digits and special words as ibm, sys, and sql.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_users/db_user($INDEX)/user_password',
@@ -385,9 +464,12 @@ default['db2']['das_password'] = ''
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => '',
+# <md>          :regex => '^[!-~]{8,32}$',
+# <md>          :regexdesc => 'Allow 8 to 32 printable ASCII characters except space.',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'false',
 # <md>          :secret => 'true'
 
 # <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_users/db_user($INDEX)/user_home',
@@ -398,29 +480,34 @@ default['db2']['das_password'] = ''
 # <md>          :default => 'default',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
-# <md>          :parm_type => 'none',
+# <md>          :parm_type => 'node',
+# <md>          :hidden => 'true',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_users/db_user($INDEX)/ldap_user',
 # <md>          :displayname => 'DB2 database user LDAP',
-# <md>          :description => 'Specifies if user is in LDAP.',
+# <md>          :description => 'This parameter indicates whether the database user is stored in LDAP. If the value set to true, the user is not created on the operating system.',
+# <md>          :choice => [ 'true','false' ],
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => 'false',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'true',
 # <md>          :secret => 'false'
 
 # <md>attribute 'db2/instances/instance($INDEX)/databases/database($INDEX)/database_users/db_user($INDEX)/user_access',
 # <md>          :displayname => 'DB2 database user access',
-# <md>          :description => 'Database access to be granted. Example: DBADM WITH DATAACCESS WITHOUT ACCESSCTRL',
+# <md>          :description => 'The database access granted to the user. Example: DBADM WITH DATAACCESS WITHOUT ACCESSCTRL',
+# <md>          :choice => [ 'DBADM','SECADM','SQLADM','WLMADM','EXPLAIN','ACCESSCTRL','DATAACCESS','none' ],
 # <md>          :type => 'string',
 # <md>          :required => 'recommended',
 # <md>          :default => 'none',
 # <md>          :selectable => 'true',
 # <md>          :precedence_level => 'node',
 # <md>          :parm_type => 'node',
+# <md>          :hidden => 'true',
 # <md>          :secret => 'false'
 
 default['db2']['instances'] = {}

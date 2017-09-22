@@ -48,9 +48,9 @@
                                     "db_user($INDEX)": {
                                         "ldap_user": "false",
                                         "user_access": "none",
-                                        "user_gid": "grp1",
+                                        "user_gid": "dbgroup1",
                                         "user_home": "default",
-                                        "user_name": "user1",
+                                        "user_name": "dbuser1",
                                         "user_password": ""
                                     }
                                 },
@@ -69,7 +69,7 @@
                         "instance_dir": "/home/db2inst1",
                         "instance_groupname": "db2iadm1",
                         "instance_password": "",
-                        "instance_prefix": "DB2_INST",
+                        "instance_prefix": "INST1",
                         "instance_type": "ESE",
                         "instance_username": "db2inst1",
                         "port": "50000"
@@ -90,10 +90,11 @@
     {
         "attributes": {
             "db2": {
-                "base_version": "10.5.0.8",
+                "base_version": "none",
                 "das_password": "",
                 "das_username": "db2das1",
-                "fp_version": "10.5.0.8"
+                "fp_version": "10.5.0.8",
+                "install_dir": "/opt/ibm/db2/V10.5"
             },
             "ibm": {
                 "sw_repo": "",
@@ -121,10 +122,11 @@
     {
         "attributes": {
             "db2": {
-                "base_version": "11.1.0.0",
+                "base_version": "none",
                 "das_password": "",
                 "das_username": "db2das1",
-                "fp_version": "11.1.1.1"
+                "fp_version": "11.1.2.2",
+                "install_dir": "/opt/ibm/db2/V11.1"
             },
             "ibm": {
                 "sw_repo": "",

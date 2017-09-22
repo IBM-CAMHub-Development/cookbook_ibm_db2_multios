@@ -25,8 +25,8 @@
               },
               "database_users": {
                 "db_user($INDEX)": {
-                  "user_name": "user1",
-                  "user_gid": "grp1",
+                  "user_name": "dbuser1",
+                  "user_gid": "dbgroup1",
                   "user_password": "",
                   "user_home": "default",
                   "ldap_user": "false",
@@ -36,7 +36,7 @@
             }
           },
           "instance_username": "db2inst1",
-          "instance_prefix": "DB2_INST",
+          "instance_prefix": "INST1",
           "instance_type": "ESE",
           "instance_groupname": "db2iadm1",
           "instance_password": "",

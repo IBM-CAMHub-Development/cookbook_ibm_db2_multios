@@ -14,8 +14,9 @@
     "db2": {
       "das_password": "",
       "das_username": "db2das1",
-      "base_version": "11.1.0.0",
-      "fp_version": "11.1.1.1"
+      "base_version": "none",
+      "fp_version": "11.1.2.2",
+      "install_dir": "/opt/ibm/db2/V11.1"
     }
   },
   "run_list":[
