@@ -91,20 +91,14 @@ when 'linux'
   when 'rhel'
     case node['kernel']['machine']
     when 'x86_64'
-      # <> 64bit libraries required for DB2
-      force_default['db2']['os_libraries']['64bit'] = ["cpp", "compat-libstdc++-33", "gcc", "gcc-c++", "libaio", "libstdc++", "kernel-devel", "ksh", "nfs-utils", "openssh", "openssh-server", "pam", "redhat-lsb", "sg3_utils"]
-      # <> 32bit libraries required for DB2
-      force_default['db2']['os_libraries']['32bit'] = ["compat-libstdc++-33", "libstdc++", "pam"]
+      force_default['db2']['os_libraries'] = %w(cpp compat-libstdc++-33 compat-libstdc++-33.i686 pam.i686 gcc gcc-c++ libaio libstdc++.i686 libstdc++ kernel-devel ksh nfs-utils openssh openssh-server pam redhat-lsb sg3_utils)
     end
   when 'debian'
     # <> Override base version (installing directly from fixpack)
     force_override['db2']['base_version'] = "0.0.0.0"
     case node['kernel']['machine']
     when 'x86_64'
-      # <> 64bit libraries required for DB2
-      force_default['db2']['os_libraries']['64bit'] = ["cpp", "gcc", "ksh", "openssh-server", "rpm", "unzip", "binutils", "libaio1", "libnuma1"]
-      # <> 32bit libraries required for DB2
-      force_default['db2']['os_libraries']['32bit'] = [ "libpam0g:i386", "libx32stdc++6"]
+      force_default['db2']['os_libraries'] = %w(cpp gcc ksh openssh-server rpm unzip binutils libaio1 libnuma1 libpam0g:i386 libx32stdc++6)
     end
   end
 when 'windows'

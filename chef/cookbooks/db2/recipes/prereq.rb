@@ -35,24 +35,20 @@ when 'rhel'
 
   execute 'enable_extra_repository' do
     command 'yum-config-manager --enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional'
-    only_if { node['db2']['os_libraries']['32bit'].include?('compat-libstdc++-33') }
+    only_if { node['db2']['os_libraries'].include?('compat-libstdc++-33') }
     not_if 'yum list compat-libstdc++-33'
     only_if { node['platform_family'] == 'rhel' }
     only_if { node['platform_version'].split('.').first.to_i >= 7 }
     not_if { File.foreach('/sys/devices/virtual/dmi/id/bios_version').grep(/amazon$/).empty? }
   end
 
-  yum_package 'install_prerequisites_64bit' do
-    package_name node['db2']['os_libraries']['64bit']
-    arch 'x86_64'
-    action :upgrade
+  # Install the prereq packages
+  node['db2']['os_libraries'].each do |p|
+    package p do
+      action :install
+    end
   end
 
-  yum_package 'install_prerequisites_32bit' do
-    package_name node['db2']['os_libraries']['32bit']
-    arch 'i686'
-    action :upgrade
-  end
 when 'debian'
 
   execute 'enable_extra_repository' do
@@ -63,14 +59,10 @@ when 'debian'
     command 'apt-get update'
   end
 
-  apt_package 'install_prerequisites_64bit' do
-    package_name node['db2']['os_libraries']['64bit']
-    action :install
-  end
-
-  apt_package 'install_prerequisites_32bit' do
-    package_name node['db2']['os_libraries']['32bit']
-    action :install
+  node['db2']['os_libraries'].each do |p|
+    package p do
+      action :install
+    end
   end
 end
 
