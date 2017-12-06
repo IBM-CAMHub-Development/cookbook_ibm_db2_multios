@@ -4,7 +4,7 @@ maintainer_email ''
 license          'Copyright IBM Corp. 2017, 2017'
 depends          'ibm_cloud_utils'
 depends          'linux'
-version '1.0.3'
+version '1.0.2'
 description <<-EOH
 ## DESCRIPTION
 
