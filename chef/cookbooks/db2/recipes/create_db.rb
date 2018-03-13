@@ -2,7 +2,7 @@
 # Cookbook Name:: db2
 # Recipe:: cleanup
 #
-# Copyright IBM Corp. 2017, 2017
+# Copyright IBM Corp. 2017, 2018
 #
 # <> Create database recipe (create_db.rb)
 # <> This recipe will create instances and databases as specified in attributes.

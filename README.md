@@ -43,11 +43,11 @@ when 'rhel'
   case node['kernel']['machine']
   when 'x86_64'
     default['db2']['arch'] = 'x86-64'
-    # <> DB2 Version 10.5.0.3, 10.5.0.8
+    # <> DB2 Version 10.5.0.3, 10.5.0.9
     force_override['db2']['archive_names'] = {
       '10.5.0.3' => { 'filename' => 'DB2_Svr_' + node['db2']['base_version'] + '.' + node['db2']['included_modpack'] + '.'+ node['db2']['included_fixpack'] + '_Linux_' + node['db2']['arch'] + '.tar.gz',
                       'sha256' => 'd5844d395c66470f39db13ba2491b2036c2d6b50e89c06d46f3d83f4b6f093a7' },
-      '10.5.0.8' => { 'filename' => 'DB2_Svr_' + node['db2']['version'] + '.' + node['db2']['included_modpack'] + '.'+ node['db2']['included_fixpack'] + '_Linux_' + node['db2']['arch'] + '.tar.gz',
+      '10.5.0.9' => { 'filename' => 'DB2_Svr_' + node['db2']['version'] + '.' + node['db2']['included_modpack'] + '.'+ node['db2']['included_fixpack'] + '_Linux_' + node['db2']['arch'] + '.tar.gz',
                       'sha256' => '79233751b83a0acde01b84bbd506b8fe917a29a4ed08852ae821090ce2fc0256' },
       '11.1.0.0' => { 'filename' => 'DB2_Svr_' + node['db2']['version'] + '_Linux_' + node['db2']['arch'] + '.tar.gz', #~ip_checker
                       'sha256' => '635f1b64eb48ecfd83aface91bc4b99871f12b7d5c41e7aa8f8b3d275bcb7f04' }
@@ -339,7 +339,7 @@ License and Author
 
 Author:: IBM Corp (<>)
 
-Copyright:: 2017, IBM Corp
+Copyright:: 2018, IBM Corp
 
-License:: Copyright IBM Corp. 2017, 2017
+License:: Copyright IBM Corp. 2017, 2018
 

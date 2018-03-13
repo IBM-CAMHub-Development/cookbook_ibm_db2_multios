@@ -2,7 +2,7 @@
 # Cookbook Name:: db2
 # Recipe:: default
 #
-# Copyright IBM Corp. 2017, 2017
+# Copyright IBM Corp. 2017, 2018
 #
 # <> Default recipe (default.rb)
 # <> The default recipe for the cookbook. It is recommended to not use the default recipe, but explicitly specify a run_list for the deployment node.

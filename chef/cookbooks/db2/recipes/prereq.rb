@@ -2,7 +2,7 @@
 # Cookbook Name:: db2
 # Recipe:: prereq
 #
-# Copyright IBM Corp. 2017, 2017
+# Copyright IBM Corp. 2017, 2018
 #
 # <> Prerequisite recipe (prereq.rb)
 # <> This recipe configures the operating prerequisites for the product.

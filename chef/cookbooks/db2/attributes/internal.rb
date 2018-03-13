@@ -2,7 +2,7 @@
 # Cookbook Name:: db2
 # attributes :: internal
 #
-# Copyright IBM Corp. 2017, 2017
+# Copyright IBM Corp. 2017, 2018
 
 # <> The URL to the root directory of the HTTP server hosting the software installation packages i.e. http://<hostname>:<port>
 default['ibm']['sw_repo'] = ''

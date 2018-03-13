@@ -2,7 +2,7 @@
 # Cookbook Name:: db2
 # Provider:: db2_service
 #
-# Copyright IBM Corp. 2017, 2017
+# Copyright IBM Corp. 2017, 2018
 #
 include DB2::Helper
 use_inline_resources
@@ -42,6 +42,12 @@ action :install do
 
       db2_service "Stopping DAS" do
         action :stop_das
+      end
+
+      service 'db2fmcd' do
+        action [:stop]
+        only_if { node['init_package'] == 'systemd' }
+        not_if { node['db2']['fp_version'].split('.').first.to_i > 10 }
       end
 
       execute 'Install db2 fixpack' do

@@ -2,7 +2,7 @@
 # Cookbook Name:: db2
 # Recipe:: gather_evidence
 #
-# Copyright IBM Corp. 2017, 2017
+# Copyright IBM Corp. 2017, 2018
 #
 # <> Evidence gathering recipe (gather_evidence.rb)
 # <> This recipe will collect functional product information and store it in an archive.

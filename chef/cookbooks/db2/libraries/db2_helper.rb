@@ -1,7 +1,7 @@
 # Cookbook Name:: db2
 # Library:: db2_helper
 #
-# Copyright IBM Corp. 2017, 2017
+# Copyright IBM Corp. 2017, 2018
 #
 # <> library: DB2 helper
 # <> Library Functions for the DB2 Cookbook
@@ -35,8 +35,8 @@ module DB2
       return false unless File.exist?("#{install_dir}/install/db2ls")
       case node['os']
       when 'linux'
-        cmd = shell_out!("#{install_dir}/install/db2ls -c")
-        instfp = cmd.stdout.lines.grep(/\d+\.\d+\.\d+\.\d+/)[0].split(':')[2].strip
+        cmd = shell_out!("#{install_dir}/install/db2ls -p -q")
+        instfp = cmd.stdout.lines.grep(/\d+\.\d+\.\d+\.\d+/)[0].split(' ')[2].strip
       end
       raise "The db2_fixpack resource detected that the fix pack version being used is at a lower level #{fixpack} than the installed product's level #{instfp}." if fixpack.to_i < instfp.to_i
       cmd.stderr.empty? && !(instfp =~ /#{fixpack}/).nil?
@@ -115,7 +115,7 @@ module DB2
       instances
     end
   end
-  
+
   # OS functions
   module OS
     # Build partial path
@@ -126,7 +126,7 @@ module DB2
       remaining_subdirs = dir.split('/')
       remaining_subdirs.shift # get rid of '/'
       reason = ''
-      
+
       until remaining_subdirs.empty?
         Chef::Log.debug("remaining_subdirs: #{remaining_subdirs.inspect}, existing_subdirs: #{existing_subdirs.inspect}")
         path = existing_subdirs.push('/' + remaining_subdirs.shift).join

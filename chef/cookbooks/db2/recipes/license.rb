@@ -2,7 +2,7 @@
 # Cookbook Name:: db2
 # Recipe:: license
 #
-# Copyright IBM Corp. 2017, 2017
+# Copyright IBM Corp. 2017, 2018
 #
 # <> License recipe (license.rb)
 # <> This recipe will apply the license file from a repo server, in case a base package cannot be installed.

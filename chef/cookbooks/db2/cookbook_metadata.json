@@ -8,8 +8,8 @@
             ],
             "minor_version": [
                 "10.5.0.3",
-                "10.5.0.8",
-                "11.1.0.0"
+                "10.5.0.9",
+                "11.1.2.2"
             ],
             "platforms": [
                 "RHEL 6.x",
@@ -39,7 +39,7 @@
             "10": {
                 "X86_64": {
                     "repo_root": "/db2/v105/base",
-                    "file": ["DB2_Svr_10.5.0.0_Linux_linuxx64.tar.gz"]
+                    "file": ["DB2_Svr_10.5.0.8_Linux_linuxx64.tar.gz"]
                 }
             },
             "11": {
@@ -50,16 +50,16 @@
             }
         },
         "fixpack_files": {
-            "10.5.0.3": {
+            "10.5.0.9": {
                 "X86_64": {
                     "repo_root": "/db2/v105/maint",
-                    "file": ["DB2_Svr_10.5.0.3_Linux_linuxx64.tar.gz"]
+                    "file": ["DB2_Svr_10.5.0.9_Linux_linuxx64.tar.gz"]
                 }
             },
             "11.1": {
                 "X86_64": {
                     "repo_root": "/db2/v111/base",
-                    "file": ["DB2_Svr_11.1.0.0_Linux_linuxx64.tar.gz"]
+                    "file": ["DB2_Svr_11.1.2.2_Linux_linuxx64.tar.gz"]
                 }
             }
         },

@@ -2,7 +2,7 @@
 # Cookbook Name:: db2
 # Recipe:: cleanup
 #
-# Copyright IBM Corp. 2017, 2017
+# Copyright IBM Corp. 2017, 2018
 #
 # <> Cleanup recipe (cleanup.rb)
 # <> This recipe will remove any temporary installation files created as part of the automation.

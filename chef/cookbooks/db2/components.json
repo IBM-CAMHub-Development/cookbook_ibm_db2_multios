@@ -93,7 +93,7 @@
                 "base_version": "none",
                 "das_password": "",
                 "das_username": "db2das1",
-                "fp_version": "10.5.0.8",
+                "fp_version": "10.5.0.9",
                 "install_dir": "/opt/ibm/db2/V10.5"
             },
             "ibm": {

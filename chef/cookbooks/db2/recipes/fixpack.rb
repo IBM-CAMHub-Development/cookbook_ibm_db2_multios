@@ -2,7 +2,7 @@
 # Cookbook Name:: db2
 # Recipe:: fixpack
 #
-# Copyright IBM Corp. 2017, 2017
+# Copyright IBM Corp. 2017, 2018
 #
 # <> Fixpack recipe (fixpack.rb)
 # <> This recipe performs product fixpack installation.

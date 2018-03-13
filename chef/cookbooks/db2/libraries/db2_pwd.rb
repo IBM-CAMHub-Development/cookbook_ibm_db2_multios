@@ -1,7 +1,7 @@
 # Cookbook Name:: db2
 # Library:: db2_helper
 #
-# Copyright IBM Corp. 2017, 2017
+# Copyright IBM Corp. 2017, 2018
 #
 # <> library: DB2 helper
 # <> Library Functions for the DB2 Cookbook

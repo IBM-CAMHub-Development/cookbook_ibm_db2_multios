@@ -2,7 +2,7 @@
 # Cookbook Name:: db2
 # Provider:: db2_fixpack
 #
-# Copyright IBM Corp. 2017, 2017
+# Copyright IBM Corp. 2017, 2018
 #
 actions :install
 default_action :install

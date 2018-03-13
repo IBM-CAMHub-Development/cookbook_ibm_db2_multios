@@ -2,7 +2,7 @@
 # Cookbook Name:: db2
 # Recipe:: prereq_check
 #
-# Copyright IBM Corp. 2017, 2017
+# Copyright IBM Corp. 2017, 2018
 #
 # <> Prerequisites check recipe (prereq_check.rb)
 # <> Recipe to ensure that pre-requisites are in place for a cookbook to run.

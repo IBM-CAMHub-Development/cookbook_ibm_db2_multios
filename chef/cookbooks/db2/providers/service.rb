@@ -2,7 +2,7 @@
 # Cookbook Name:: db2
 # Provider:: db2_service
 #
-# Copyright IBM Corp. 2017, 2017
+# Copyright IBM Corp. 2017, 2018
 #
 include DB2::Helper
 use_inline_resources

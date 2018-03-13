@@ -2,7 +2,7 @@
 # Cookbook Name:: db2
 # Provider:: db2_database
 #
-# Copyright IBM Corp. 2017, 2017
+# Copyright IBM Corp. 2017, 2018
 #
 # ::Chef::Resource.send(:include, DB2::Helper)
 include DB2::Helper

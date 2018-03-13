@@ -2,7 +2,7 @@
 # Cookbook Name:: db2
 # Recipe:: install
 #
-# Copyright IBM Corp. 2017, 2017
+# Copyright IBM Corp. 2017, 2018
 #
 # <> Installation recipe (install.rb)
 # <> This recipe performs the product installation.
@@ -20,11 +20,17 @@ else
   sw_repo_path = node['db2']['sw_repo_path']
   version = node['db2']['base_version']
 end
+Chef::Log.info("Setup Directory: #{setup_dir}")
+Chef::Log.info("Package Number: #{package}")
+Chef::Log.info("SW Repo Path: #{sw_repo_path}")
+Chef::Log.info("DB2 Version: #{version}")
 
 package.each_pair do |p, v|
   next if p.to_s != version
   filename = v['filename']
   sha256 = v['sha256']
+
+  Chef::Log.info("Unpacking: #{filename}")
 
   ibm_cloud_utils_unpack "unpack-#{filename}" do
     source "#{node['ibm']['sw_repo']}#{sw_repo_path}/#{filename}"
