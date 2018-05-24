@@ -97,9 +97,9 @@ action :create do
     unless new_resource.database_update.empty?
       dummy_backup = false
       new_resource.database_update.each_pair do |option, value|
-        next if value.casecmp('default').zero?
+        next if value.casecmp('default') == 0
         dummy_backup = true
-        if option.casecmp('NEWLOGPATH').zero? || option.casecmp('FAILARCHPATH').zero?
+        if option.casecmp('NEWLOGPATH') == 0 || option.casecmp('FAILARCHPATH') == 0
           subdirs, _reason = subdirs_to_create(value, new_resource.instance_username)
           # raise reason unless reason.empty?
           subdirs.each do |dir|

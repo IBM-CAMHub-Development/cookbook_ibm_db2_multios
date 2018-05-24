@@ -7,7 +7,7 @@
 # <> Installation recipe (install.rb)
 # <> This recipe performs the product installation.
 
-if node['db2']['base_version'] == '0.0.0.0' || node['db2']['base_version'].casecmp('none').zero?
+if node['db2']['base_version'] == '0.0.0.0' || node['db2']['base_version'].casecmp('none') == 0
   # installing from fp package
   setup_dir = node['db2']['fp_dir']
   package = node['db2']['fixpack_names']

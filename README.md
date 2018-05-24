@@ -67,7 +67,8 @@ Requirements
 
 ### Platform:
 
-*No platforms defined*
+* Ubuntu (>= 16.04)
+* Redhat (>= 7.0)
 
 ### Cookbooks:
 

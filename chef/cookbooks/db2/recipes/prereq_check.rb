@@ -20,7 +20,7 @@ raise "DB2 version #{node['db2']['version']} not supported" unless node['db2']['
 raise "Package for DB2 version #{node['db2']['version']} not included in ['db2']['archive_names'] hash in internal.rb file" unless node['db2']['archive_names'].keys.find { |k| k.include? node['db2']['version'] }
 
 # Only allow fixpack level upgrades
-unless node['db2']['base_version'] == '0.0.0.0' || node['db2']['base_version'].casecmp('none').zero?
+unless node['db2']['base_version'] == '0.0.0.0' || node['db2']['base_version'].casecmp('none') == 0
   raise "Installing fixpack \'#{node['db2']['fp_version']}\' over base \'#{node['db2']['base_version']}\' is not supported." unless (node['db2']['base_version'].split('.')[0, 2] <=> node['db2']['fp_version'].split('.')[0, 2]) == 0
   raise "Installing fixpack \'#{node['db2']['fp_version']}\' over base \'#{node['db2']['base_version']}\' is not supported." unless (node['db2']['base_version'].split('.')[2, 2] <=> node['db2']['fp_version'].split('.')[2, 2]) <= 0
 end

@@ -16,7 +16,7 @@ default['ibm']['sw_repo_auth'] = "true"
 # <> Skip indexes
 force_override['db2']['skip_indexes'] = true
 
-normal['db2']['base_version'] = '0.0.0.0' if node['db2']['base_version'].casecmp('none').zero?
+normal['db2']['base_version'] = '0.0.0.0' if node['db2']['base_version'].casecmp('none') == 0
 
 # <> Wrap base/fp versions to internal versioning
 force_override['db2']['version'] = if node['db2']['base_version'] == '0.0.0.0'
@@ -66,13 +66,11 @@ when 'linux'
       '10.5.0.8' => { 'filename' => 'DB2_Svr_' + node['db2']['version'] + '.' + node['db2']['included_modpack'] + '.'+ node['db2']['included_fixpack'] + '_Linux_' + node['db2']['arch'] + '.tar.gz',
                       'sha256' => '79233751b83a0acde01b84bbd506b8fe917a29a4ed08852ae821090ce2fc0256' },
       '11.1.0.0' => { 'filename' => 'DB2_Svr_' + node['db2']['version'] + '_Linux_' + node['db2']['arch'] + '.tar.gz', #~ip_checker
-                      'sha256' => '635f1b64eb48ecfd83aface91bc4b99871f12b7d5c41e7aa8f8b3d275bcb7f04' }
-    }
+                      'sha256' => '635f1b64eb48ecfd83aface91bc4b99871f12b7d5c41e7aa8f8b3d275bcb7f04' } }
     # <> DB2 Fixpack package
     force_override['db2']['fixpack_names'] = {
       '10.5'  => { 'filename' => 'v' + node['db2']['version'] + 'fp' + node['db2']['fixpack'] + '_linuxx64_server_t.tar.gz' },
-      '11.1'  => { 'filename' => 'v' + node['db2']['version']+ '.' + node['db2']['modpack'] + 'fp' + node['db2']['fixpack'] + '_linuxx64_server_t.tar.gz' }
-    }
+      '11.1'  => { 'filename' => 'v' + node['db2']['version']+ '.' + node['db2']['modpack'] + 'fp' + node['db2']['fixpack'] + '_linuxx64_server_t.tar.gz' } }
   end
   # <> An absolute path to a directory that will be used to hold any temporary files created as part of the automation
   default['ibm']['temp_dir'] = '/tmp/ibm_cloud'
@@ -91,7 +89,7 @@ when 'linux'
   when 'rhel'
     case node['kernel']['machine']
     when 'x86_64'
-      force_default['db2']['os_libraries'] = %w(cpp compat-libstdc++-33 compat-libstdc++-33.i686 pam.i686 gcc gcc-c++ libaio libstdc++.i686 libstdc++ kernel-devel ksh nfs-utils openssh openssh-server pam redhat-lsb sg3_utils)
+      force_default['db2']['os_libraries'] = %w(cpp compat-libstdc++-33 compat-libstdc++-33.i686 pam pam.i686 gcc gcc-c++ libaio libstdc++.i686 libstdc++ kernel-devel ksh nfs-utils openssh openssh-server redhat-lsb sg3_utils)
     end
   when 'debian'
     # <> Override base version (installing directly from fixpack)
@@ -142,15 +140,13 @@ default['db2']['kernel'] = {
   'kernel.shmmni' => 256 * node['memory']['total'].sub(/kb/i, '').to_i / 1024 / 1024,
   'kernel.shmall' => 2 * shell_out!("getconf PAGESIZE").stdout.to_i * 1024,
   'kernel.shmmax' => node['memory']['total'].sub(/kb/i, '').to_i * 1024,
-  'kernel.sem' => node['db2']['kernel_sem_SEMMSL'].to_s + ' ' + node['db2']['kernel_sem_SEMMNS'].to_s + ' ' + node['db2']['kernel_sem_SEMOPM'].to_s + ' ' + node['db2']['kernel_sem_SEMMNI'].to_s
-}
+  'kernel.sem' => node['db2']['kernel_sem_SEMMSL'].to_s + ' ' + node['db2']['kernel_sem_SEMMNS'].to_s + ' ' + node['db2']['kernel_sem_SEMOPM'].to_s + ' ' + node['db2']['kernel_sem_SEMMNI'].to_s }
 
 # <> ulimit recommended values
 force_override['db2']['ulimit'] = {
   'data' => 'unlimited',
   'nofile' => '65536',
-  'fsize' => 'unlimited'
-}
+  'fsize' => 'unlimited' }
 
 #-------------------------------------------------------------------------------
 # Landscaper compatibility attributes

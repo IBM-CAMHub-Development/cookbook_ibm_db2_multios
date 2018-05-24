@@ -42,6 +42,12 @@ when 'rhel'
     not_if { File.foreach('/sys/devices/virtual/dmi/id/bios_version').grep(/amazon$/).empty? }
   end
 
+  Chef::Log.info("Remove pam.i686 is exists")
+  execute 'remove pam.i686' do
+    command 'yum erase -y pam.i686'
+    only_if { node['platform_family'] == 'rhel' }
+    only_if { node['platform_version'].split('.').first.to_i >= 7 }
+  end
   # Install the prereq packages
   node['db2']['os_libraries'].each do |p|
     package p do

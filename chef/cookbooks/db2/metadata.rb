@@ -2,9 +2,16 @@ name             'db2'
 maintainer       'IBM Corp'
 maintainer_email ''
 license          'Copyright IBM Corp. 2017, 2018'
+issues_url   'https://github.com/IBM-CAMHub-Open/cookbook_ibm_db2_multios/issues'
+source_url   'https://github.com/IBM-CAMHub-Open/cookbook_ibm_db2_multios'
+chef_version '>= 12.5' if respond_to?(:chef_version)
 depends          'ibm_cloud_utils'
 depends          'linux'
-version '1.0.2'
+supports 'ubuntu', '>= 14.04'
+supports 'ubuntu', '>= 16.04'
+supports 'redhat', '>= 6.5'
+supports 'redhat', '>= 7.0'
+version '1.0.3'
 description <<-EOH
 ## DESCRIPTION
 
