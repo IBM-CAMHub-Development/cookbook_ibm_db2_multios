@@ -11,7 +11,7 @@ supports 'ubuntu', '>= 14.04'
 supports 'ubuntu', '>= 16.04'
 supports 'redhat', '>= 6.5'
 supports 'redhat', '>= 7.0'
-version '1.0.3'
+version '1.0.4'
 description <<-EOH
 ## DESCRIPTION
 

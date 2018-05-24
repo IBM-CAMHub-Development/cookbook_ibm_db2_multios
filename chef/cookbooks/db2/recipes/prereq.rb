@@ -51,7 +51,7 @@ when 'rhel'
   # Install the prereq packages
   node['db2']['os_libraries'].each do |p|
     package p do
-      action :install
+      action :upgrade
     end
   end
 
@@ -67,7 +67,7 @@ when 'debian'
 
   node['db2']['os_libraries'].each do |p|
     package p do
-      action :install
+      action :upgrade
     end
   end
 end
@@ -81,13 +81,6 @@ end
   end
 end
 
-# This will only work if the VM has access to rubygems.org
-# Otherwise the gem should be installed during bootstrap
-chef_gem 'chef-vault' do
-  action :install
-  compile_time true
-end
-
 require 'chef-vault'
 das_password = ''
 encrypted_id = node['db2']['vault']['encrypted_id']
@@ -99,7 +92,6 @@ unless chef_vault.empty?
   log "Found a password for DAS user in chef vault \'#{chef_vault}\'"
 end
 
-# Create DB2 repsonse file for DB2 installation
 rsp_file = "#{node['db2']['expand_area']}/db2_install.rsp"
 template rsp_file do
   source 'db2_install.rsp.erb'
