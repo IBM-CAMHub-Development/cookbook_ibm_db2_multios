@@ -6,7 +6,6 @@
 #
 include DB2::Helper
 include DB2::OS
-use_inline_resources
 
 action :create do
   if @current_resource.db2_instance_created
@@ -104,7 +103,8 @@ end
 
 #Override Load Current Resource
 def load_current_resource
-  @current_resource = Chef::Resource::Db2Instance.new(@new_resource.name)
+  # CHEF 12 @current_resource = Chef::Resource::Db2Instance.new(@new_resource.name)
+  @current_resource = Chef::Resource.resource_for_node(:db2_instance, node).new(@new_resource.name)
   #A common step is to load the current_resource instance variables with what is established in the new_resource.
   #What is passed into new_resouce via our recipes, is not automatically passed to our current_resource.
   @current_resource.db2_install_dir(@new_resource.db2_install_dir)

@@ -7,21 +7,21 @@
 actions :create, :remove
 default_action :create
 
-attribute :db_name, :kind_of => String, :default => nil
-attribute :db2_install_dir, :kind_of => String, :default => node['db2']['install_dir']
-attribute :instance_username, :kind_of => String, :default => nil
-attribute :instance_groupname, :kind_of => String, :default => nil
-attribute :db_data_path, :kind_of => String, :default => nil
-attribute :db_path, :kind_of => String, :default => ''
-attribute :log_dir, :kind_of => String, :default => node['ibm']['log_dir']
-attribute :pagesize, :kind_of => String, :default => ''
-attribute :territory, :kind_of => String, :default => ''
-attribute :codeset, :kind_of => String, :default => ''
-attribute :db_collate, :kind_of => String, :default => ''
-attribute :database_update, :kind_of => Hash, :default => {}
-attribute :database_users, :kind_of => Hash, :default => {}
-attribute :instance_key, :kind_of => String, :default => ''
-attribute :database_key, :kind_of => String, :default => ''
+property :db_name, :kind_of => String, :default => nil
+property :db2_install_dir, :kind_of => String, :default => node['db2']['install_dir']
+property :instance_username, :kind_of => String, :default => nil
+property :instance_groupname, :kind_of => String, :default => nil
+property :db_data_path, :kind_of => String, :default => nil
+property :db_path, :kind_of => String, :default => ''
+property :log_dir, :kind_of => String, :default => node['ibm']['log_dir']
+property :pagesize, :kind_of => String, :default => ''
+property :territory, :kind_of => String, :default => ''
+property :codeset, :kind_of => String, :default => ''
+property :db_collate, :kind_of => String, :default => ''
+property :database_update, :kind_of => Hash, :default => {}
+property :database_users, :kind_of => Hash, :default => {}
+property :instance_key, :kind_of => String, :default => ''
+property :database_key, :kind_of => String, :default => ''
 
 attr_accessor :db2_database_created
 attr_accessor :db2_instance_created

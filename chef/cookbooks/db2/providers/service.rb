@@ -5,7 +5,6 @@
 # Copyright IBM Corp. 2017, 2018
 #
 include DB2::Helper
-use_inline_resources
 
 action :stop_das do
   if @current_resource.db2_das_stopped
@@ -57,7 +56,8 @@ end
 
 #Override Load Current Resource
 def load_current_resource
-  @current_resource = Chef::Resource::Db2Service.new(@new_resource.name)
+  # CHEF 12 @current_resource = Chef::Resource::Db2Service.new(@new_resource.name)
+  @current_resource = Chef::Resource.resource_for_node(:db2_service, node).new(@new_resource.name)
   #A common step is to load the current_resource instance variables with what is established in the new_resource.
   #What is passed into new_resouce via our recipes, is not automatically passed to our current_resource.
   @current_resource.instance_username(@new_resource.instance_username)
